@@ -1,0 +1,39 @@
+l’entre-deux (French for "the in-between") is the moment between
+reaching for your phone and actually using it. This app lives in that
+moment.
+
+Instead of blocking apps, l’entre-deux adds a short, respectful pause
+before a chosen distracting app is opened, and asks you to name your
+intention. Then it gets out of the way. The user can always proceed.
+
+Features
+
+* Pick the apps that pull you in.
+* Tap one through l’entre-deux to see a short pause screen.
+* Choose an intention: a specific task, a brief check, or autopilot.
+* Optionally pick a tiny session budget (3 / 5 / 10 minutes) and get
+  one calm reminder when it elapses.
+* A private, on-device reflection screen shows your patterns. No
+  scores, no streaks, no comparisons.
+* French and English UI.
+
+Privacy and trust
+
+* Local-only. No accounts, no sync, no telemetry. The app does not
+  request the INTERNET permission.
+* No proprietary SDKs. No Google Play Services, no Firebase, no
+  analytics, no crash reporting service.
+* Minimal permissions. POST_NOTIFICATIONS is the only runtime
+  permission, requested on Android 13+ only when you set a time
+  budget, and fully optional. No special access (no Accessibility,
+  no overlay, no Usage Stats).
+* Open source under GPL-3.0.
+
+What it is not
+
+* Not a blocker. It does not lock you out of your phone.
+* Not a parental-control app.
+* Not a surveillance tool. It does not read other apps’ content,
+  notifications, screen, or network.
+* Not a streak / badge / points wellness app.
+* Not commercial. No ads, no upsells, no accounts.

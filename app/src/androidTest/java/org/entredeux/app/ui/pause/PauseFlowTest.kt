@@ -5,9 +5,19 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.entredeux.app.data.apps.InstalledAppsRepository
+import org.entredeux.app.data.local.AppDatabase
+import org.entredeux.app.data.local.BudgetNotificationScheduler
+import org.entredeux.app.data.local.PauseEventRepository
+import org.entredeux.app.data.prefs.AppSelectionRepository
 import org.entredeux.app.ui.theme.EntreDeuxTheme
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -17,14 +27,41 @@ class PauseFlowTest {
     val composeRule = createComposeRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private val repository = InstalledAppsRepository(context)
+    private val installedAppsRepository = InstalledAppsRepository(context)
+    private val appSelectionRepository = AppSelectionRepository(context)
+    private val budgetScheduler = BudgetNotificationScheduler(context)
+    private val testScope = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
 
-    // Uses our own package so the label resolves; pause flow works the same regardless.
     private val testPackage = context.packageName
+
+    private lateinit var db: AppDatabase
+    private lateinit var pauseEventRepository: PauseEventRepository
+
+    @Before
+    fun setUp() {
+        db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
+            .allowMainThreadQueries()
+            .build()
+        pauseEventRepository = PauseEventRepository(db.pauseEventDao())
+    }
+
+    @After
+    fun tearDown() {
+        db.close()
+    }
+
+    private fun newViewModel() = PauseViewModel(
+        installedAppsRepository = installedAppsRepository,
+        pauseEventRepository = pauseEventRepository,
+        budgetScheduler = budgetScheduler,
+        appSelectionRepository = appSelectionRepository,
+        appScope = testScope,
+        packageName = testPackage,
+    )
 
     @Test
     fun proceedButton_disabledUntilIntentionSelected() {
-        val viewModel = PauseViewModel(repository, testPackage)
+        val viewModel = newViewModel()
 
         composeRule.setContent {
             EntreDeuxTheme {
@@ -45,7 +82,7 @@ class PauseFlowTest {
 
     @Test
     fun backOut_callsCallback() {
-        val viewModel = PauseViewModel(repository, testPackage)
+        val viewModel = newViewModel()
         var backedOut = false
 
         composeRule.setContent {
@@ -65,7 +102,7 @@ class PauseFlowTest {
 
     @Test
     fun happyPath_selectIntentionAndProceed() {
-        val viewModel = PauseViewModel(repository, testPackage)
+        val viewModel = newViewModel()
         var proceeded = false
 
         composeRule.setContent {

@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -99,8 +100,8 @@ private fun AppTile(app: SelectedApp, onClick: () -> Unit) {
         tonalElevation = 2.dp,
         modifier = Modifier
             .size(100.dp)
-            .semantics { contentDescription = desc }
-            .clickable(onClick = onClick),
+            .semantics(mergeDescendants = true) { contentDescription = desc }
+            .clickable(role = Role.Button, onClick = onClick),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

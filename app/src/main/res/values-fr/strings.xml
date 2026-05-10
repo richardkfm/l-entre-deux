@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">l\'entre-deux</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Passer</string>
+    <string name="onboarding_next">Suivant</string>
+    <string name="onboarding_get_started">Commencer</string>
+    <string name="onboarding_page1_heading">Une petite pause</string>
+    <string name="onboarding_page1_body">l\'entre-deux ajoute un instant avant que vous ouvriez une application choisie. Vous décidez quelles applications. Vous décidez si vous continuez.</string>
+    <string name="onboarding_page2_heading">Nommez votre intention</string>
+    <string name="onboarding_page2_body">Avant que l\'application s\'ouvre, vous indiquez pourquoi. Pas de score, pas de série, pas de sermon.</string>
+    <string name="onboarding_page3_heading">Vos données restent ici</string>
+    <string name="onboarding_page3_body">Tout est enregistré uniquement sur cet appareil. Pas de compte, pas de synchronisation, pas d\'analytique. Vous pouvez tout supprimer depuis les réglages à tout moment.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_reflection">Réflexion</string>
+    <string name="nav_settings">Réglages</string>
+
+    <!-- Home -->
+    <string name="home_add_apps">Ajouter des applications</string>
+    <string name="home_empty_hint">Touchez « Ajouter des applications » pour choisir quelles applications ouvrir via la pause.</string>
+    <string name="home_open_via_pause">Ouvrir %s via la pause</string>
+    <string name="home_settings">Réglages</string>
+
+    <!-- App selection -->
+    <string name="selection_title">Choisir des applications</string>
+    <string name="selection_back">Retour</string>
+    <string name="selection_empty">Aucune application trouvée.</string>
+    <string name="selection_search_hint">Rechercher</string>
+
+    <!-- Pause flow -->
+    <string name="pause_heading">Avant d\'ouvrir %s</string>
+    <string name="pause_intention_label">Pourquoi ouvrez-vous cette application ?</string>
+    <string name="pause_intention_specific_task">J\'en ai besoin pour une tâche précise</string>
+    <string name="pause_intention_brief_check">Je vérifie quelque chose rapidement</string>
+    <string name="pause_intention_autopilot">Je l\'ai ouverte automatiquement</string>
+    <string name="pause_budget_label">Définir une limite de temps ? (facultatif)</string>
+    <string name="pause_budget_3min">3 minutes</string>
+    <string name="pause_budget_5min">5 minutes</string>
+    <string name="pause_budget_10min">10 minutes</string>
+    <string name="pause_budget_none">Sans limite</string>
+    <string name="pause_proceed">Ouvrir l\'application</string>
+    <string name="pause_back_out">Pas maintenant</string>
+    <string name="pause_app_not_found">Application introuvable.</string>
+    <string name="pause_intention_selected">Intention : %s</string>
+    <string name="pause_budget_selected">Limite de temps : %s</string>
+
+    <!-- Reflection -->
+    <string name="reflection_title">Réflexion</string>
+    <string name="reflection_empty">Rien à regarder pour le moment.</string>
+    <string name="reflection_section_overview">Aperçu</string>
+    <string name="reflection_section_apps">Par application</string>
+    <string name="reflection_section_intentions">Intentions</string>
+    <string name="reflection_section_time_of_day">Moment de la journée</string>
+    <string name="reflection_section_budget">Limites de temps</string>
+    <string name="reflection_budget_set">Avec une limite de temps</string>
+    <string name="reflection_budget_none">Sans limite de temps</string>
+    <string name="reflection_time_morning">Matin (6 h–11 h)</string>
+    <string name="reflection_time_afternoon">Après-midi (12 h–17 h)</string>
+    <string name="reflection_time_evening">Soir (18 h–22 h)</string>
+    <string name="reflection_time_night">Nuit (23 h–5 h)</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Réglages</string>
+    <string name="settings_manage_apps">Gérer les applications</string>
+    <string name="settings_default_budget">Limite de temps par défaut</string>
+    <string name="settings_default_budget_none">Aucune</string>
+    <string name="settings_wipe_data">Effacer le journal des sessions</string>
+    <string name="settings_wipe_data_desc">Supprime définitivement vos pauses enregistrées. Votre sélection d\'applications est conservée.</string>
+    <string name="settings_wipe_confirm_title">Effacer le journal des sessions ?</string>
+    <string name="settings_wipe_confirm_body">Cette action supprime définitivement toutes les pauses enregistrées sur cet appareil. Elle est irréversible.</string>
+    <string name="settings_wipe_confirm_yes">Supprimer</string>
+    <string name="settings_wipe_confirm_no">Annuler</string>
+    <string name="settings_wipe_done">Journal des sessions effacé.</string>
+
+    <!-- Notification -->
+    <string name="notification_channel_name">Rappel de limite</string>
+    <string name="notification_channel_desc">Un seul rappel lorsque la limite de temps choisie est écoulée.</string>
+    <string name="notification_budget_title">Temps écoulé</string>
+    <string name="notification_budget_body">Votre limite de %1$d minutes pour %2$s est écoulée.</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_settings">Réglages</string>
+    <string name="cd_back">Retour</string>
+    <string name="cd_app_icon">Icône %s</string>
+    <string name="cd_selected">Sélectionné</string>
+    <string name="cd_onboarding_progress">Page %1$d sur %2$d</string>
+
+    <!-- Plurals -->
+    <plurals name="reflection_total_pauses">
+        <item quantity="one">%d pause enregistrée</item>
+        <item quantity="other">%d pauses enregistrées</item>
+    </plurals>
+    <plurals name="reflection_backed_out">
+        <item quantity="one">Vous avez fait demi-tour %d fois</item>
+        <item quantity="other">Vous avez fait demi-tour %d fois</item>
+    </plurals>
+</resources>

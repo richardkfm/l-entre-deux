@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Checkbox
@@ -24,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.entredeux.app.R
@@ -72,7 +75,8 @@ fun AppSelectionScreen(
                 OutlinedTextField(
                     value = uiState.query,
                     onValueChange = viewModel::onQueryChange,
-                    placeholder = { Text(stringResource(R.string.selection_title)) },
+                    placeholder = { Text(stringResource(R.string.selection_search_hint)) },
+                    label = { Text(stringResource(R.string.selection_search_hint)) },
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -111,6 +115,12 @@ private fun AppRow(selectable: SelectableApp, onToggle: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .heightIn(min = 48.dp)
+            .toggleable(
+                value = selectable.isSelected,
+                role = Role.Checkbox,
+                onValueChange = { onToggle() },
+            )
             .padding(horizontal = 16.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -121,7 +131,7 @@ private fun AppRow(selectable: SelectableApp, onToggle: () -> Unit) {
         )
         Checkbox(
             checked = selectable.isSelected,
-            onCheckedChange = { onToggle() },
+            onCheckedChange = null,
         )
     }
 }

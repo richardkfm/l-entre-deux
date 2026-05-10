@@ -1,0 +1,4 @@
+Phase 5 polish: French translation, accessibility pass (heading
+semantics, larger touch targets, proper roles), an adaptive app icon
+with monochrome themed-icon support, R8 / resource-shrinker enabled
+for release builds, and F-Droid metadata. No new permissions.

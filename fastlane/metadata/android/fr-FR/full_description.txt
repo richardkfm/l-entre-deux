@@ -1,0 +1,40 @@
+l’entre-deux, c’est l’instant entre le moment où vous prenez votre
+téléphone et celui où vous l’utilisez vraiment. Cette application vit
+dans cet instant.
+
+Plutôt que de bloquer des applications, l’entre-deux ajoute une courte
+pause respectueuse avant l’ouverture d’une application choisie, et vous
+invite à nommer votre intention. Puis elle s’efface. Vous pouvez
+toujours continuer.
+
+Fonctionnalités
+
+* Choisissez les applications qui vous happent.
+* Touchez l’une d’elles via l’entre-deux pour voir une courte pause.
+* Choisissez une intention : tâche précise, vérification rapide, ou
+  pilote automatique.
+* Définissez éventuellement une limite de session (3 / 5 / 10 minutes)
+  et recevez un seul rappel posé lorsqu’elle est écoulée.
+* Un écran de réflexion privé, calculé localement, montre vos
+  habitudes. Pas de score, pas de série, pas de comparaison.
+* Interface en français et en anglais.
+
+Vie privée et confiance
+
+* Local uniquement. Pas de compte, pas de synchronisation, pas de
+  télémétrie. L’application ne demande pas l’autorisation INTERNET.
+* Aucun SDK propriétaire. Pas de Google Play Services, pas de
+  Firebase, pas d’analytique, pas de rapports de plantage.
+* Permissions minimales. POST_NOTIFICATIONS est la seule autorisation
+  d’exécution, demandée sous Android 13+ uniquement si vous fixez une
+  limite de temps, et entièrement facultative. Aucun accès spécial.
+* Code ouvert sous licence GPL-3.0.
+
+Ce que l’application n’est pas
+
+* Pas un bloqueur. Elle ne vous empêche pas d’utiliser votre téléphone.
+* Pas un contrôle parental.
+* Pas un outil de surveillance. Elle ne lit ni vos autres applications,
+  ni vos notifications, ni votre écran, ni votre réseau.
+* Pas une application avec scores ou récompenses.
+* Pas commerciale. Pas de publicité, pas d’achat, pas de compte.
