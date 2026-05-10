@@ -66,10 +66,10 @@ budget produces a single calm reminder.
 ## Phase 4 — Local reflection and weekly insights
 **Target version:** 0.4.0.
 
-- [ ] Reflection screen: per-app counts, intention mix, time-of-day
+- [x] Reflection screen: per-app counts, intention mix, time-of-day
       heatmap, budget-set vs not, back-out rate.
-- [ ] All summaries computed locally from Room. No streaks, no scores.
-- [ ] Empty state copy that matches `docs/ui-principles.md`.
+- [x] All summaries computed locally from Room. No streaks, no scores.
+- [x] Empty state copy that matches `docs/ui-principles.md`.
 
 Definition of done: a user with a week of data sees plain-language
 patterns about themselves.
@@ -109,5 +109,5 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 0, 1, 2, and 3 complete at `0.3.0`. Next: Phase 4 (local reflection
-and weekly insights).
+Phase 0, 1, 2, 3, and 4 complete at `0.4.0`. Next: Phase 5 (accessibility,
+testing, polish, release prep).

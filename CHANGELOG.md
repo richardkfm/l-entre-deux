@@ -9,6 +9,36 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.4.0] — 2026-05-10
+
+Phase 4: local reflection and weekly insights.
+
+### Added
+- **Reflection screen** — bottom-nav destination showing plain-language
+  patterns computed from the local pause log: total pauses, back-out count,
+  per-app breakdown (sorted by count), intention mix, time-of-day distribution
+  (morning / afternoon / evening / night), and time-limit usage. All data
+  is computed locally from Room; nothing leaves the device.
+- **Bottom navigation bar** — three top-level destinations (Home / Reflection /
+  Settings) are now accessible via a persistent bottom nav bar. Navigation
+  between tabs preserves state.
+- **`PauseEventDao.allEvents()`** — unbounded query returning all recorded
+  pauses as a `Flow`; used by the reflection stats computation.
+- **`getReflectionStats` use case** — pure Kotlin function in `domain/usecase/`;
+  unit-tested (6 cases covering empty input, counts, app ranking, intentions,
+  time-of-day buckets, and budget tracking).
+- **Empty state** — "Nothing to look at yet." shown on the Reflection screen
+  before any pauses are recorded, per `docs/ui-principles.md`.
+
+### Changed
+- Settings moved to a bottom-nav tab; the back button and the Settings icon
+  in HomeScreen's top bar are removed (redundant with the new bottom nav).
+
+### Notes
+- No new permissions. No new dependencies. No analytics. `INTERNET` still
+  not declared.
+- Plural strings used for "X pause(s) recorded" and "You backed out X time(s)".
+
 ## [0.3.0] — 2026-05-10
 
 Phase 3: intention logging, micro-session budgeting, and settings expansion.

@@ -14,6 +14,9 @@ interface PauseEventDao {
     @Query("SELECT * FROM pause_events ORDER BY timestamp DESC LIMIT :limit")
     fun recentEvents(limit: Int = 200): Flow<List<PauseEventEntity>>
 
+    @Query("SELECT * FROM pause_events ORDER BY timestamp DESC")
+    fun allEvents(): Flow<List<PauseEventEntity>>
+
     @Query("DELETE FROM pause_events")
     suspend fun deleteAll()
 }
