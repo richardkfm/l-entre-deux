@@ -165,34 +165,38 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.2.0
-**Phase:** Phase 0, 1, and 2 complete.
-**Last updated:** 2026-05-09.
+**Version:** 0.3.0
+**Phase:** Phase 0, 1, 2, and 3 complete.
+**Last updated:** 2026-05-10.
 
 What exists:
 - Full documentation set in `docs/`.
 - README, CLAUDE.md, roadmap, CHANGELOG.
 - Single-module Android app (`app/`) with Compose, Material 3, Navigation
-  Compose, DataStore Preferences.
+  Compose, DataStore Preferences, Room.
 - Onboarding (3 screens, shown once).
 - App selection screen: lists installed launchable apps, persists
   selection via DataStore.
 - Home screen: grid of selected apps; tapping opens the pause flow.
 - Pause flow: choose intention → optionally choose budget → proceed or
-  back out → target app launches via explicit Intent.
-- Settings screen stub.
-- Domain models (`Intention`, `SelectedApp`), pure use case
-  (`toggleAppSelection`), repositories (`InstalledAppsRepository`,
-  `AppSelectionRepository`).
-- Unit tests for the toggle use case; Compose UI tests for pause flow.
+  back out → target app launches via explicit Intent. Every pause
+  (proceeded or backed out) is logged to Room.
+- Budget reminder: when user sets a time limit, a single local
+  notification fires via `AlarmManager.setAndAllowWhileIdle` after the
+  budget elapses. `POST_NOTIFICATIONS` requested at runtime on API 33+.
+- Settings screen: manage apps, set default time limit, wipe session log.
+- Domain models (`Intention`, `SelectedApp`, `PauseEvent`, `PauseOutcome`),
+  pure use case (`toggleAppSelection`), repositories
+  (`InstalledAppsRepository`, `AppSelectionRepository`,
+  `PauseEventRepository`).
+- Unit tests for the toggle use case; instrumented tests for Room DAO and
+  pause flow UI.
 - Gradle version catalog (`gradle/libs.versions.toml`).
 - GitHub Actions workflow running lint + test + assembleDebug.
 
 What is intentionally missing:
-- Intention logging (Room + PauseEvent) — Phase 3.
-- Budget reminder notification — Phase 3.
 - Reflection screen — Phase 4.
 - Any sensitive capability — deferred indefinitely; see
   [`docs/permissions-and-risks.md`](docs/permissions-and-risks.md).
 
-Next: **Phase 3 — Intention logging and micro-session budgeting**.
+Next: **Phase 4 — Local reflection and weekly insights**.

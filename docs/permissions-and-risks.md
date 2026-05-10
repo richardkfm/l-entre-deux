@@ -177,6 +177,32 @@ it:
 4. Make the capability revocable from inside the app, with the same one-tap
    ease as enabling it.
 
+## Permissions in use (Phase 3)
+
+### `POST_NOTIFICATIONS` (Android 13+ / API 33+)
+
+**Why:** Posting a local notification requires this runtime permission on
+Android 13 and above. On earlier versions the system grants notification
+access automatically.
+
+**What the app does with it:** Posts a single, one-off notification when
+a user-chosen time budget elapses. The notification reads "Time's up —
+your X-minute limit for [App] has elapsed." No follow-up, no badge.
+
+**What the app never does with it:** Spam, marketing messages, or any
+notification not directly triggered by the user setting a budget.
+
+**When requested:** At runtime, immediately before the pause flow
+completes, only if the user selected a time budget. If the user denies
+the permission, the app proceeds without the reminder. There is no
+persistent nag.
+
+**Off-switch:** The user can revoke this permission in system settings at
+any time. Without it, no reminders fire — the app is otherwise unaffected.
+
+**F-Droid implications:** No Anti-Feature declaration required; this is
+a standard notification that does not track or monetise the user.
+
 ## Things we will never do
 
 - Read screen content.

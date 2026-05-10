@@ -52,13 +52,13 @@ through l’entre-deux with a calm pause in the middle.
 ## Phase 3 — Intention logging and micro-session budgeting
 **Target version:** 0.3.0.
 
-- [ ] Room schema for `PauseEvent` (id, ts, package, intention, budget,
+- [x] Room schema for `PauseEvent` (id, ts, package, intention, budget,
       outcome).
-- [ ] DAO and repository; unit tests for queries.
-- [ ] Pause flow records each event locally.
-- [ ] Optional budget reminder via a one-shot local notification when the
+- [x] DAO and repository; unit tests for queries.
+- [x] Pause flow records each event locally.
+- [x] Optional budget reminder via a one-shot local notification when the
       chosen budget elapses. Single channel, no badges, no follow-ups.
-- [ ] Settings: default budget, wipe local data.
+- [x] Settings: default budget, wipe local data.
 
 Definition of done: pause events are persisted privately; setting a
 budget produces a single calm reminder.
@@ -109,5 +109,5 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 0, 1, and 2 complete at `0.2.0`. Next: Phase 3 (intention logging
-and micro-session budgeting).
+Phase 0, 1, 2, and 3 complete at `0.3.0`. Next: Phase 4 (local reflection
+and weekly insights).

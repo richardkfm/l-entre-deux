@@ -9,6 +9,40 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.3.0] — 2026-05-10
+
+Phase 3: intention logging, micro-session budgeting, and settings expansion.
+
+### Added
+- **Intention logging** — every pause (proceeded or backed out) is recorded
+  locally in a Room database (`PauseEvent`: timestamp, package, intention
+  key, budget, outcome). No data leaves the device.
+- **Budget reminder notification** — when the user sets a time limit and
+  proceeds, a single `AlarmManager.setAndAllowWhileIdle` fires after the
+  chosen budget elapses and posts one calm notification ("Time's up —
+  your X-minute limit for [App] has elapsed."). No sound, no badge, no
+  follow-up. The notification channel is `IMPORTANCE_DEFAULT`.
+- **`POST_NOTIFICATIONS` permission** — declared in the manifest; requested
+  at runtime on Android 13+ only when the user picks a time budget.
+  Documented in `docs/permissions-and-risks.md`. The app proceeds fully if
+  the permission is denied — the reminder is optional.
+- **Default budget setting** — users can pre-select their usual time limit
+  (None / 3 / 5 / 10 min) in Settings. The pause flow pre-fills this on
+  every open.
+- **Wipe session log** — Settings → "Wipe session log" clears all
+  `PauseEvent` rows after a confirmation dialog. App selection is kept.
+- **`PauseEventRepository`** — wraps the DAO; instrumented tests cover
+  insert, ordering, deleteAll, and field round-trip.
+- Room 2.6.1 added (Apache 2.0). KSP 2.0.21-1.0.25 added as the
+  annotation-processor plugin.
+
+### Notes
+- `AlarmManager.setAndAllowWhileIdle` requires no special permission and
+  fires in the next Doze maintenance window — adequate for a soft reminder.
+- `SCHEDULE_EXACT_ALARM` / `USE_EXACT_ALARM` are deliberately not
+  requested: exact timing is not needed for a soft reminder.
+- `INTERNET` still not declared. No analytics, no crash reporters.
+
 ## [0.2.0] — 2026-05-09
 
 Phase 2: app selection, intentional-launcher home screen, and pause flow.
