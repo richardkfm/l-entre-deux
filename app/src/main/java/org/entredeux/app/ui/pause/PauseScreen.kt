@@ -1,5 +1,10 @@
 package org.entredeux.app.ui.pause
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -19,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -52,6 +58,26 @@ fun PauseScreen(
     onBackOut: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    // Permission launcher for POST_NOTIFICATIONS on Android 13+.
+    // We proceed regardless of the grant outcome — the reminder is optional.
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { _ -> onProceed() }
+
+    val handleProceed: () -> Unit = handleProceed@{
+        viewModel.onProceed()
+        val needsPermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            uiState.selectedBudgetMinutes != null &&
+            context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) !=
+            PackageManager.PERMISSION_GRANTED
+        if (needsPermission) {
+            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            return@handleProceed
+        }
+        onProceed()
+    }
 
     Scaffold { innerPadding ->
         Column(
@@ -75,14 +101,17 @@ fun PauseScreen(
 
             intentionOptions.forEach { option ->
                 val label = stringResource(option.labelRes)
-                val intentionDesc = stringResource(R.string.pause_intention_selected, label)
                 FilterChip(
                     selected = uiState.selectedIntention == option.intention,
                     onClick = { viewModel.selectIntention(option.intention) },
                     label = { Text(label) },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .semantics { contentDescription = intentionDesc },
+                        .semantics {
+                            contentDescription = context.getString(
+                                R.string.pause_intention_selected, label,
+                            )
+                        },
                 )
             }
 
@@ -99,12 +128,16 @@ fun PauseScreen(
             ) {
                 budgetOptions.forEach { option ->
                     val label = stringResource(option.labelRes)
-                    val budgetDesc = stringResource(R.string.pause_budget_selected, label)
                     FilterChip(
-                        selected = uiState.budgetChosen && uiState.selectedBudgetMinutes == option.minutes,
+                        selected = uiState.budgetChosen &&
+                            uiState.selectedBudgetMinutes == option.minutes,
                         onClick = { viewModel.selectBudget(option.minutes) },
                         label = { Text(label) },
-                        modifier = Modifier.semantics { contentDescription = budgetDesc },
+                        modifier = Modifier.semantics {
+                            contentDescription = context.getString(
+                                R.string.pause_budget_selected, label,
+                            )
+                        },
                     )
                 }
             }
@@ -112,7 +145,7 @@ fun PauseScreen(
             Spacer(Modifier.weight(1f))
 
             Button(
-                onClick = onProceed,
+                onClick = handleProceed,
                 enabled = uiState.selectedIntention != null,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -122,7 +155,10 @@ fun PauseScreen(
             }
 
             OutlinedButton(
-                onClick = onBackOut,
+                onClick = {
+                    viewModel.onBackOut()
+                    onBackOut()
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally),

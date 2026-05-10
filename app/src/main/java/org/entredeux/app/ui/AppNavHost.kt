@@ -7,7 +7,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.CoroutineScope
 import org.entredeux.app.data.apps.InstalledAppsRepository
+import org.entredeux.app.data.local.BudgetNotificationScheduler
+import org.entredeux.app.data.local.PauseEventRepository
 import org.entredeux.app.data.prefs.AppSelectionRepository
 import org.entredeux.app.ui.home.HomeScreen
 import org.entredeux.app.ui.home.HomeViewModel
@@ -18,12 +21,16 @@ import org.entredeux.app.ui.pause.PauseViewModel
 import org.entredeux.app.ui.selection.AppSelectionScreen
 import org.entredeux.app.ui.selection.AppSelectionViewModel
 import org.entredeux.app.ui.settings.SettingsScreen
+import org.entredeux.app.ui.settings.SettingsViewModel
 
 @Composable
 fun AppNavHost(
     startDestination: String,
     installedAppsRepository: InstalledAppsRepository,
     appSelectionRepository: AppSelectionRepository,
+    pauseEventRepository: PauseEventRepository,
+    budgetScheduler: BudgetNotificationScheduler,
+    appScope: CoroutineScope,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -73,7 +80,14 @@ fun AppNavHost(
             val packageName = backStackEntry.arguments?.getString("packageName") ?: return@composable
             val vm: PauseViewModel = viewModel(
                 key = packageName,
-                factory = PauseViewModel.factory(installedAppsRepository, packageName),
+                factory = PauseViewModel.factory(
+                    installedAppsRepository,
+                    pauseEventRepository,
+                    budgetScheduler,
+                    appSelectionRepository,
+                    appScope,
+                    packageName,
+                ),
             )
             val context = LocalContext.current
             PauseScreen(
@@ -88,7 +102,11 @@ fun AppNavHost(
         }
 
         composable("settings") {
+            val vm: SettingsViewModel = viewModel(
+                factory = SettingsViewModel.factory(appSelectionRepository, pauseEventRepository),
+            )
             SettingsScreen(
+                viewModel = vm,
                 onNavigateToSelection = { navController.navigate("selection") },
                 onBack = { navController.popBackStack() },
             )

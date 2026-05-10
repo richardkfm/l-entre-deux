@@ -42,6 +42,9 @@ class MainActivity : ComponentActivity() {
                         startDestination = dest,
                         installedAppsRepository = app.installedAppsRepository,
                         appSelectionRepository = app.appSelectionRepository,
+                        pauseEventRepository = app.pauseEventRepository,
+                        budgetScheduler = app.budgetNotificationScheduler,
+                        appScope = app.appScope,
                         modifier = Modifier.fillMaxSize(),
                     )
                 } else {

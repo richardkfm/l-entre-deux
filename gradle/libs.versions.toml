@@ -2,6 +2,7 @@
 # Build
 agp = "8.7.3"
 kotlin = "2.0.21"
+ksp = "2.0.21-1.0.25"
 
 # AndroidX
 androidx-core = "1.15.0"
@@ -9,6 +10,7 @@ androidx-activity = "1.9.3"
 androidx-lifecycle = "2.8.7"
 androidx-navigation = "2.8.4"
 androidx-datastore = "1.1.1"
+androidx-room = "2.6.1"
 
 # Compose
 compose-bom = "2024.12.01"
@@ -17,6 +19,7 @@ compose-bom = "2024.12.01"
 junit = "4.13.2"
 androidx-junit = "1.2.1"
 androidx-espresso = "3.6.1"
+kotlinx-coroutines-test = "1.8.1"
 
 [libraries]
 # AndroidX
@@ -27,6 +30,12 @@ androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-ru
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
+
+# Room (local persistence for PauseEvent log)
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
 
 # Compose (versions come from the BOM)
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
@@ -42,8 +51,10 @@ androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-j
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
 compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

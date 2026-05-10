@@ -72,10 +72,27 @@ the user check it by:
 
 ## 7. User-controlled data lifecycle
 
-- One-tap "wipe local data" in Settings, with a confirmation. After the
-  wipe, the app is in the same state as a fresh install.
+- "Wipe session log" in Settings, with a confirmation dialog, deletes
+  all `PauseEvent` rows permanently. App selection is kept.
 - Uninstalling the app removes all data. There is no off-device residue
   because there is no off-device storage.
+
+## 8. What Phase 3 records
+
+Every time the pause flow completes (whether the user proceeds or backs
+out), one row is written to the on-device Room database:
+
+| Column | Value |
+|---|---|
+| `id` | auto-increment |
+| `timestamp` | epoch milliseconds (local clock) |
+| `packageName` | the app the user was about to open |
+| `intentionKey` | stable string for the chosen intention |
+| `budgetMinutes` | integer or null |
+| `outcome` | `PROCEEDED` or `BACKED_OUT` |
+
+Nothing else is recorded. The content of the target app, notifications,
+network traffic, and any other app's data are never seen or stored.
 
 ## 8. Honest disclosures
 

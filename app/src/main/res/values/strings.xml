@@ -15,7 +15,7 @@
 
     <!-- Home -->
     <string name="home_add_apps">Add apps</string>
-    <string name="home_empty_hint">Tap “Add apps” to choose which apps to open through the pause.</string>
+    <string name="home_empty_hint">Tap "Add apps" to choose which apps to open through the pause.</string>
     <string name="home_open_via_pause">Open %s through the pause</string>
     <string name="home_settings">Settings</string>
 
@@ -44,7 +44,21 @@
     <!-- Settings -->
     <string name="settings_title">Settings</string>
     <string name="settings_manage_apps">Manage apps</string>
-    <string name="settings_coming_soon">More settings coming in a future version.</string>
+    <string name="settings_default_budget">Default time limit</string>
+    <string name="settings_default_budget_none">None</string>
+    <string name="settings_wipe_data">Wipe session log</string>
+    <string name="settings_wipe_data_desc">Permanently deletes your recorded pauses. Your app selection is kept.</string>
+    <string name="settings_wipe_confirm_title">Wipe session log?</string>
+    <string name="settings_wipe_confirm_body">This permanently deletes all recorded pauses from this device. It cannot be undone.</string>
+    <string name="settings_wipe_confirm_yes">Delete</string>
+    <string name="settings_wipe_confirm_no">Cancel</string>
+    <string name="settings_wipe_done">Session log cleared.</string>
+
+    <!-- Notification -->
+    <string name="notification_channel_name">Budget reminder</string>
+    <string name="notification_channel_desc">A single reminder when your chosen time limit elapses.</string>
+    <string name="notification_budget_title">Time\'s up</string>
+    <string name="notification_budget_body">Your %d-minute limit for %s has elapsed.</string>
 
     <!-- Content descriptions -->
     <string name="cd_settings">Settings</string>
