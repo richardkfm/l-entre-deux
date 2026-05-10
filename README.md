@@ -1,16 +1,12 @@
 # l’entre-deux
 
-```
          __,    __,
         /. )   /. )
        (   |  (   |          l'entre-deux
        (   |  (   |
        (   |  (   |
         \_/    \_/
-```
 
-> A small, calm Android app that helps you stay off your phone — by
-> interrupting autopilot **before** a distracting app is opened.
 
 l’entre-deux (French for "the in-between") is the moment between reaching
 for your phone and actually using it. This app lives in that moment.
