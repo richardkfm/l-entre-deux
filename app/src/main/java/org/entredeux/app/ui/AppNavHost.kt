@@ -2,8 +2,8 @@ package org.entredeux.app.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List as ListIcon
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -73,7 +73,7 @@ fun AppNavHost(
                         },
                     )
                     NavigationBarItem(
-                        icon = { Icon(ListIcon, contentDescription = null) },
+                        icon = { Icon(Icons.Filled.Info, contentDescription = null) },
                         label = { Text(stringResource(R.string.nav_reflection)) },
                         selected = currentRoute == "reflection",
                         onClick = {
