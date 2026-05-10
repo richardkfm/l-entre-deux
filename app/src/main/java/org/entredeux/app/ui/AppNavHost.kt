@@ -1,0 +1,97 @@
+package org.entredeux.app.ui
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import org.entredeux.app.data.apps.InstalledAppsRepository
+import org.entredeux.app.data.prefs.AppSelectionRepository
+import org.entredeux.app.ui.home.HomeScreen
+import org.entredeux.app.ui.home.HomeViewModel
+import org.entredeux.app.ui.onboarding.OnboardingScreen
+import org.entredeux.app.ui.onboarding.OnboardingViewModel
+import org.entredeux.app.ui.pause.PauseScreen
+import org.entredeux.app.ui.pause.PauseViewModel
+import org.entredeux.app.ui.selection.AppSelectionScreen
+import org.entredeux.app.ui.selection.AppSelectionViewModel
+import org.entredeux.app.ui.settings.SettingsScreen
+
+@Composable
+fun AppNavHost(
+    startDestination: String,
+    installedAppsRepository: InstalledAppsRepository,
+    appSelectionRepository: AppSelectionRepository,
+    modifier: Modifier = Modifier,
+) {
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        modifier = modifier,
+    ) {
+        composable("onboarding") {
+            val vm: OnboardingViewModel = viewModel(
+                factory = OnboardingViewModel.factory(appSelectionRepository),
+            )
+            OnboardingScreen(
+                viewModel = vm,
+                onDone = {
+                    navController.navigate("home") {
+                        popUpTo("onboarding") { inclusive = true }
+                    }
+                },
+            )
+        }
+
+        composable("home") {
+            val vm: HomeViewModel = viewModel(
+                factory = HomeViewModel.factory(installedAppsRepository, appSelectionRepository),
+            )
+            HomeScreen(
+                viewModel = vm,
+                onNavigateToSelection = { navController.navigate("selection") },
+                onNavigateToPause = { pkg -> navController.navigate("pause/$pkg") },
+                onNavigateToSettings = { navController.navigate("settings") },
+            )
+        }
+
+        composable("selection") {
+            val vm: AppSelectionViewModel = viewModel(
+                factory = AppSelectionViewModel.factory(installedAppsRepository, appSelectionRepository),
+            )
+            AppSelectionScreen(
+                viewModel = vm,
+                onBack = { navController.popBackStack() },
+            )
+        }
+
+        composable("pause/{packageName}") { backStackEntry ->
+            val packageName = backStackEntry.arguments?.getString("packageName") ?: return@composable
+            val vm: PauseViewModel = viewModel(
+                key = packageName,
+                factory = PauseViewModel.factory(installedAppsRepository, packageName),
+            )
+            val context = LocalContext.current
+            PauseScreen(
+                viewModel = vm,
+                onProceed = {
+                    val intent = installedAppsRepository.getLaunchIntent(packageName)
+                    intent?.let { context.startActivity(it) }
+                    navController.popBackStack()
+                },
+                onBackOut = { navController.popBackStack() },
+            )
+        }
+
+        composable("settings") {
+            SettingsScreen(
+                onNavigateToSelection = { navController.navigate("selection") },
+                onBack = { navController.popBackStack() },
+            )
+        }
+    }
+}

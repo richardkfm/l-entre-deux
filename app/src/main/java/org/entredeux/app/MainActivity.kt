@@ -3,15 +3,50 @@ package org.entredeux.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import org.entredeux.app.ui.PlaceholderScreen
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import org.entredeux.app.ui.AppNavHost
 import org.entredeux.app.ui.theme.EntreDeuxTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val app = application as EntreDeuxApplication
         setContent {
             EntreDeuxTheme {
-                PlaceholderScreen()
+                val mainViewModel: MainViewModel = viewModel(
+                    factory = MainViewModel.factory(app.appSelectionRepository),
+                )
+                val uiState by mainViewModel.uiState.collectAsStateWithLifecycle()
+
+                // Capture start destination once so NavHost is not recreated when
+                // onboarding completes and MainUiState transitions to Ready.
+                var startDestination by remember { mutableStateOf<String?>(null) }
+                if (startDestination == null && uiState != MainUiState.Loading) {
+                    startDestination = when (uiState) {
+                        MainUiState.NeedsOnboarding -> "onboarding"
+                        else -> "home"
+                    }
+                }
+
+                val dest = startDestination
+                if (dest != null) {
+                    AppNavHost(
+                        startDestination = dest,
+                        installedAppsRepository = app.installedAppsRepository,
+                        appSelectionRepository = app.appSelectionRepository,
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                } else {
+                    Box(Modifier.fillMaxSize())
+                }
             }
         }
     }

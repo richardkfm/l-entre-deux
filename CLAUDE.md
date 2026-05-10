@@ -165,26 +165,34 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.1.0
-**Phase:** Phase 0 (docs) and Phase 1 (skeleton) complete.
+**Version:** 0.2.0
+**Phase:** Phase 0, 1, and 2 complete.
 **Last updated:** 2026-05-09.
 
 What exists:
 - Full documentation set in `docs/`.
 - README, CLAUDE.md, roadmap, CHANGELOG.
-- Single-module Android skeleton (`app/`) with Compose, Material 3,
-  a `MainActivity` placeholder screen, theme files, and a stub
-  `EntreDeuxApplication`.
+- Single-module Android app (`app/`) with Compose, Material 3, Navigation
+  Compose, DataStore Preferences.
+- Onboarding (3 screens, shown once).
+- App selection screen: lists installed launchable apps, persists
+  selection via DataStore.
+- Home screen: grid of selected apps; tapping opens the pause flow.
+- Pause flow: choose intention → optionally choose budget → proceed or
+  back out → target app launches via explicit Intent.
+- Settings screen stub.
+- Domain models (`Intention`, `SelectedApp`), pure use case
+  (`toggleAppSelection`), repositories (`InstalledAppsRepository`,
+  `AppSelectionRepository`).
+- Unit tests for the toggle use case; Compose UI tests for pause flow.
 - Gradle version catalog (`gradle/libs.versions.toml`).
 - GitHub Actions workflow running lint + test + assembleDebug.
 
 What is intentionally missing:
-- App selection screen — Phase 2.
-- Pause flow — Phase 2.
-- Persistence (Room / DataStore wired up) — Phase 2/3.
+- Intention logging (Room + PauseEvent) — Phase 3.
+- Budget reminder notification — Phase 3.
 - Reflection screen — Phase 4.
 - Any sensitive capability — deferred indefinitely; see
   [`docs/permissions-and-risks.md`](docs/permissions-and-risks.md).
 
-Next: **Phase 2 — app selection and pause-flow prototype** (no special
-permissions; intentional-launcher pattern only).
+Next: **Phase 3 — Intention logging and micro-session budgeting**.

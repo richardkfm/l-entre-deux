@@ -34,17 +34,17 @@ Status legend: `[x]` done · `[~]` in progress · `[ ]` not started.
 ## Phase 2 — App selection and pause-flow prototype
 **Target version:** 0.2.0.
 
-- [ ] App selection screen using `PackageManager` to enumerate launchable
+- [x] App selection screen using `PackageManager` to enumerate launchable
       apps (no `QUERY_ALL_PACKAGES`; rely on `<queries>` where possible).
-- [ ] Persist the selection (DataStore for the set; Room introduced if
+- [x] Persist the selection (DataStore for the set; Room introduced if
       richer data is needed).
-- [ ] Launcher grid screen on Home showing selected apps as tiles.
-- [ ] Pause flow screen: choose intention, optionally choose budget,
+- [x] Launcher grid screen on Home showing selected apps as tiles.
+- [x] Pause flow screen: choose intention, optionally choose budget,
       proceed or back out.
-- [ ] Launch the target app via `Intent` after the pause completes.
-- [ ] Onboarding: 2–4 screens explaining what the app does.
-- [ ] One Compose UI test for the pause-flow happy path.
-- [ ] No new sensitive permissions.
+- [x] Launch the target app via `Intent` after the pause completes.
+- [x] Onboarding: 2–4 screens explaining what the app does.
+- [x] One Compose UI test for the pause-flow happy path.
+- [x] No new sensitive permissions.
 
 Definition of done: a user can select three apps and open one of them
 through l’entre-deux with a calm pause in the middle.
@@ -109,5 +109,5 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 0 and Phase 1 complete at `0.1.0`. Next prompt should kick off
-Phase 2.
+Phase 0, 1, and 2 complete at `0.2.0`. Next: Phase 3 (intention logging
+and micro-session budgeting).
