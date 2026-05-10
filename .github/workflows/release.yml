@@ -31,29 +31,33 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
 
-      - name: Rename APK
+      - name: Upload APK to GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          mv app/build/outputs/apk/debug/app-debug.apk \
-             "l-entre-deux-${VERSION}-debug.apk"
+          APK="l-entre-deux-${VERSION}-debug.apk"
+          mv app/build/outputs/apk/debug/app-debug.apk "${APK}"
 
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          draft: true
-          generate_release_notes: false
-          body: |
-            ## Install
+          NOTES="## Install
 
-            Download the APK below and sideload it on your device.
+          Download the APK below and sideload it on your device.
 
-            **This is a debug build** signed with the standard Android debug key.
-            It is suitable for testing. The production release will be distributed
-            via F-Droid once submitted.
+          **This is a debug build** signed with the standard Android debug key.
+          It is suitable for testing. The production release will be distributed
+          via F-Droid once submitted.
 
-            ### Sideloading steps
-            1. Download `l-entre-deux-*-debug.apk`.
-            2. On your Android device, enable **Install unknown apps** for your
-               file manager or browser (Settings → Apps → Special app access).
-            3. Open the APK file and tap **Install**.
-          files: "l-entre-deux-*-debug.apk"
+          ### Sideloading steps
+          1. Download \`${APK}\`.
+          2. On your Android device, enable **Install unknown apps** for your
+             file manager or browser (Settings → Apps → Special app access).
+          3. Open the APK file on your device and tap **Install**."
+
+          if gh release view "${GITHUB_REF_NAME}" > /dev/null 2>&1; then
+            gh release upload "${GITHUB_REF_NAME}" "${APK}" --clobber
+          else
+            gh release create "${GITHUB_REF_NAME}" "${APK}" \
+              --title "${GITHUB_REF_NAME}" \
+              --notes "${NOTES}" \
+              --draft
+          fi
