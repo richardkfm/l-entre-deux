@@ -93,6 +93,29 @@ app/                             — Android app module (Phase 1+)
 gradle/                          — Gradle wrapper and version catalog
 ```
 
+## Install
+
+### Download a pre-built APK (easiest)
+
+Each [GitHub release](https://github.com/richardkfm/l-entre-deux/releases)
+includes a debug APK you can sideload directly onto your device.
+
+1. Go to the [Releases page](https://github.com/richardkfm/l-entre-deux/releases)
+   and download the latest `l-entre-deux-*-debug.apk`.
+2. On your Android device, enable **Install unknown apps** for your file
+   manager or browser (Settings → Apps → Special app access).
+3. Open the APK file on your device and tap **Install**.
+
+> **Note:** This is a debug build signed with the standard Android debug key —
+> fine for testing. The signed production release will arrive on **F-Droid**
+> once submission is complete.
+
+### F-Droid (coming soon)
+
+F-Droid submission is the final remaining step before `1.0.0`. Once listed,
+installation will be a single tap with automatic updates, no sideloading
+needed.
+
 ## Build
 
 Requirements: JDK 17+, Android SDK with platform 35.
