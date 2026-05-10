@@ -10,6 +10,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--
+      Declare visibility into apps that have a launcher intent so
+      PackageManager.queryIntentActivities can enumerate them.
+      QUERY_ALL_PACKAGES is deliberately not used.
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
     <application
         android:name=".EntreDeuxApplication"
         android:allowBackup="false"

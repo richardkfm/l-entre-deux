@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">l’entre-deux</string>
-    <string name="placeholder_tagline">A small pause before you open it.</string>
+    <string name="app_name">l\'entre-deux</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_get_started">Get started</string>
+    <string name="onboarding_page1_heading">A small pause</string>
+    <string name="onboarding_page1_body">l\'entre-deux adds a moment before you open a chosen app. You decide which apps. You decide whether to proceed.</string>
+    <string name="onboarding_page2_heading">Name your intention</string>
+    <string name="onboarding_page2_body">Before the app opens, you pick why you\'re opening it. No scores, no streaks, no lectures.</string>
+    <string name="onboarding_page3_heading">Your data stays here</string>
+    <string name="onboarding_page3_body">Everything is stored only on this device. No accounts, no sync, no analytics. You can delete it all from settings at any time.</string>
+
+    <!-- Home -->
+    <string name="home_add_apps">Add apps</string>
+    <string name="home_empty_hint">Tap “Add apps” to choose which apps to open through the pause.</string>
+    <string name="home_open_via_pause">Open %s through the pause</string>
+    <string name="home_settings">Settings</string>
+
+    <!-- App selection -->
+    <string name="selection_title">Choose apps</string>
+    <string name="selection_back">Back</string>
+    <string name="selection_empty">No apps found.</string>
+
+    <!-- Pause flow -->
+    <string name="pause_heading">Before you open %s</string>
+    <string name="pause_intention_label">Why are you opening this?</string>
+    <string name="pause_intention_specific_task">I need this for one specific task</string>
+    <string name="pause_intention_brief_check">I am checking something briefly</string>
+    <string name="pause_intention_autopilot">I opened this automatically</string>
+    <string name="pause_budget_label">Set a time limit? (optional)</string>
+    <string name="pause_budget_3min">3 minutes</string>
+    <string name="pause_budget_5min">5 minutes</string>
+    <string name="pause_budget_10min">10 minutes</string>
+    <string name="pause_budget_none">No limit</string>
+    <string name="pause_proceed">Open the app</string>
+    <string name="pause_back_out">Not now</string>
+    <string name="pause_app_not_found">App not found.</string>
+    <string name="pause_intention_selected">Intention: %s</string>
+    <string name="pause_budget_selected">Time limit: %s</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_manage_apps">Manage apps</string>
+    <string name="settings_coming_soon">More settings coming in a future version.</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_settings">Settings</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_app_icon">%s icon</string>
 </resources>
