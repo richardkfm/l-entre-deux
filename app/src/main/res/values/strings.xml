@@ -13,6 +13,11 @@
     <string name="onboarding_page3_heading">Your data stays here</string>
     <string name="onboarding_page3_body">Everything is stored only on this device. No accounts, no sync, no analytics. You can delete it all from settings at any time.</string>
 
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_reflection">Reflection</string>
+    <string name="nav_settings">Settings</string>
+
     <!-- Home -->
     <string name="home_add_apps">Add apps</string>
     <string name="home_empty_hint">Tap "Add apps" to choose which apps to open through the pause.</string>
@@ -41,6 +46,21 @@
     <string name="pause_intention_selected">Intention: %s</string>
     <string name="pause_budget_selected">Time limit: %s</string>
 
+    <!-- Reflection -->
+    <string name="reflection_title">Reflection</string>
+    <string name="reflection_empty">Nothing to look at yet.</string>
+    <string name="reflection_section_overview">Overview</string>
+    <string name="reflection_section_apps">By app</string>
+    <string name="reflection_section_intentions">Intentions</string>
+    <string name="reflection_section_time_of_day">Time of day</string>
+    <string name="reflection_section_budget">Time limits</string>
+    <string name="reflection_budget_set">With a time limit</string>
+    <string name="reflection_budget_none">No time limit</string>
+    <string name="reflection_time_morning">Morning (6–11 am)</string>
+    <string name="reflection_time_afternoon">Afternoon (noon–5 pm)</string>
+    <string name="reflection_time_evening">Evening (6–10 pm)</string>
+    <string name="reflection_time_night">Night (11 pm–5 am)</string>
+
     <!-- Settings -->
     <string name="settings_title">Settings</string>
     <string name="settings_manage_apps">Manage apps</string>
@@ -64,4 +84,14 @@
     <string name="cd_settings">Settings</string>
     <string name="cd_back">Back</string>
     <string name="cd_app_icon">%s icon</string>
+
+    <!-- Plurals -->
+    <plurals name="reflection_total_pauses">
+        <item quantity="one">%d pause recorded</item>
+        <item quantity="other">%d pauses recorded</item>
+    </plurals>
+    <plurals name="reflection_backed_out">
+        <item quantity="one">You backed out %d time</item>
+        <item quantity="other">You backed out %d times</item>
+    </plurals>
 </resources>

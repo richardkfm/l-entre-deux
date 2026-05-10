@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,7 +40,6 @@ fun HomeScreen(
     viewModel: HomeViewModel,
     onNavigateToSelection: () -> Unit,
     onNavigateToPause: (String) -> Unit,
-    onNavigateToSettings: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -56,13 +54,6 @@ fun HomeScreen(
                         modifier = Modifier.semantics { contentDescription = addDesc },
                     ) {
                         Icon(Icons.Filled.Add, contentDescription = null)
-                    }
-                    val settingsDesc = stringResource(R.string.cd_settings)
-                    IconButton(
-                        onClick = onNavigateToSettings,
-                        modifier = Modifier.semantics { contentDescription = settingsDesc },
-                    ) {
-                        Icon(Icons.Filled.Settings, contentDescription = null)
                     }
                 },
             )

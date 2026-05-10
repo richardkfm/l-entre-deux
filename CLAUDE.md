@@ -165,8 +165,8 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.3.0
-**Phase:** Phase 0, 1, 2, and 3 complete.
+**Version:** 0.4.0
+**Phase:** Phase 0, 1, 2, 3, and 4 complete.
 **Last updated:** 2026-05-10.
 
 What exists:
@@ -185,18 +185,20 @@ What exists:
   notification fires via `AlarmManager.setAndAllowWhileIdle` after the
   budget elapses. `POST_NOTIFICATIONS` requested at runtime on API 33+.
 - Settings screen: manage apps, set default time limit, wipe session log.
-- Domain models (`Intention`, `SelectedApp`, `PauseEvent`, `PauseOutcome`),
-  pure use case (`toggleAppSelection`), repositories
-  (`InstalledAppsRepository`, `AppSelectionRepository`,
-  `PauseEventRepository`).
-- Unit tests for the toggle use case; instrumented tests for Room DAO and
-  pause flow UI.
+- Reflection screen: per-app counts, intention mix, time-of-day
+  distribution, budget usage, back-out count. All computed locally from
+  Room. No scores, no streaks. Empty state when no data.
+- Bottom navigation bar: Home / Reflection / Settings.
+- Domain models (`Intention`, `SelectedApp`, `PauseEvent`, `PauseOutcome`,
+  `ReflectionStats` and helpers), pure use cases (`toggleAppSelection`,
+  `getReflectionStats`), repositories (`InstalledAppsRepository`,
+  `AppSelectionRepository`, `PauseEventRepository`).
+- Unit tests for use cases; instrumented tests for Room DAO and pause flow UI.
 - Gradle version catalog (`gradle/libs.versions.toml`).
 - GitHub Actions workflow running lint + test + assembleDebug.
 
 What is intentionally missing:
-- Reflection screen — Phase 4.
 - Any sensitive capability — deferred indefinitely; see
   [`docs/permissions-and-risks.md`](docs/permissions-and-risks.md).
 
-Next: **Phase 4 — Local reflection and weekly insights**.
+Next: **Phase 5 — Accessibility, testing, polish, release prep**.
