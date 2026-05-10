@@ -8,8 +8,9 @@ for your phone and actually using it. This app lives in that moment.
 Instead of blocking apps, it adds a short, respectful pause that asks you
 to name your intention. Then it gets out of the way.
 
-**Status:** v0.1.0 — foundation only. Documentation and project skeleton.
-No working pause flow yet. See [`roadmap.md`](roadmap.md).
+**Status:** v0.3.0 — Phases 0–3 complete. Onboarding, app selection,
+pause flow, intention logging, and budget reminders all work.
+Reflection screen coming in Phase 4. See [`roadmap.md`](roadmap.md).
 
 **License:** [GPL-3.0](LICENSE).
 **Distribution target:** F-Droid first.
@@ -43,8 +44,10 @@ No working pause flow yet. See [`roadmap.md`](roadmap.md).
   request the `INTERNET` permission.
 - **No proprietary SDKs.** No Google Play Services, no Firebase, no
   analytics, no crash reporting service.
-- **Minimal permissions.** The MVP needs no runtime permissions and no
-  special access. See [`docs/permissions-and-risks.md`](docs/permissions-and-risks.md).
+- **Minimal permissions.** `POST_NOTIFICATIONS` is the only runtime
+  permission — requested on Android 13+ only when you set a time budget,
+  and fully optional. No special access. See
+  [`docs/permissions-and-risks.md`](docs/permissions-and-risks.md).
 - **Open source under GPL-3.0**, so you can verify the claims above
   yourself.
 
