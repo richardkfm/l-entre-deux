@@ -5,9 +5,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -21,6 +26,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.entredeux.app.R
@@ -76,35 +84,51 @@ fun SettingsScreen(
                 headlineContent = { Text(stringResource(R.string.settings_manage_apps)) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable(onClick = onNavigateToSelection),
+                    .clickable(role = Role.Button, onClick = onNavigateToSelection),
             )
             HorizontalDivider()
 
             Text(
                 text = stringResource(R.string.settings_default_budget),
                 style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 4.dp),
+                modifier = Modifier
+                    .padding(start = 16.dp, top = 16.dp, bottom = 4.dp)
+                    .semantics { heading() },
             )
 
-            budgetOptions.forEach { minutes ->
-                val label = if (minutes == null) {
-                    stringResource(R.string.settings_default_budget_none)
-                } else {
-                    when (minutes) {
-                        3 -> stringResource(R.string.pause_budget_3min)
-                        5 -> stringResource(R.string.pause_budget_5min)
-                        else -> stringResource(R.string.pause_budget_10min)
+            val selectedDesc = stringResource(R.string.cd_selected)
+            Column(modifier = Modifier.selectableGroup()) {
+                budgetOptions.forEach { minutes ->
+                    val label = if (minutes == null) {
+                        stringResource(R.string.settings_default_budget_none)
+                    } else {
+                        when (minutes) {
+                            3 -> stringResource(R.string.pause_budget_3min)
+                            5 -> stringResource(R.string.pause_budget_5min)
+                            else -> stringResource(R.string.pause_budget_10min)
+                        }
                     }
+                    val isSelected = defaultBudget == minutes
+                    ListItem(
+                        headlineContent = { Text(label) },
+                        trailingContent = if (isSelected) {
+                            {
+                                Icon(
+                                    imageVector = Icons.Filled.Check,
+                                    contentDescription = selectedDesc,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                )
+                            }
+                        } else null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .selectable(
+                                selected = isSelected,
+                                role = Role.RadioButton,
+                                onClick = { viewModel.setDefaultBudget(minutes) },
+                            ),
+                    )
                 }
-                ListItem(
-                    headlineContent = { Text(label) },
-                    trailingContent = if (defaultBudget == minutes) {
-                        { Text("✓", color = MaterialTheme.colorScheme.primary) }
-                    } else null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { viewModel.setDefaultBudget(minutes) },
-                )
             }
 
             HorizontalDivider()
@@ -124,7 +148,7 @@ fun SettingsScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { showWipeConfirm = true },
+                    .clickable(role = Role.Button) { showWipeConfirm = true },
             )
 
             if (wipeSnackMessage != null) {

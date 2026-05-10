@@ -77,12 +77,13 @@ patterns about themselves.
 ## Phase 5 — Accessibility, testing, polish, release prep
 **Target version:** 0.5.0 → 1.0.0 (when stable).
 
-- [ ] Accessibility audit: 48dp targets, font scaling, screen-reader
+- [x] Accessibility audit: 48dp targets, font scaling, screen-reader
       flow on the pause screen.
-- [ ] Localization scaffolding; French translation as first target.
-- [ ] App icon and visual identity.
-- [ ] R8 / shrinker configured; reproducible Gradle build verified.
-- [ ] F-Droid metadata under `fastlane/metadata/android/`.
+- [x] Localization scaffolding; French translation as first target.
+- [x] App icon and visual identity (adaptive icon with monochrome
+      themed-icon variant).
+- [x] R8 / shrinker configured; reproducible Gradle build verified.
+- [x] F-Droid metadata under `fastlane/metadata/android/`.
 - [ ] First F-Droid submission as v1.0.0.
 
 ## Phase X — Optional advanced or sensitive capabilities
@@ -109,5 +110,6 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 0, 1, 2, 3, and 4 complete at `0.4.0`. Next: Phase 5 (accessibility,
-testing, polish, release prep).
+Phase 0–5 code work shipped at `0.5.0`. The only remaining Phase 5
+item is the actual F-Droid submission, which will be cut as `1.0.0`
+once the app is exercised on real devices.

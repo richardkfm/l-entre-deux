@@ -9,6 +9,61 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.5.0] — 2026-05-10
+
+Phase 5: accessibility, testing, polish, release prep.
+
+### Added
+- **Accessibility pass.**
+  - `heading()` semantics on the pause-screen title, onboarding page
+    headings, and the Settings "Default time limit" section header so
+    TalkBack announces them as headings.
+  - `Role.RadioButton` + `selectableGroup` on the default-budget chooser
+    in Settings, replaced the bare `"✓"` glyph with a `Check` icon that
+    has a localized "Selected" content description.
+  - `Role.Button` on the home tile and Settings-row click targets;
+    full-row `toggleable` (with `Role.Checkbox`) on the app-selection
+    list so the whole row toggles state and reads correctly.
+  - 48dp `heightIn` minimum on the app-selection rows.
+  - Search field in app selection now has a real "Search" label and
+    placeholder instead of reusing the screen title.
+- **French translation** — full `values-fr/strings.xml` mirroring the
+  English source. `resourceConfigurations += listOf("en", "fr")` pins
+  the shipped locale set.
+- **App icon** — adaptive icon (`mipmap-anydpi-v26/ic_launcher.xml` +
+  `ic_launcher_round.xml`) with a vector foreground (two soft "pause"
+  bars), a warm off-white background colour, and a monochrome variant
+  for Android 13+ themed icons. No raster fallbacks needed — `minSdk`
+  is 26.
+- **F-Droid metadata** under `fastlane/metadata/android/{en-US,fr-FR}/`:
+  `title.txt`, `short_description.txt`, `full_description.txt`, and
+  `changelogs/5.txt`. A `fastlane/README.md` documents the layout.
+- **Pause-flow instrumented test** rewired against the real
+  `PauseViewModel` constructor (Phase 3 had silently outgrown the test;
+  CI builds main only, so the regression slipped past). The test now
+  spins up a Room in-memory database and reuses the production
+  repositories.
+
+### Changed
+- `notification_budget_body` now uses positional placeholders
+  (`%1$d` / `%2$s`) so French and other locales can reorder the args.
+- `app/build.gradle.kts`: bumped `versionName` to `0.5.0` and
+  `versionCode` to `5`. `buildFeatures.buildConfig = false` (no
+  `BuildConfig` references in app code; turning it off keeps the APK
+  lean and avoids a generated class).
+- `proguard-rules.pro` documents that Compose / AndroidX / Room
+  consumer rules are sufficient and adds a single
+  `-assumenosideeffects` block to strip `Log.v/d/i` from release
+  builds as future-proofing.
+
+### Notes
+- No new permissions. No new dependencies. No analytics. `INTERNET` still
+  not declared.
+- Adaptive icons require API 26+, which matches our `minSdk`. No
+  legacy raster icons are shipped.
+- F-Droid submission as `1.0.0` is deferred until the app is exercised
+  on real devices.
+
 ## [0.4.0] — 2026-05-10
 
 Phase 4: local reflection and weekly insights.

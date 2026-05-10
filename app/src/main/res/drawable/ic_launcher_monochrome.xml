@@ -1,0 +1,15 @@
+<!--
+  Themed (monochrome) icon. Tinted by the system on Android 13+; on
+  older versions this drawable is unused. Geometry matches the
+  foreground exactly.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108"
+    android:tint="?android:attr/colorForeground">
+    <path
+        android:fillColor="#000000"
+        android:pathData="M42,38 H42 A6,6 0 0 1 48,44 V64 A6,6 0 0 1 42,70 H42 A6,6 0 0 1 36,64 V44 A6,6 0 0 1 42,38 Z M66,38 H66 A6,6 0 0 1 72,44 V64 A6,6 0 0 1 66,70 H66 A6,6 0 0 1 60,64 V44 A6,6 0 0 1 66,38 Z" />
+</vector>

@@ -22,6 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.entredeux.app.R
@@ -66,6 +68,7 @@ fun OnboardingScreen(
                     text = stringResource(page.headingRes),
                     style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center,
+                    modifier = Modifier.semantics { heading() },
                 )
                 Spacer(Modifier.height(24.dp))
                 Text(

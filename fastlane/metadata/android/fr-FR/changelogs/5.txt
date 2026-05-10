@@ -1,0 +1,5 @@
+Phase 5, finitions : traduction française, passe d’accessibilité
+(sémantique des titres, cibles tactiles plus grandes, rôles clairs),
+icône adaptative avec variante monochrome, R8 et raccourcissement de
+ressources activés en build release, et métadonnées F-Droid. Aucune
+nouvelle autorisation.

@@ -1,5 +1,14 @@
 # l’entre-deux
 
+```
+         __,    __,
+        /. )   /. )
+       (   |  (   |          l'entre-deux
+       (   |  (   |          ~~~~~~~~~~~~~
+       (   |  (   |          a small, calm pause
+        \_/    \_/
+```
+
 > A small, calm Android app that helps you stay off your phone — by
 > interrupting autopilot **before** a distracting app is opened.
 
@@ -8,12 +17,15 @@ for your phone and actually using it. This app lives in that moment.
 Instead of blocking apps, it adds a short, respectful pause that asks you
 to name your intention. Then it gets out of the way.
 
-**Status:** v0.3.0 — Phases 0–3 complete. Onboarding, app selection,
-pause flow, intention logging, and budget reminders all work.
-Reflection screen coming in Phase 4. See [`roadmap.md`](roadmap.md).
+**Status:** v0.5.0 — Phases 0–5 code work complete. Onboarding, app
+selection, pause flow, intention logging, budget reminders, on-device
+reflection, accessibility pass, French localization, adaptive icon, R8,
+and F-Droid metadata all in place. F-Droid submission as `1.0.0` is the
+only remaining item. See [`roadmap.md`](roadmap.md).
 
 **License:** [GPL-3.0](LICENSE).
 **Distribution target:** F-Droid first.
+**Languages:** English, French.
 
 ---
 

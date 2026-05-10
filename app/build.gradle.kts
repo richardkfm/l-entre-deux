@@ -13,10 +13,14 @@ android {
         applicationId = "org.entredeux.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 4
-        versionName = "0.4.0"
+        versionCode = 5
+        versionName = "0.5.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Ship only the language resources we translate. New locales must
+        // be added here when their values-XX folder lands.
+        resourceConfigurations += listOf("en", "fr")
     }
 
     buildTypes {
@@ -30,6 +34,13 @@ android {
         }
     }
 
+    buildFeatures {
+        compose = true
+        // BuildConfig is not used; turning it off keeps the APK lean and
+        // avoids a generated class that would otherwise need a keep rule.
+        buildConfig = false
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -37,10 +48,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "17"
-    }
-
-    buildFeatures {
-        compose = true
     }
 
     packaging {

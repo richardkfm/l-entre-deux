@@ -165,8 +165,9 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.4.0
-**Phase:** Phase 0, 1, 2, 3, and 4 complete.
+**Version:** 0.5.0
+**Phase:** Phase 0, 1, 2, 3, 4, and 5 (in progress — code work shipped;
+F-Droid submission as `1.0.0` is the only item left).
 **Last updated:** 2026-05-10.
 
 What exists:
@@ -189,6 +190,18 @@ What exists:
   distribution, budget usage, back-out count. All computed locally from
   Room. No scores, no streaks. Empty state when no data.
 - Bottom navigation bar: Home / Reflection / Settings.
+- Accessibility pass: `heading()` semantics on titles, `Role.RadioButton`
+  on the budget chooser, `Role.Button` on clickable list rows, full-row
+  `toggleable` on the app-selection list, 48dp minimum touch targets,
+  proper content descriptions on icon-only actions.
+- Localization: English (default) and French (`values-fr/strings.xml`).
+  `resourceConfigurations` pins the shipped locale set.
+- Adaptive app icon (vector foreground + background color + monochrome
+  themed-icon variant). No raster icons; `minSdk = 26` covers adaptive.
+- R8 + resource shrinker enabled for `release`; consumer rules from
+  Compose / AndroidX / Room are sufficient. `BuildConfig` disabled.
+- F-Droid metadata under `fastlane/metadata/android/{en-US,fr-FR}/`
+  with title, short and full descriptions, and a `changelogs/5.txt`.
 - Domain models (`Intention`, `SelectedApp`, `PauseEvent`, `PauseOutcome`,
   `ReflectionStats` and helpers), pure use cases (`toggleAppSelection`,
   `getReflectionStats`), repositories (`InstalledAppsRepository`,
@@ -200,5 +213,7 @@ What exists:
 What is intentionally missing:
 - Any sensitive capability — deferred indefinitely; see
   [`docs/permissions-and-risks.md`](docs/permissions-and-risks.md).
+- F-Droid submission. Listed as the final Phase 5 item; will land
+  alongside the `1.0.0` tag once the app is exercised on real devices.
 
-Next: **Phase 5 — Accessibility, testing, polish, release prep**.
+Next: **F-Droid submission as `1.0.0`**.
