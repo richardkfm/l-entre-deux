@@ -1,5 +1,3 @@
-# l’entre-deux
-
          __,    __,
         /. )   /. )
        (   |  (   |          l'entre-deux
