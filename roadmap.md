@@ -87,21 +87,38 @@ patterns about themselves.
 - [ ] First F-Droid submission as v1.0.0.
 
 ## Phase X — Optional advanced or sensitive capabilities
-**Default: not pursued.**
+**Default: not pursued. Every item here requires a public decision first.**
 
-If, and only if, real users tell us the in-app launcher pattern doesn’t
-catch enough autopilot reaches, we may evaluate:
+### Why this phase might happen
 
-- [ ] Opt-in `UsageStatsManager` + `SYSTEM_ALERT_WINDOW` overlay path,
-      with clear in-app disclosure and an off-switch. See
-      `docs/permissions-and-risks.md`.
+The shortcut-based interception (Option A + G) only catches taps on
+home-screen icons the user has explicitly replaced. Launches from
+notifications, deep links, or the recents switcher are not caught. If real
+users tell us this misses too many autopilot reaches, we may pursue one of
+the options below.
 
-Capabilities explicitly excluded indefinitely:
+### Under active consideration (if shortcut approach proves insufficient)
 
-- AccessibilityService for non-accessibility purposes.
-- NotificationListenerService.
-- Device admin.
-- Any cloud sync, account, or telemetry.
+- [ ] **Opt-in AccessibilityService path** — listens for foreground app
+      changes and shows the pause flow before the target app is usable.
+      Most reliable real-time coverage. Highest trust cost. Requires a
+      separate opt-in build flavor, prominent plain-language disclosure,
+      a hard off-switch, and an F-Droid Anti-Feature declaration. See
+      `docs/permissions-and-risks.md` Option C for full conditions.
+
+### Lower priority
+
+- [ ] Opt-in `UsageStatsManager` + `SYSTEM_ALERT_WINDOW` overlay path —
+      technically weaker than AccessibilityService (reactive, not
+      proactive); included only as a lighter-weight intermediate option.
+      Same disclosure requirements apply.
+
+### Excluded
+
+- NotificationListenerService — reads all notifications; not relevant to
+  launch interception.
+- Device admin / Device Policy Controller — parental control territory.
+- Any cloud sync, account, or telemetry — ever.
 
 Adding any item from this phase requires updating the privacy and
 permissions docs, and a corresponding F-Droid Anti-Feature declaration.

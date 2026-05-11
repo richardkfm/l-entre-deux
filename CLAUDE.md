@@ -51,9 +51,11 @@ discussion **before** any code:
 - Any new runtime permission
 
 For each, see [`docs/permissions-and-risks.md`](docs/permissions-and-risks.md).
-The current default is "no" for all of the above. AccessibilityService is
-effectively never; others are Phase 5+ at the earliest, opt-in only, with
-plain-language disclosure and a hard off-switch.
+The current default is "no" for all of the above. AccessibilityService and
+overlays are "not yet" — deferred to Phase X and only if the shortcut-based
+interception proves insufficient for real users; all others remain Phase X
+at the earliest, opt-in only, with plain-language disclosure and a hard
+off-switch.
 
 ## Roadmap discipline
 

@@ -34,17 +34,38 @@ interruption at the exact moment of the reach, so they can choose again.
 ## Core experience
 
 1. The user picks the apps that pull them in (e.g. social, news, video).
-2. When they go to open one of those apps, l’entre-deux shows a short,
+2. l’entre-deux offers to add a home-screen shortcut for each chosen app.
+   The shortcut looks and feels like the original icon but routes through
+   the pause flow first. The user replaces the original icon with this
+   shortcut on their home screen. From that point on, every tap on that
+   icon goes through the pause.
+3. When the user taps one of those shortcuts, l’entre-deux shows a short,
    non-judgmental pause flow.
-3. The user names their intention in one tap:
+4. The user names their intention in one tap:
    - "I need this for one specific task"
    - "I am checking something briefly"
    - "I opened this automatically"
-4. Optionally, they pick a tiny session budget (e.g. 3, 5, or 10 minutes).
-5. They proceed to the app.
-6. Later, the user can open a private, local-only reflection screen showing
+5. Optionally, they pick a tiny session budget (e.g. 3, 5, or 10 minutes).
+6. They proceed to the app.
+7. Later, the user can open a private, local-only reflection screen showing
    patterns: which intentions, which apps, which times of day. No scores. No
    shame.
+
+## What this approach does and does not catch
+
+The shortcut route catches every tap that goes through the replaced home-screen
+icon. It does **not** catch launches from notifications, the recent-apps
+switcher, deep links from other apps, or any icon the user did not replace.
+
+This is a deliberate trade-off. No special permissions are needed, and the
+app cannot see anything the user did not explicitly route through it. We are
+transparent about this limitation and trust the user to decide whether the
+partial coverage is useful.
+
+If real users tell us this misses too many autopilot reaches, a future version
+may offer an opt-in, more invasive interception path. See
+[`docs/permissions-and-risks.md`](permissions-and-risks.md) for the technical
+options and their costs.
 
 ## Differentiation
 
