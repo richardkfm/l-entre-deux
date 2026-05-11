@@ -167,10 +167,10 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.5.0
-**Phase:** Phase 0, 1, 2, 3, 4, and 5 (in progress — code work shipped;
-F-Droid submission as `1.0.0` is the only item left).
-**Last updated:** 2026-05-10.
+**Version:** 0.6.0
+**Phase:** Phase 0–6 (code work shipped; F-Droid submission as `1.0.0`
+is the only remaining item).
+**Last updated:** 2026-05-11.
 
 What exists:
 - Full documentation set in `docs/`.
@@ -204,10 +204,17 @@ What exists:
   Compose / AndroidX / Room are sufficient. `BuildConfig` disabled.
 - F-Droid metadata under `fastlane/metadata/android/{en-US,fr-FR}/`
   with title, short and full descriptions, and a `changelogs/5.txt`.
+- Home-screen shortcut pinning (Phase 6): long-press any home tile →
+  "Add to home screen" → `ShortcutManager.requestPinShortcut()` pins an
+  icon that looks like the target app but routes every tap through the
+  pause flow. No new permissions. Works on any launcher that supports
+  pinned shortcuts (all major ones do). `MainActivity` is `singleTop` and
+  handles `onNewIntent` so re-tapping a shortcut while the app is already
+  open navigates correctly.
 - Domain models (`Intention`, `SelectedApp`, `PauseEvent`, `PauseOutcome`,
   `ReflectionStats` and helpers), pure use cases (`toggleAppSelection`,
   `getReflectionStats`), repositories (`InstalledAppsRepository`,
-  `AppSelectionRepository`, `PauseEventRepository`).
+  `AppSelectionRepository`, `PauseEventRepository`, `ShortcutRepository`).
 - Unit tests for use cases; instrumented tests for Room DAO and pause flow UI.
 - Gradle version catalog (`gradle/libs.versions.toml`).
 - GitHub Actions workflow running lint + test + assembleDebug.

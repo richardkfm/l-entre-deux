@@ -10,6 +10,7 @@ import org.entredeux.app.data.local.BudgetNotificationScheduler
 import org.entredeux.app.data.local.NotificationHelper
 import org.entredeux.app.data.local.PauseEventRepository
 import org.entredeux.app.data.prefs.AppSelectionRepository
+import org.entredeux.app.data.shortcuts.ShortcutRepository
 
 class EntreDeuxApplication : Application() {
 
@@ -25,6 +26,8 @@ class EntreDeuxApplication : Application() {
         private set
     lateinit var budgetNotificationScheduler: BudgetNotificationScheduler
         private set
+    lateinit var shortcutRepository: ShortcutRepository
+        private set
 
     override fun onCreate() {
         super.onCreate()
@@ -32,6 +35,7 @@ class EntreDeuxApplication : Application() {
         appSelectionRepository = AppSelectionRepository(this)
         pauseEventRepository = PauseEventRepository(AppDatabase.getInstance(this).pauseEventDao())
         budgetNotificationScheduler = BudgetNotificationScheduler(this)
+        shortcutRepository = ShortcutRepository(this)
         NotificationHelper.createChannel(this)
     }
 }

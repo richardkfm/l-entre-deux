@@ -11,6 +11,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -26,6 +27,7 @@ import org.entredeux.app.data.apps.InstalledAppsRepository
 import org.entredeux.app.data.local.BudgetNotificationScheduler
 import org.entredeux.app.data.local.PauseEventRepository
 import org.entredeux.app.data.prefs.AppSelectionRepository
+import org.entredeux.app.data.shortcuts.ShortcutRepository
 import org.entredeux.app.ui.home.HomeScreen
 import org.entredeux.app.ui.home.HomeViewModel
 import org.entredeux.app.ui.onboarding.OnboardingScreen
@@ -39,21 +41,42 @@ import org.entredeux.app.ui.selection.AppSelectionViewModel
 import org.entredeux.app.ui.settings.SettingsScreen
 import org.entredeux.app.ui.settings.SettingsViewModel
 
+/**
+ * Carries a shortcut launch request across the Activity → NavHost boundary.
+ * Each tap generates a new [id] so repeated taps on the same shortcut each
+ * trigger a navigation even if the package name hasn't changed.
+ */
+data class ShortcutRequest(val packageName: String, val id: Long = System.currentTimeMillis())
+
 private val topLevelRoutes = setOf("home", "reflection", "settings")
 
 @Composable
 fun AppNavHost(
     startDestination: String,
+    shortcutRequest: ShortcutRequest?,
+    onShortcutHandled: () -> Unit,
     installedAppsRepository: InstalledAppsRepository,
     appSelectionRepository: AppSelectionRepository,
     pauseEventRepository: PauseEventRepository,
     budgetScheduler: BudgetNotificationScheduler,
+    shortcutRepository: ShortcutRepository,
     appScope: CoroutineScope,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+
+    // When a pinned home-screen shortcut is tapped, navigate directly to the
+    // pause flow for that app. The unique id ensures repeated taps on the same
+    // shortcut each fire a navigation.
+    LaunchedEffect(shortcutRequest) {
+        val pkg = shortcutRequest?.packageName ?: return@LaunchedEffect
+        navController.navigate("pause/$pkg") {
+            launchSingleTop = true
+        }
+        onShortcutHandled()
+    }
 
     Scaffold(
         modifier = modifier,
@@ -121,7 +144,11 @@ fun AppNavHost(
 
             composable("home") {
                 val vm: HomeViewModel = viewModel(
-                    factory = HomeViewModel.factory(installedAppsRepository, appSelectionRepository),
+                    factory = HomeViewModel.factory(
+                        installedAppsRepository,
+                        appSelectionRepository,
+                        shortcutRepository,
+                    ),
                 )
                 HomeScreen(
                     viewModel = vm,

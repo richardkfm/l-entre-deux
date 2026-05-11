@@ -9,6 +9,43 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.6.0] — 2026-05-11
+
+Phase 6: home-screen shortcut pinning.
+
+### Added
+- **Home-screen shortcuts.** Long-pressing any app tile on the Home screen
+  now shows an "Add to home screen" option. Tapping it calls
+  `ShortcutManager.requestPinShortcut()`, which asks the launcher to pin
+  a shortcut that looks like the target app (same icon, same label) but
+  routes every tap through l'entre-deux's pause flow first. No new
+  permissions are required — pinned shortcuts are a normal Android API
+  available since API 26 (our `minSdk`).
+- `ShortcutRepository` (`data/shortcuts/`) wraps ShortcutManager: checks
+  support, fetches the target app's icon via PackageManager, builds the
+  ShortcutInfo, and fires the pin request.
+- `ShortcutRequest` data class in `ui/AppNavHost.kt` carries a unique
+  timestamp-based id so repeated shortcut taps each trigger a navigation
+  even when the package name is unchanged.
+- `MainActivity` now handles `onNewIntent` (activity is `singleTop`) and
+  parses the `org.entredeux.app.action.PAUSE_LAUNCH` intent action to
+  route directly to the pause flow for the shortcut's target app.
+- Snackbar feedback on the Home screen after a pin request: success
+  message ("Shortcut requested — check your home screen") or an
+  unsupported-launcher message.
+- English and French strings for all new UI copy.
+
+### Changed
+- `MainActivity` launch mode set to `singleTop` in the manifest so
+  tapping a shortcut while the app is already in the foreground calls
+  `onNewIntent` rather than creating a second instance.
+- `HomeViewModel` now takes `ShortcutRepository` and exposes
+  `requestPinShortcut()` / `clearShortcutResult()`.
+- `HomeScreen` adds a `SnackbarHost` and uses `combinedClickable` on
+  each tile for the long-press context menu.
+- `AppNavHost` accepts `shortcutRequest` / `onShortcutHandled` and uses
+  `LaunchedEffect` to navigate to the pause screen on shortcut launch.
+
 ## [0.5.0] — 2026-05-10
 
 Phase 5: accessibility, testing, polish, release prep.

@@ -81,6 +81,12 @@
     <string name="notification_budget_title">Temps écoulé</string>
     <string name="notification_budget_body">Votre limite de %1$d minutes pour %2$s est écoulée.</string>
 
+    <!-- Home screen shortcuts (Phase 6) -->
+    <string name="home_pin_shortcut">Ajouter à l\'écran d\'accueil</string>
+    <string name="home_tile_options">Options pour %s</string>
+    <string name="home_shortcut_success">Raccourci demandé — vérifiez votre écran d\'accueil</string>
+    <string name="home_shortcut_unsupported">Votre lanceur ne prend pas en charge les raccourcis épinglés</string>
+
     <!-- Content descriptions -->
     <string name="cd_settings">Réglages</string>
     <string name="cd_back">Retour</string>

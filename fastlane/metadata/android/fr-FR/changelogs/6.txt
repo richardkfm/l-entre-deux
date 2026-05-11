@@ -1,0 +1,5 @@
+Phase 6 : raccourcis épinglés sur l'écran d'accueil.
+
+Appuyez longuement sur une tuile d'application dans l'écran d'accueil et choisissez « Ajouter à l'écran d'accueil ». Le lanceur épingle un raccourci qui ressemble exactement à l'application (même icône, même nom), mais chaque appui passe d'abord par le flux de pause de l'entre-deux. À configurer une fois, la pause se fait ensuite automatiquement.
+
+Aucune nouvelle permission requise.
