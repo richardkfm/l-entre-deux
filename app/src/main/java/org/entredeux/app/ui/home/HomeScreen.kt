@@ -120,7 +120,7 @@ fun HomeScreen(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 private fun AppTile(app: SelectedApp, onClick: () -> Unit, onPinShortcut: () -> Unit) {
     var menuExpanded by remember { mutableStateOf(false) }
