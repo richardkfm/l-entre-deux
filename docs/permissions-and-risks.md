@@ -55,7 +55,8 @@ for selection. Nothing else.
   replace a few icons). This is friction. We argue that friction is exactly
   the point and is acceptable for this product.
 
-**Verdict:** This is the recommended MVP path.
+**Verdict:** This is the MVP path. Pair with Option G (pinned shortcuts) for
+the actual interception mechanic.
 
 ## Option B — UsageStatsManager + System Alert Window (overlay)
 
@@ -113,9 +114,20 @@ activity over it.
 - Requesting it conflicts directly with our "minimal permissions" and
   "trust by construction" principles.
 
-**Verdict:** Do not implement. If ever revisited, only as a clearly-labeled
-"Phase X" optional module, with explicit user consent, prominent in-app
-disclosure, separate F-Droid build flavor, and never as a default.
+**Verdict:** Not in the current scope. This option is kept open as a potential
+future path if the shortcut approach (Option A + G) proves insufficient for
+enough real users. If ever pursued, it must be:
+
+- A separate, explicitly labeled opt-in module (e.g. a dedicated build flavor).
+- Preceded by a plain-language disclosure screen explaining exactly what the
+  service can see across all apps.
+- Off by default; revocable in one tap from Settings.
+- Accompanied by an F-Droid Anti-Feature declaration.
+- Only initiated after an explicit decision in a public issue, not a quiet PR.
+
+Play Store distribution with AccessibilityService for non-accessibility
+purposes is high-risk (policy violation). Any build that includes this path
+would be F-Droid only.
 
 ## Option D — Device admin / Device Policy Controller
 
@@ -147,23 +159,17 @@ replacing the original app icon. Tap → pause flow → real app.
 **Pros**
 - Zero sensitive permissions. Trivially F-Droid friendly.
 - Catches every tap on the replaced icon.
-- Can be combined with Option A.
+- Combined with Option A, this is the complete interception story for the MVP.
 
 **Cons**
 - Users must opt in by pinning the shortcuts. Not all launchers expose
   pinning the same way.
-- Doesn’t cover launches from notifications or deep links.
+- Doesn’t cover launches from notifications, the recents switcher, or deep
+  links from other apps.
 
-**Verdict:** Pair with Option A in the MVP. Together they form the
-"intentional launcher" experience.
-
-## Recommendation summary
-
-- **MVP (Phase 2–4):** Option A + Option G. No sensitive permissions.
-- **Phase 5+ (opt-in):** Optional Option B (UsageStats + overlay) for
-  broader coverage. Off by default. Documented honestly.
-- **Phase X (probably never):** Option C. Only if the project consciously
-  decides the trust cost is acceptable, which it currently is not.
+**Verdict:** This is the current implementation. Together with Option A it
+forms the "intentional launcher" experience. The coverage gap is real and
+documented honestly in `docs/product-brief.md`.
 
 ## Required disclosures (whatever path we ship)
 
@@ -205,10 +211,27 @@ a standard notification that does not track or monetise the user.
 
 ## Things we will never do
 
-- Read screen content.
+- Read screen content without explicit user consent and a clear product reason.
 - Read other apps’ notifications.
 - Track location.
 - Send any usage data off-device.
-- Use AccessibilityService for non-accessibility purposes.
 - Add network permission unless and until a feature genuinely needs it. The
   default manifest should not request `INTERNET`.
+
+## Things we will not do yet (but keep open)
+
+- **AccessibilityService** — the highest-trust capability on Android. We may
+  revisit as an opt-in module if the shortcut approach is demonstrably
+  insufficient. Any decision to proceed requires a public discussion (issue or
+  PR), prominent in-app disclosure, a hard off-switch, and a separate build
+  flavor. See Option C above.
+
+## Recommendation summary
+
+- **Current implementation (MVP, Phase 2–5):** Option A + Option G. No
+  sensitive permissions. Coverage is limited to taps on home-screen shortcuts
+  the user has pinned. This limitation is documented honestly.
+- **Future opt-in, if needed (Phase X):** Option C (AccessibilityService) for
+  full-coverage interception. Requires deliberate decision. Off by default.
+- **Not pursued:** Option B (UsageStats + overlay) — reactive, invasive, and
+  technically weaker than Option C for our use case.
