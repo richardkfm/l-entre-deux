@@ -7,7 +7,6 @@ import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.Icon
 import androidx.core.graphics.drawable.toBitmap
-import org.entredeux.app.MainActivity
 import org.entredeux.app.R
 
 class ShortcutRepository(private val context: Context) {
@@ -16,17 +15,12 @@ class ShortcutRepository(private val context: Context) {
         context.getSystemService(ShortcutManager::class.java)
             ?.isRequestPinShortcutSupported == true
 
-    /**
-     * Asks the launcher to pin a shortcut that looks like [packageName]'s app icon
-     * but routes through our pause flow. Returns false if the launcher doesn't
-     * support pinned shortcuts.
-     */
     fun requestPinShortcut(packageName: String, label: String): Boolean {
         val sm = context.getSystemService(ShortcutManager::class.java) ?: return false
         if (!sm.isRequestPinShortcutSupported) return false
 
-        val shortcutIntent = Intent(context, MainActivity::class.java).apply {
-            action = ACTION_PAUSE_LAUNCH
+        val shortcutIntent = Intent(ACTION_PAUSE_LAUNCH).apply {
+            setClassName(context.packageName, "${context.packageName}.MainActivity")
             putExtra(EXTRA_PACKAGE_NAME, packageName)
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }

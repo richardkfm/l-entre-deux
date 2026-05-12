@@ -41,11 +41,6 @@ import org.entredeux.app.ui.selection.AppSelectionViewModel
 import org.entredeux.app.ui.settings.SettingsScreen
 import org.entredeux.app.ui.settings.SettingsViewModel
 
-/**
- * Carries a shortcut launch request across the Activity → NavHost boundary.
- * Each tap generates a new [id] so repeated taps on the same shortcut each
- * trigger a navigation even if the package name hasn't changed.
- */
 data class ShortcutRequest(val packageName: String, val id: Long = System.currentTimeMillis())
 
 private val topLevelRoutes = setOf("home", "reflection", "settings")
@@ -67,9 +62,6 @@ fun AppNavHost(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    // When a pinned home-screen shortcut is tapped, navigate directly to the
-    // pause flow for that app. The unique id ensures repeated taps on the same
-    // shortcut each fire a navigation.
     LaunchedEffect(shortcutRequest) {
         val pkg = shortcutRequest?.packageName ?: return@LaunchedEffect
         navController.navigate("pause/$pkg") {

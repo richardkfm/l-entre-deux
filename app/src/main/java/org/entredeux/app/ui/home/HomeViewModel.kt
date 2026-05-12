@@ -31,13 +31,12 @@ class HomeViewModel(
 
     private val _shortcutResult = MutableStateFlow<ShortcutResult?>(null)
 
-    val uiState: StateFlow<HomeUiState> = combine(
-        appSelectionRepository.selectedPackageNames
-            .map { names -> resolveLabels(names) },
-        _shortcutResult,
-    ) { apps, result ->
-        HomeUiState(selectedApps = apps, shortcutResult = result)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
+    val uiState: StateFlow<HomeUiState> = appSelectionRepository.selectedPackageNames
+        .map { names -> resolveLabels(names) }
+        .combine(_shortcutResult) { apps, result ->
+            HomeUiState(selectedApps = apps, shortcutResult = result)
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
     private suspend fun resolveLabels(packageNames: Set<String>): List<SelectedApp> =
         withContext(Dispatchers.IO) {
