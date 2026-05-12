@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
-import android.graphics.Icon
+import android.graphics.drawable.Icon
 import androidx.core.graphics.drawable.toBitmap
 import org.entredeux.app.R
 
