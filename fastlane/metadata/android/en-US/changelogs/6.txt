@@ -1,0 +1,5 @@
+Phase 6: home-screen shortcut pinning.
+
+Long-press any app tile on the Home screen and choose "Add to home screen". The launcher pins a shortcut that looks exactly like the app (same icon, same name) but routes every tap through l'entre-deux's pause flow first. Set it up once; the pause happens automatically from then on.
+
+No new permissions required.

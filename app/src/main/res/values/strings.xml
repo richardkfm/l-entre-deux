@@ -81,6 +81,12 @@
     <string name="notification_budget_title">Time\'s up</string>
     <string name="notification_budget_body">Your %1$d-minute limit for %2$s has elapsed.</string>
 
+    <!-- Home screen shortcuts (Phase 6) -->
+    <string name="home_pin_shortcut">Add to home screen</string>
+    <string name="home_tile_options">Options for %s</string>
+    <string name="home_shortcut_success">Shortcut requested — check your home screen</string>
+    <string name="home_shortcut_unsupported">Your launcher doesn\'t support pinned shortcuts</string>
+
     <!-- Content descriptions -->
     <string name="cd_settings">Settings</string>
     <string name="cd_back">Back</string>

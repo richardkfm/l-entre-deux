@@ -86,6 +86,27 @@ patterns about themselves.
 - [x] F-Droid metadata under `fastlane/metadata/android/`.
 - [ ] First F-Droid submission as v1.0.0.
 
+## Phase 6 — Home-screen shortcut pinning
+**Target version:** 0.6.0.
+
+- [x] `ShortcutRepository` wraps `ShortcutManager.requestPinShortcut()`.
+      Fetches the target app's icon from PackageManager and builds a
+      `ShortcutInfo` whose intent routes through our pause flow. No new
+      permissions needed.
+- [x] Long-press on any Home tile reveals an "Add to home screen" context
+      menu item. Snackbar confirms success or reports that the launcher
+      does not support pinned shortcuts.
+- [x] `MainActivity` set to `singleTop`; `onNewIntent` parses the custom
+      action and passes a `ShortcutRequest` (with a unique timestamp id)
+      to `AppNavHost` via Compose state.
+- [x] `AppNavHost` navigates directly to `pause/{packageName}` on each
+      incoming `ShortcutRequest` via `LaunchedEffect`.
+- [x] English and French strings for all new copy.
+
+Definition of done: a user can long-press an app tile, pin the shortcut
+to their home screen, then tap that shortcut and land on the pause flow
+for that app — no new permissions, no launcher replacement.
+
 ## Phase X — Optional advanced or sensitive capabilities
 **Default: not pursued. Every item here requires a public decision first.**
 

@@ -44,10 +44,21 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.EntreDeux">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!--
+              Receives the pinned-shortcut intent so tapping a home-screen
+              shortcut routes through the pause flow. singleTop means a tap
+              while the app is already in the foreground calls onNewIntent
+              instead of creating a second instance.
+            -->
+            <intent-filter>
+                <action android:name="org.entredeux.app.action.PAUSE_LAUNCH" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
