@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">l\'entre-deux</string>
+    <string name="app_name">Entre Deux</string>
 
     <!-- Onboarding -->
     <string name="onboarding_skip">Skip</string>
