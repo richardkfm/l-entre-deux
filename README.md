@@ -11,11 +11,11 @@ for your phone and actually using it. This app lives in that moment.
 Instead of blocking apps, it adds a short, respectful pause that asks you
 to name your intention. Then it gets out of the way.
 
-**Status:** v0.5.0 — Phases 0–5 code work complete. Onboarding, app
+**Status:** v0.6.0 — Phases 0–6 code work complete. Onboarding, app
 selection, pause flow, intention logging, budget reminders, on-device
 reflection, accessibility pass, French localization, adaptive icon, R8,
-and F-Droid metadata all in place. F-Droid submission as `1.0.0` is the
-only remaining item. See [`roadmap.md`](roadmap.md).
+F-Droid metadata, and home-screen shortcut pinning all in place.
+F-Droid submission as `1.0.0` is the only remaining item. See [`roadmap.md`](roadmap.md).
 
 **License:** [GPL-3.0](LICENSE).
 **Distribution target:** F-Droid first.
@@ -92,17 +92,16 @@ gradle/                          — Gradle wrapper and version catalog
 ### Download a pre-built APK (easiest)
 
 Each [GitHub release](https://github.com/richardkfm/l-entre-deux/releases)
-includes a debug APK you can sideload directly onto your device.
+includes a release APK you can sideload directly onto your device.
 
 1. Go to the [Releases page](https://github.com/richardkfm/l-entre-deux/releases)
-   and download the latest `l-entre-deux-*-debug.apk`.
+   and download the latest `l-entre-deux-*.apk`.
 2. On your Android device, enable **Install unknown apps** for your file
    manager or browser (Settings → Apps → Special app access).
 3. Open the APK file on your device and tap **Install**.
 
-> **Note:** This is a debug build signed with the standard Android debug key —
-> fine for testing. The signed production release will arrive on **F-Droid**
-> once submission is complete.
+> **Note:** The production release will also be distributed via **F-Droid**
+> once submission is complete, with automatic updates and no sideloading needed.
 
 ### F-Droid (coming soon)
 
