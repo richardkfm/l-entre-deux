@@ -9,6 +9,35 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.8.0] — 2026-06-02
+
+Design polish: a richer pause, a more expressive breathing animation, and a
+first-run guide that takes new users by the hand.
+
+### Added
+- **Guided start.** A one-time, two-step coach on the Home screen walks new
+  users through the core flow: ① add an app (the **+** button pulses), then
+  ② pin it to your home screen (the pin button on the first tile pulses). A
+  bottom card explains each step; the guide is dismissible and shown once,
+  tracked by a new local `home_coach_done` preference. It advances on its own
+  once an app is added.
+- New `CoachStep` state on `HomeViewModel`, derived from whether the guide is
+  still pending and whether any app is selected, plus `dismissCoach()`.
+
+### Changed
+- **Breathing animation.** The flat two-circle pulse is replaced by a layered
+  aura drawn on a `Canvas`: a soft radial glow that swells with the breath,
+  three phase-shifted ripple rings rising and fading, and a gradient core orb
+  — a calmer, more premium focal point.
+- **Pause screen redesign.** A soft gradient backdrop, a small kicker label, a
+  larger heading, and the three intentions presented as animated selectable
+  cards (each with a one-line hint and an animated selection dot). The Open
+  button now names the app and animates in once an intention is chosen.
+
+### Notes
+- No new permissions, no new dependencies. The pin glyph and animations use
+  only stock Compose APIs.
+
 ## [0.7.0] — 2026-06-02
 
 Design pass: a calmer pause and a discoverable killer feature. Removes the

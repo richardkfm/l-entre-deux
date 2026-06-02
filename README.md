@@ -11,11 +11,12 @@ for your phone and actually using it. This app lives in that moment.
 Instead of blocking apps, it adds a short, respectful pause that asks you
 to name your intention. Then it gets out of the way.
 
-**Status:** v0.7.0 — Phases 0–6 code work complete. Onboarding, app
-selection, a calm one-question pause flow, intention logging, on-device
-reflection, accessibility pass, French localization, adaptive icon, R8,
-F-Droid metadata, and home-screen shortcut pinning all in place.
-F-Droid submission as `1.0.0` is the only remaining item. See [`roadmap.md`](roadmap.md).
+**Status:** v0.8.0 — Phases 0–7 code work complete. Onboarding, a guided
+first run, app selection, a calm one-question pause flow with a layered
+breathing animation, intention logging, on-device reflection, accessibility
+pass, French localization, adaptive icon, R8, F-Droid metadata, and
+home-screen shortcut pinning all in place. F-Droid submission as `1.0.0` is
+the only remaining item. See [`roadmap.md`](roadmap.md).
 
 **License:** [GPL-3.0](LICENSE).
 **Distribution target:** F-Droid first.

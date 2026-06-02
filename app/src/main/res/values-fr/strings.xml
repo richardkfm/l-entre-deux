@@ -31,15 +31,18 @@
     <string name="selection_search_hint">Rechercher</string>
 
     <!-- Pause flow -->
+    <string name="pause_kicker">Une petite pause</string>
     <string name="pause_heading">Avant d\'ouvrir %s</string>
     <string name="pause_intention_label">Pourquoi ouvrez-vous cette application ?</string>
     <string name="pause_intention_specific_task">J\'en ai besoin pour une tâche précise</string>
+    <string name="pause_intention_specific_task_hint">Une tâche claire, puis je sors</string>
     <string name="pause_intention_brief_check">Je vérifie quelque chose rapidement</string>
+    <string name="pause_intention_brief_check_hint">Un coup d\'œil sur une seule chose</string>
     <string name="pause_intention_autopilot">Je l\'ai ouverte automatiquement</string>
-    <string name="pause_proceed">Ouvrir l\'application</string>
+    <string name="pause_intention_autopilot_hint">Mon pouce est venu tout seul</string>
+    <string name="pause_proceed">Ouvrir %s</string>
     <string name="pause_back_out">Pas maintenant</string>
     <string name="pause_app_not_found">Application introuvable.</string>
-    <string name="pause_intention_selected">Intention : %s</string>
 
     <!-- Reflection -->
     <string name="reflection_title">Réflexion</string>
@@ -70,6 +73,15 @@
     <string name="home_tile_options">Options pour %s</string>
     <string name="home_shortcut_success">Raccourci demandé — vérifiez votre écran d\'accueil</string>
     <string name="home_shortcut_unsupported">Votre lanceur ne prend pas en charge les raccourcis épinglés</string>
+
+    <!-- Guided start -->
+    <string name="coach_step">Étape %1$d sur %2$d</string>
+    <string name="coach_add_title">Ajoutez une application</string>
+    <string name="coach_add_body">Touchez le bouton + pour choisir les applications qui vous happent.</string>
+    <string name="coach_pin_title">Épinglez-la à votre écran d\'accueil</string>
+    <string name="coach_pin_body">Touchez l\'épingle sur une application. Ensuite, chaque appui sur celle-ci commence par une pause apaisante — sans passer par cette application.</string>
+    <string name="coach_skip">Passer</string>
+    <string name="coach_done">Compris</string>
 
     <!-- Content descriptions -->
     <string name="cd_settings">Réglages</string>

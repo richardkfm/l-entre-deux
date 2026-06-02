@@ -31,15 +31,18 @@
     <string name="selection_search_hint">Search</string>
 
     <!-- Pause flow -->
+    <string name="pause_kicker">A small pause</string>
     <string name="pause_heading">Before you open %s</string>
     <string name="pause_intention_label">Why are you opening this?</string>
     <string name="pause_intention_specific_task">I need this for one specific task</string>
+    <string name="pause_intention_specific_task_hint">A clear job to do, then out</string>
     <string name="pause_intention_brief_check">I am checking something briefly</string>
+    <string name="pause_intention_brief_check_hint">A quick look at one thing</string>
     <string name="pause_intention_autopilot">I opened this automatically</string>
-    <string name="pause_proceed">Open the app</string>
+    <string name="pause_intention_autopilot_hint">My thumb got here on its own</string>
+    <string name="pause_proceed">Open %s</string>
     <string name="pause_back_out">Not now</string>
     <string name="pause_app_not_found">App not found.</string>
-    <string name="pause_intention_selected">Intention: %s</string>
 
     <!-- Reflection -->
     <string name="reflection_title">Reflection</string>
@@ -70,6 +73,15 @@
     <string name="home_tile_options">Options for %s</string>
     <string name="home_shortcut_success">Shortcut requested — check your home screen</string>
     <string name="home_shortcut_unsupported">Your launcher doesn\'t support pinned shortcuts</string>
+
+    <!-- Guided start -->
+    <string name="coach_step">Step %1$d of %2$d</string>
+    <string name="coach_add_title">Add an app</string>
+    <string name="coach_add_body">Tap the + button to choose the apps that pull you in.</string>
+    <string name="coach_pin_title">Pin it to your home screen</string>
+    <string name="coach_pin_body">Tap the pin on an app. From then on, every tap on it begins with a calm pause — no need to open this app first.</string>
+    <string name="coach_skip">Skip</string>
+    <string name="coach_done">Got it</string>
 
     <!-- Content descriptions -->
     <string name="cd_settings">Settings</string>

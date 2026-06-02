@@ -114,22 +114,29 @@ to their home screen, then tap that shortcut and land on the pause flow
 for that app — no new permissions, no launcher replacement.
 
 ## Phase 7 — Design pass: calmer pause, discoverable pinning
-**Target version:** 0.7.0.
+**Target version:** 0.7.0 → 0.8.0.
 
 A focused design pass after dogfooding revealed two problems: the pause
 screen asked too much, and the home-screen pinning — the product's core
 mechanic — was hidden behind a long-press.
 
-- [x] Pause screen reduced to one question (intention) plus a slow
-      breathing-circle animation; proceed / back-out unchanged.
+- [x] Pause screen reduced to one question (intention) plus a breathing
+      animation; proceed / back-out unchanged. (0.7.0)
 - [x] Time limits / micro-session budgeting removed end to end (UI, the
       budget reminder, the alarm receiver, the default-budget setting, the
       Reflection time-limits section, and the `budgetMinutes` column via a
-      Room v1→v2 migration that preserves existing history).
+      Room v1→v2 migration that preserves existing history). (0.7.0)
 - [x] `POST_NOTIFICATIONS` and the budget-alarm receiver dropped from the
-      manifest. The app now requests zero runtime permissions.
+      manifest. The app now requests zero runtime permissions. (0.7.0)
 - [x] Visible "pin to home screen" button on every Home tile (local vector
       drawable, no new icon dependency); long-press menu kept as a fallback.
+      (0.7.0)
+- [x] Higher-fidelity pause visuals: layered breathing aura (glow + ripple
+      rings + gradient core), gradient backdrop, kicker label, and the
+      intentions as animated selectable cards with hints. (0.8.0)
+- [x] One-time guided start that hand-holds new users through ① add an app
+      and ② pin it to the home screen, with a pulsing highlight and a
+      dismissible bottom card. (0.8.0)
 - [x] English and French strings updated; privacy and permissions docs
       updated to reflect the reduced footprint.
 
@@ -178,7 +185,9 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 0–7 code work shipped, most recently the `0.7.0` design pass
-(calmer one-question pause, visible home-screen pinning, time limits
-removed). The only remaining item is the actual F-Droid submission,
-which will be cut as `1.0.0` once the app is exercised on real devices.
+Phase 0–7 code work shipped, most recently the `0.8.0` polish (layered
+breathing animation, redesigned pause cards, and a one-time guided start)
+on top of the `0.7.0` design pass (one-question pause, visible home-screen
+pinning, time limits removed). The only remaining item is the actual
+F-Droid submission, which will be cut as `1.0.0` once the app is exercised
+on real devices.
