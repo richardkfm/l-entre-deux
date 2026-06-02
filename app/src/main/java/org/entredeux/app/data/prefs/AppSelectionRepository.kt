@@ -5,7 +5,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +16,6 @@ class AppSelectionRepository(private val context: Context) {
 
     private val selectedPackagesKey = stringSetPreferencesKey("selected_packages")
     private val onboardingDoneKey = booleanPreferencesKey("onboarding_done")
-    private val defaultBudgetKey = intPreferencesKey("default_budget_minutes")
 
     val selectedPackageNames: Flow<Set<String>> = context.dataStore.data
         .map { it[selectedPackagesKey] ?: emptySet() }
@@ -25,21 +23,11 @@ class AppSelectionRepository(private val context: Context) {
     val onboardingCompleted: Flow<Boolean> = context.dataStore.data
         .map { it[onboardingDoneKey] ?: false }
 
-    val defaultBudgetMinutes: Flow<Int?> = context.dataStore.data
-        .map { it[defaultBudgetKey] }
-
     suspend fun setSelectedPackages(packages: Set<String>) {
         context.dataStore.edit { it[selectedPackagesKey] = packages }
     }
 
     suspend fun setOnboardingCompleted() {
         context.dataStore.edit { it[onboardingDoneKey] = true }
-    }
-
-    suspend fun setDefaultBudgetMinutes(minutes: Int?) {
-        context.dataStore.edit { prefs ->
-            if (minutes == null) prefs.remove(defaultBudgetKey)
-            else prefs[defaultBudgetKey] = minutes
-        }
     }
 }

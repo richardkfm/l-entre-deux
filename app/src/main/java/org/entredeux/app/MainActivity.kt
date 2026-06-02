@@ -52,7 +52,6 @@ class MainActivity : ComponentActivity() {
                         installedAppsRepository = app.installedAppsRepository,
                         appSelectionRepository = app.appSelectionRepository,
                         pauseEventRepository = app.pauseEventRepository,
-                        budgetScheduler = app.budgetNotificationScheduler,
                         shortcutRepository = app.shortcutRepository,
                         appScope = app.appScope,
                         modifier = Modifier.fillMaxSize(),

@@ -14,5 +14,4 @@ data class ReflectionStats(
     val perApp: List<AppPauseCount>,
     val intentionMix: List<IntentionCount>,
     val timeOfDay: List<TimeOfDayCount>,
-    val withBudgetCount: Int,
 )

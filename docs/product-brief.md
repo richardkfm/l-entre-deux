@@ -45,9 +45,8 @@ interruption at the exact moment of the reach, so they can choose again.
    - "I need this for one specific task"
    - "I am checking something briefly"
    - "I opened this automatically"
-5. Optionally, they pick a tiny session budget (e.g. 3, 5, or 10 minutes).
-6. They proceed to the app.
-7. Later, the user can open a private, local-only reflection screen showing
+5. They proceed to the app.
+6. Later, the user can open a private, local-only reflection screen showing
    patterns: which intentions, which apps, which times of day. No scores. No
    shame.
 
@@ -73,11 +72,12 @@ There are many blockers and digital wellbeing tools. l’entre-deux is different
 because:
 
 1. **Intentional pause, not block.** The pause is friction, not a wall.
-2. **Intention selection.** Naming the intent is the core therapeutic step.
-3. **Optional micro-session budgets.** Tiny, opt-in, never enforced punitively.
-4. **Lapse-friendly.** Going over budget is a data point, not a failure.
-5. **Privacy and trust by construction.** Open source, offline-first, minimal
-   permissions, no accounts, no tracking.
+2. **Intention selection.** Naming the intent is the core therapeutic step —
+   and, since 0.7.0, the *only* thing the pause asks. A calm breathing
+   animation accompanies it.
+3. **Lapse-friendly.** The pause never punishes; the user can always proceed.
+4. **Privacy and trust by construction.** Open source, offline-first, no
+   runtime permissions, no accounts, no tracking.
 
 ## Tone
 

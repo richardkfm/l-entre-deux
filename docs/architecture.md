@@ -86,10 +86,11 @@ The MVP needs almost nothing.
 - `Intention` — fixed enum of three values (`SPECIFIC_TASK`,
   `BRIEF_CHECK`, `AUTOPILOT`). Stable wire string per value, so we can
   evolve UI labels without breaking stored data.
-- `PauseEvent(id, timestamp, packageName, intention, budgetMinutes?,
-  outcome)` where `outcome ∈ {PROCEEDED, BACKED_OUT}`.
-- `Settings` (DataStore): default budget, theme override (system/light/dark),
-  hasCompletedOnboarding.
+- `PauseEvent(id, timestamp, packageName, intention, outcome)` where
+  `outcome ∈ {PROCEEDED, BACKED_OUT}`. (A `budgetMinutes` column existed
+  through 0.6.0; the time-limit feature was removed in 0.7.0 and the column
+  dropped via a Room v1→v2 migration.)
+- `Settings` (DataStore): selected apps, hasCompletedOnboarding.
 
 That is the entire schema for MVP. No user table, no sessions table, no
 account.

@@ -15,8 +15,8 @@ Every screen should feel like the app is getting out of the user’s way.
 ## 2. Respect the user
 
 - No streak counters, badges, points, percentages, or comparisons.
-- Going over budget is shown the same as staying under: a row in the log,
-  no color coding designed to provoke.
+- Every pause is shown the same in the log, proceeded or backed out: no
+  color coding designed to provoke.
 - The pause flow always has a visible, non-hidden way to back out. Friction
   is intentional; coercion is not.
 - Never block the user from their own device.
@@ -34,9 +34,9 @@ Every screen should feel like the app is getting out of the user’s way.
 ## 4. The pause flow is the product
 
 - Reachable in ≤ 2 taps from any path that opens a watched app.
-- Total interaction to proceed: pick an intention (1 tap), optionally pick
-  a budget (1 tap), confirm (1 tap or auto-advance). Three taps maximum;
-  often two.
+- Total interaction to proceed: pick an intention (1 tap), confirm (1 tap).
+  Two taps. A slow breathing animation gives the moment room without adding
+  a single thing to read or decide.
 - Designed to be readable and tappable in low-attention contexts (one-
   handed, in a queue, half-distracted).
 - The screen should look the same after the hundredth pause as the first.
@@ -54,8 +54,8 @@ Every screen should feel like the app is getting out of the user’s way.
 - Touch targets ≥ 48dp.
 - Color is never the only signal. Text contrast meets WCAG AA.
 - Respect system font scaling up to large accessibility sizes.
-- Screen reader: the pause flow announces the chosen intention and budget
-  before proceeding.
+- Screen reader: the pause flow announces the chosen intention before
+  proceeding. The breathing animation is decorative and is not announced.
 
 ## 7. Localization-readiness
 
@@ -84,6 +84,6 @@ Every screen should feel like the app is getting out of the user’s way.
 
 - Onboarding longer than 4 screens.
 - Modal dialogs that interrupt the pause flow.
-- Notifications other than (optionally) the one budget reminder.
+- Notifications of any kind.
 - Any screen whose primary purpose is to make the user feel something
   about their last session.

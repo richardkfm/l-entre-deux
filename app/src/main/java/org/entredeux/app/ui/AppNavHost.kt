@@ -24,7 +24,6 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 import org.entredeux.app.R
 import org.entredeux.app.data.apps.InstalledAppsRepository
-import org.entredeux.app.data.local.BudgetNotificationScheduler
 import org.entredeux.app.data.local.PauseEventRepository
 import org.entredeux.app.data.prefs.AppSelectionRepository
 import org.entredeux.app.data.shortcuts.ShortcutRepository
@@ -53,7 +52,6 @@ fun AppNavHost(
     installedAppsRepository: InstalledAppsRepository,
     appSelectionRepository: AppSelectionRepository,
     pauseEventRepository: PauseEventRepository,
-    budgetScheduler: BudgetNotificationScheduler,
     shortcutRepository: ShortcutRepository,
     appScope: CoroutineScope,
     modifier: Modifier = Modifier,
@@ -166,8 +164,6 @@ fun AppNavHost(
                     factory = PauseViewModel.factory(
                         installedAppsRepository,
                         pauseEventRepository,
-                        budgetScheduler,
-                        appSelectionRepository,
                         appScope,
                         packageName,
                     ),
@@ -193,7 +189,7 @@ fun AppNavHost(
 
             composable("settings") {
                 val vm: SettingsViewModel = viewModel(
-                    factory = SettingsViewModel.factory(appSelectionRepository, pauseEventRepository),
+                    factory = SettingsViewModel.factory(pauseEventRepository),
                 )
                 SettingsScreen(
                     viewModel = vm,

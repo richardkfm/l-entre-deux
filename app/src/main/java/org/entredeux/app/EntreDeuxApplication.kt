@@ -6,8 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.entredeux.app.data.apps.InstalledAppsRepository
 import org.entredeux.app.data.local.AppDatabase
-import org.entredeux.app.data.local.BudgetNotificationScheduler
-import org.entredeux.app.data.local.NotificationHelper
 import org.entredeux.app.data.local.PauseEventRepository
 import org.entredeux.app.data.prefs.AppSelectionRepository
 import org.entredeux.app.data.shortcuts.ShortcutRepository
@@ -24,8 +22,6 @@ class EntreDeuxApplication : Application() {
         private set
     lateinit var pauseEventRepository: PauseEventRepository
         private set
-    lateinit var budgetNotificationScheduler: BudgetNotificationScheduler
-        private set
     lateinit var shortcutRepository: ShortcutRepository
         private set
 
@@ -34,8 +30,6 @@ class EntreDeuxApplication : Application() {
         installedAppsRepository = InstalledAppsRepository(this)
         appSelectionRepository = AppSelectionRepository(this)
         pauseEventRepository = PauseEventRepository(AppDatabase.getInstance(this).pauseEventDao())
-        budgetNotificationScheduler = BudgetNotificationScheduler(this)
         shortcutRepository = ShortcutRepository(this)
-        NotificationHelper.createChannel(this)
     }
 }

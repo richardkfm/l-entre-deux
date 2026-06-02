@@ -11,8 +11,8 @@ for your phone and actually using it. This app lives in that moment.
 Instead of blocking apps, it adds a short, respectful pause that asks you
 to name your intention. Then it gets out of the way.
 
-**Status:** v0.6.0 — Phases 0–6 code work complete. Onboarding, app
-selection, pause flow, intention logging, budget reminders, on-device
+**Status:** v0.7.0 — Phases 0–6 code work complete. Onboarding, app
+selection, a calm one-question pause flow, intention logging, on-device
 reflection, accessibility pass, French localization, adaptive icon, R8,
 F-Droid metadata, and home-screen shortcut pinning all in place.
 F-Droid submission as `1.0.0` is the only remaining item. See [`roadmap.md`](roadmap.md).
@@ -30,9 +30,8 @@ F-Droid submission as `1.0.0` is the only remaining item. See [`roadmap.md`](roa
    pause screen.
 3. You tap an intention: *I need this for one specific task* / *I am
    checking something briefly* / *I opened this automatically.*
-4. Optionally, pick a tiny session budget (3 / 5 / 10 minutes).
-5. You proceed.
-6. Later, a private, on-device reflection screen shows your patterns. No
+4. You proceed.
+5. Later, a private, on-device reflection screen shows your patterns. No
    scores, no streaks.
 
 ## What it is not
@@ -58,8 +57,7 @@ l’entre-deux asks a different question: *why*. The pause has one job — to
 let you **name your intention** before you go in (*I need this for one
 specific task* / *I am checking something briefly* / *I opened this
 automatically*). We never show a time-spent score, never lock you out, and
-never measure you against a goal, a streak, or anyone else. Going over a
-budget is a row in your log, not a failure.
+never measure you against a goal, a streak, or anyone else.
 
 That single shift — from *how long* to *why* — is the whole product.
 Everything else (local-only data, no accounts, F-Droid distribution, an
@@ -72,9 +70,8 @@ your own choices, not a usage statistic to be corrected.
   request the `INTERNET` permission.
 - **No proprietary SDKs.** No Google Play Services, no Firebase, no
   analytics, no crash reporting service.
-- **Minimal permissions.** `POST_NOTIFICATIONS` is the only runtime
-  permission — requested on Android 13+ only when you set a time budget,
-  and fully optional. No special access. See
+- **Minimal permissions.** The app requests no runtime permissions at all
+  and no special access. See
   [`docs/permissions-and-risks.md`](docs/permissions-and-risks.md).
 - **Open source under GPL-3.0**, so you can verify the claims above
   yourself.

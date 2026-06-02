@@ -167,10 +167,10 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.6.0
+**Version:** 0.7.0
 **Phase:** Phase 0–6 (code work shipped; F-Droid submission as `1.0.0`
 is the only remaining item).
-**Last updated:** 2026-05-11.
+**Last updated:** 2026-06-02.
 
 What exists:
 - Full documentation set in `docs/`.
@@ -181,21 +181,20 @@ What exists:
 - App selection screen: lists installed launchable apps, persists
   selection via DataStore.
 - Home screen: grid of selected apps; tapping opens the pause flow.
-- Pause flow: choose intention → optionally choose budget → proceed or
-  back out → target app launches via explicit Intent. Every pause
-  (proceeded or backed out) is logged to Room.
-- Budget reminder: when user sets a time limit, a single local
-  notification fires via `AlarmManager.setAndAllowWhileIdle` after the
-  budget elapses. `POST_NOTIFICATIONS` requested at runtime on API 33+.
-- Settings screen: manage apps, set default time limit, wipe session log.
+- Pause flow: one calm screen — a slow breathing-circle animation, the
+  intention prompt, and proceed / back-out. Choosing an intention is the
+  only question; proceeding launches the target app via explicit Intent.
+  Every pause (proceeded or backed out) is logged to Room. No time-limit
+  question, no notifications.
+- Settings screen: manage apps, wipe session log.
 - Reflection screen: per-app counts, intention mix, time-of-day
-  distribution, budget usage, back-out count. All computed locally from
-  Room. No scores, no streaks. Empty state when no data.
+  distribution, back-out count. All computed locally from Room. No
+  scores, no streaks. Empty state when no data.
 - Bottom navigation bar: Home / Reflection / Settings.
-- Accessibility pass: `heading()` semantics on titles, `Role.RadioButton`
-  on the budget chooser, `Role.Button` on clickable list rows, full-row
-  `toggleable` on the app-selection list, 48dp minimum touch targets,
-  proper content descriptions on icon-only actions.
+- Accessibility pass: `heading()` semantics on titles, `Role.Button` on
+  clickable list rows, full-row `toggleable` on the app-selection list,
+  48dp minimum touch targets, proper content descriptions on icon-only
+  actions (including the per-tile pin button).
 - Localization: English (default) and French (`values-fr/strings.xml`).
   `resourceConfigurations` pins the shipped locale set.
 - Adaptive app icon (vector foreground + background color + monochrome
@@ -203,14 +202,15 @@ What exists:
 - R8 + resource shrinker enabled for `release`; consumer rules from
   Compose / AndroidX / Room are sufficient. `BuildConfig` disabled.
 - F-Droid metadata under `fastlane/metadata/android/{en-US,fr-FR}/`
-  with title, short and full descriptions, and a `changelogs/5.txt`.
-- Home-screen shortcut pinning (Phase 6): long-press any home tile →
-  "Add to home screen" → `ShortcutManager.requestPinShortcut()` pins an
-  icon that looks like the target app but routes every tap through the
-  pause flow. No new permissions. Works on any launcher that supports
-  pinned shortcuts (all major ones do). `MainActivity` is `singleTop` and
-  handles `onNewIntent` so re-tapping a shortcut while the app is already
-  open navigates correctly.
+  with title, short and full descriptions, and per-version changelogs.
+- Home-screen shortcut pinning (Phase 6): every home tile shows a visible
+  pin button (long-press still opens the same action as a fallback) →
+  `ShortcutManager.requestPinShortcut()` pins an icon that looks like the
+  target app but routes every tap through the pause flow. No new
+  permissions. Works on any launcher that supports pinned shortcuts (all
+  major ones do). `MainActivity` is `singleTop` and handles `onNewIntent`
+  so re-tapping a shortcut while the app is already open navigates
+  correctly.
 - Domain models (`Intention`, `SelectedApp`, `PauseEvent`, `PauseOutcome`,
   `ReflectionStats` and helpers), pure use cases (`toggleAppSelection`,
   `getReflectionStats`), repositories (`InstalledAppsRepository`,

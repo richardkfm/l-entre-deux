@@ -183,31 +183,22 @@ it:
 4. Make the capability revocable from inside the app, with the same one-tap
    ease as enabling it.
 
-## Permissions in use (Phase 3)
+## Permissions in use
 
-### `POST_NOTIFICATIONS` (Android 13+ / API 33+)
+**None.** As of 0.7.0 the app requests no runtime permissions and no
+special access. The manifest declares only the `<queries>` visibility entry
+needed to enumerate launchable apps for selection (a declaration, not a
+runtime permission). `INTERNET` is not declared.
 
-**Why:** Posting a local notification requires this runtime permission on
-Android 13 and above. On earlier versions the system grants notification
-access automatically.
+### Removed: `POST_NOTIFICATIONS` (was Phase 3)
 
-**What the app does with it:** Posts a single, one-off notification when
-a user-chosen time budget elapses. The notification reads "Time's up —
-your X-minute limit for [App] has elapsed." No follow-up, no badge.
-
-**What the app never does with it:** Spam, marketing messages, or any
-notification not directly triggered by the user setting a budget.
-
-**When requested:** At runtime, immediately before the pause flow
-completes, only if the user selected a time budget. If the user denies
-the permission, the app proceeds without the reminder. There is no
-persistent nag.
-
-**Off-switch:** The user can revoke this permission in system settings at
-any time. Without it, no reminders fire — the app is otherwise unaffected.
-
-**F-Droid implications:** No Anti-Feature declaration required; this is
-a standard notification that does not track or monetise the user.
+The time-limit/budget feature posted a single local notification when a
+chosen budget elapsed, which required `POST_NOTIFICATIONS` on Android 13+.
+That feature was removed in 0.7.0 along with its alarm receiver and the
+permission. The pause is now a single, calmer "name your intention" step
+with no time limits and no notifications, so the app no longer needs this
+(or any) runtime permission. This is a strict reduction in what the app can
+do and a win for the trust story.
 
 ## Things we will never do
 

@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -126,6 +127,7 @@ private fun AppTile(app: SelectedApp, onClick: () -> Unit, onPinShortcut: () -> 
     var menuExpanded by remember { mutableStateOf(false) }
     val openDesc = stringResource(R.string.home_open_via_pause, app.label)
     val longPressLabel = stringResource(R.string.home_tile_options, app.label)
+    val pinDesc = stringResource(R.string.home_pin_shortcut_cd, app.label)
 
     Box {
         Surface(
@@ -144,15 +146,31 @@ private fun AppTile(app: SelectedApp, onClick: () -> Unit, onPinShortcut: () -> 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(8.dp),
+                modifier = Modifier.padding(top = 40.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
             ) {
                 Text(
                     text = app.label,
                     style = MaterialTheme.typography.labelMedium,
                     textAlign = TextAlign.Center,
-                    maxLines = 3,
+                    maxLines = 2,
                 )
             }
+        }
+        // The pin action is the app's killer feature, so it sits visibly on
+        // every tile rather than hiding behind the long-press menu (kept below
+        // as a secondary affordance).
+        IconButton(
+            onClick = onPinShortcut,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .semantics { contentDescription = pinDesc },
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_pin),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(20.dp),
+            )
         }
         DropdownMenu(
             expanded = menuExpanded,

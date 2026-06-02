@@ -10,11 +10,12 @@ toujours continuer.
 Fonctionnalités
 
 * Choisissez les applications qui vous happent.
-* Touchez l’une d’elles via l’entre-deux pour voir une courte pause.
+* Touchez l’une d’elles via l’entre-deux pour voir une courte pause
+  avec une lente animation de respiration.
 * Choisissez une intention : tâche précise, vérification rapide, ou
-  pilote automatique.
-* Définissez éventuellement une limite de session (3 / 5 / 10 minutes)
-  et recevez un seul rappel posé lorsqu’elle est écoulée.
+  pilote automatique. C’est la seule question — puis vous continuez.
+* Épinglez une application à votre véritable écran d’accueil, pour que
+  chaque appui passe par la pause.
 * Un écran de réflexion privé, calculé localement, montre vos
   habitudes. Pas de score, pas de série, pas de comparaison.
 * Interface en français et en anglais.
@@ -25,9 +26,8 @@ Vie privée et confiance
   télémétrie. L’application ne demande pas l’autorisation INTERNET.
 * Aucun SDK propriétaire. Pas de Google Play Services, pas de
   Firebase, pas d’analytique, pas de rapports de plantage.
-* Permissions minimales. POST_NOTIFICATIONS est la seule autorisation
-  d’exécution, demandée sous Android 13+ uniquement si vous fixez une
-  limite de temps, et entièrement facultative. Aucun accès spécial.
+* Permissions minimales. L’application ne demande aucune autorisation
+  d’exécution et aucun accès spécial.
 * Code ouvert sous licence GPL-3.0.
 
 Ce que l’application n’est pas

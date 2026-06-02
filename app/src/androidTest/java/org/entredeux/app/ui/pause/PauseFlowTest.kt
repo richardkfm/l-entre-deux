@@ -12,9 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.entredeux.app.data.apps.InstalledAppsRepository
 import org.entredeux.app.data.local.AppDatabase
-import org.entredeux.app.data.local.BudgetNotificationScheduler
 import org.entredeux.app.data.local.PauseEventRepository
-import org.entredeux.app.data.prefs.AppSelectionRepository
 import org.entredeux.app.ui.theme.EntreDeuxTheme
 import org.junit.After
 import org.junit.Before
@@ -28,8 +26,6 @@ class PauseFlowTest {
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
     private val installedAppsRepository = InstalledAppsRepository(context)
-    private val appSelectionRepository = AppSelectionRepository(context)
-    private val budgetScheduler = BudgetNotificationScheduler(context)
     private val testScope = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
 
     private val testPackage = context.packageName
@@ -39,6 +35,9 @@ class PauseFlowTest {
 
     @Before
     fun setUp() {
+        // The pause screen runs an infinite breathing animation; let the test
+        // drive the clock so waitForIdle never blocks waiting for it to finish.
+        composeRule.mainClock.autoAdvance = false
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .allowMainThreadQueries()
             .build()
@@ -53,8 +52,6 @@ class PauseFlowTest {
     private fun newViewModel() = PauseViewModel(
         installedAppsRepository = installedAppsRepository,
         pauseEventRepository = pauseEventRepository,
-        budgetScheduler = budgetScheduler,
-        appSelectionRepository = appSelectionRepository,
         appScope = testScope,
         packageName = testPackage,
     )

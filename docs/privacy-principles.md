@@ -17,9 +17,9 @@ Record the smallest amount of information that delivers the feature.
 
 What we record:
 - Which apps the user has selected to route through the pause.
-- For each pause: timestamp, target package name, chosen intention, optional
-  budget minutes, whether the user proceeded.
-- Settings (default budget, onboarding status, theme override).
+- For each pause: timestamp, target package name, chosen intention, whether
+  the user proceeded.
+- Settings (onboarding status, app selection).
 
 What we never record:
 - Content of any other app.
@@ -46,7 +46,7 @@ Any future capability that requires a sensitive permission must:
 
 - No streaks, points, badges, leaderboards, daily-goal nags.
 - No "you’re doing worse than X% of users" comparisons.
-- No notifications other than (optionally) a single soft budget reminder.
+- No notifications at all.
 - No urgency, scarcity, or guilt language.
 - No upsells, paid tiers, or "pro" features.
 
@@ -77,7 +77,7 @@ the user check it by:
 - Uninstalling the app removes all data. There is no off-device residue
   because there is no off-device storage.
 
-## 8. What Phase 3 records
+## 8. What the pause log records
 
 Every time the pause flow completes (whether the user proceeds or backs
 out), one row is written to the on-device Room database:
@@ -88,7 +88,6 @@ out), one row is written to the on-device Room database:
 | `timestamp` | epoch milliseconds (local clock) |
 | `packageName` | the app the user was about to open |
 | `intentionKey` | stable string for the chosen intention |
-| `budgetMinutes` | integer or null |
 | `outcome` | `PROCEEDED` or `BACKED_OUT` |
 
 Nothing else is recorded. The content of the target app, notifications,

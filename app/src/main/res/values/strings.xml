@@ -36,16 +36,10 @@
     <string name="pause_intention_specific_task">I need this for one specific task</string>
     <string name="pause_intention_brief_check">I am checking something briefly</string>
     <string name="pause_intention_autopilot">I opened this automatically</string>
-    <string name="pause_budget_label">Set a time limit? (optional)</string>
-    <string name="pause_budget_3min">3 minutes</string>
-    <string name="pause_budget_5min">5 minutes</string>
-    <string name="pause_budget_10min">10 minutes</string>
-    <string name="pause_budget_none">No limit</string>
     <string name="pause_proceed">Open the app</string>
     <string name="pause_back_out">Not now</string>
     <string name="pause_app_not_found">App not found.</string>
     <string name="pause_intention_selected">Intention: %s</string>
-    <string name="pause_budget_selected">Time limit: %s</string>
 
     <!-- Reflection -->
     <string name="reflection_title">Reflection</string>
@@ -54,9 +48,6 @@
     <string name="reflection_section_apps">By app</string>
     <string name="reflection_section_intentions">Intentions</string>
     <string name="reflection_section_time_of_day">Time of day</string>
-    <string name="reflection_section_budget">Time limits</string>
-    <string name="reflection_budget_set">With a time limit</string>
-    <string name="reflection_budget_none">No time limit</string>
     <string name="reflection_time_morning">Morning (6–11 am)</string>
     <string name="reflection_time_afternoon">Afternoon (noon–5 pm)</string>
     <string name="reflection_time_evening">Evening (6–10 pm)</string>
@@ -65,8 +56,6 @@
     <!-- Settings -->
     <string name="settings_title">Settings</string>
     <string name="settings_manage_apps">Manage apps</string>
-    <string name="settings_default_budget">Default time limit</string>
-    <string name="settings_default_budget_none">None</string>
     <string name="settings_wipe_data">Wipe session log</string>
     <string name="settings_wipe_data_desc">Permanently deletes your recorded pauses. Your app selection is kept.</string>
     <string name="settings_wipe_confirm_title">Wipe session log?</string>
@@ -75,14 +64,9 @@
     <string name="settings_wipe_confirm_no">Cancel</string>
     <string name="settings_wipe_done">Session log cleared.</string>
 
-    <!-- Notification -->
-    <string name="notification_channel_name">Budget reminder</string>
-    <string name="notification_channel_desc">A single reminder when your chosen time limit elapses.</string>
-    <string name="notification_budget_title">Time\'s up</string>
-    <string name="notification_budget_body">Your %1$d-minute limit for %2$s has elapsed.</string>
-
     <!-- Home screen shortcuts (Phase 6) -->
     <string name="home_pin_shortcut">Add to home screen</string>
+    <string name="home_pin_shortcut_cd">Pin %s to your home screen</string>
     <string name="home_tile_options">Options for %s</string>
     <string name="home_shortcut_success">Shortcut requested — check your home screen</string>
     <string name="home_shortcut_unsupported">Your launcher doesn\'t support pinned shortcuts</string>

@@ -36,16 +36,10 @@
     <string name="pause_intention_specific_task">J\'en ai besoin pour une tâche précise</string>
     <string name="pause_intention_brief_check">Je vérifie quelque chose rapidement</string>
     <string name="pause_intention_autopilot">Je l\'ai ouverte automatiquement</string>
-    <string name="pause_budget_label">Définir une limite de temps ? (facultatif)</string>
-    <string name="pause_budget_3min">3 minutes</string>
-    <string name="pause_budget_5min">5 minutes</string>
-    <string name="pause_budget_10min">10 minutes</string>
-    <string name="pause_budget_none">Sans limite</string>
     <string name="pause_proceed">Ouvrir l\'application</string>
     <string name="pause_back_out">Pas maintenant</string>
     <string name="pause_app_not_found">Application introuvable.</string>
     <string name="pause_intention_selected">Intention : %s</string>
-    <string name="pause_budget_selected">Limite de temps : %s</string>
 
     <!-- Reflection -->
     <string name="reflection_title">Réflexion</string>
@@ -54,9 +48,6 @@
     <string name="reflection_section_apps">Par application</string>
     <string name="reflection_section_intentions">Intentions</string>
     <string name="reflection_section_time_of_day">Moment de la journée</string>
-    <string name="reflection_section_budget">Limites de temps</string>
-    <string name="reflection_budget_set">Avec une limite de temps</string>
-    <string name="reflection_budget_none">Sans limite de temps</string>
     <string name="reflection_time_morning">Matin (6 h–11 h)</string>
     <string name="reflection_time_afternoon">Après-midi (12 h–17 h)</string>
     <string name="reflection_time_evening">Soir (18 h–22 h)</string>
@@ -65,8 +56,6 @@
     <!-- Settings -->
     <string name="settings_title">Réglages</string>
     <string name="settings_manage_apps">Gérer les applications</string>
-    <string name="settings_default_budget">Limite de temps par défaut</string>
-    <string name="settings_default_budget_none">Aucune</string>
     <string name="settings_wipe_data">Effacer le journal des sessions</string>
     <string name="settings_wipe_data_desc">Supprime définitivement vos pauses enregistrées. Votre sélection d\'applications est conservée.</string>
     <string name="settings_wipe_confirm_title">Effacer le journal des sessions ?</string>
@@ -75,14 +64,9 @@
     <string name="settings_wipe_confirm_no">Annuler</string>
     <string name="settings_wipe_done">Journal des sessions effacé.</string>
 
-    <!-- Notification -->
-    <string name="notification_channel_name">Rappel de limite</string>
-    <string name="notification_channel_desc">Un seul rappel lorsque la limite de temps choisie est écoulée.</string>
-    <string name="notification_budget_title">Temps écoulé</string>
-    <string name="notification_budget_body">Votre limite de %1$d minutes pour %2$s est écoulée.</string>
-
     <!-- Home screen shortcuts (Phase 6) -->
     <string name="home_pin_shortcut">Ajouter à l\'écran d\'accueil</string>
+    <string name="home_pin_shortcut_cd">Épingler %s à votre écran d\'accueil</string>
     <string name="home_tile_options">Options pour %s</string>
     <string name="home_shortcut_success">Raccourci demandé — vérifiez votre écran d\'accueil</string>
     <string name="home_shortcut_unsupported">Votre lanceur ne prend pas en charge les raccourcis épinglés</string>
