@@ -41,7 +41,7 @@
     <string name="pause_intention_autopilot">Je l\'ai ouverte automatiquement</string>
     <string name="pause_intention_autopilot_hint">Mon pouce est venu tout seul</string>
     <string name="pause_proceed">Ouvrir %s</string>
-    <string name="pause_back_out">Pas maintenant</string>
+    <string name="pause_back_out">Je le laisse pour l\'instant</string>
     <string name="pause_app_not_found">Application introuvable.</string>
 
     <!-- Reflection -->

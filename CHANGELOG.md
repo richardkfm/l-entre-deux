@@ -9,6 +9,26 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.8.1] — 2026-06-02
+
+Pause-screen refinements.
+
+### Changed
+- **Intention cards are now borderless**, in line with Material's filled
+  style: selection is shown by the container colour and the selection dot,
+  not an outline.
+- **The back-out action is clearer and more prominent.** "Not now" (easily
+  misread as "don't ask me now") becomes "I'll leave it for now" — a full
+  width tonal button that's always present. Tapping it now sends the app to
+  the background so the user lands back on their home screen, rather than
+  dropping them onto l'entre-deux's own grid.
+
+### Notes
+- The app still requests no special permissions. Actually powering the
+  screen off would require device-admin access, which we deliberately don't
+  use (see `docs/permissions-and-risks.md`); `moveTaskToBack` is the
+  least-invasive equivalent.
+
 ## [0.8.0] — 2026-06-02
 
 Design polish: a richer pause, a more expressive breathing animation, and a

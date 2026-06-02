@@ -94,7 +94,7 @@ class PauseFlowTest {
             }
         }
 
-        composeRule.onNodeWithText("Not now").performClick()
+        composeRule.onNodeWithText("I'll leave it for now").performClick()
 
         assert(backedOut) { "onBackOut was not called" }
     }
