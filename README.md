@@ -44,6 +44,28 @@ F-Droid submission as `1.0.0` is the only remaining item. See [`roadmap.md`](roa
 - Not a streak / badge / points wellness app.
 - Not commercial. No ads, no upsells, no accounts.
 
+## How this differs from Google’s Pause Point
+
+Android 17 ships *Pause Point* as part of Google’s Digital Wellbeing. It,
+too, puts a moment of friction in front of a distracting app, so the
+overlap is real. The difference is what that moment asks of you.
+
+Google’s wellbeing tools are built to **measure and limit**: screen-time
+dashboards, app timers that grey an app out, scheduled focus modes. They
+answer the question *how long*.
+
+l’entre-deux asks a different question: *why*. The pause has one job — to
+let you **name your intention** before you go in (*I need this for one
+specific task* / *I am checking something briefly* / *I opened this
+automatically*). We never show a time-spent score, never lock you out, and
+never measure you against a goal, a streak, or anyone else. Going over a
+budget is a row in your log, not a failure.
+
+That single shift — from *how long* to *why* — is the whole product.
+Everything else (local-only data, no accounts, F-Droid distribution, an
+always-visible way to proceed) follows from treating you as an adult making
+your own choices, not a usage statistic to be corrected.
+
 ## Privacy and trust
 
 - **Local-only.** No accounts, no sync, no telemetry. The app does not
