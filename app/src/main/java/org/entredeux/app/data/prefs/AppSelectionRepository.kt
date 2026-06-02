@@ -16,6 +16,7 @@ class AppSelectionRepository(private val context: Context) {
 
     private val selectedPackagesKey = stringSetPreferencesKey("selected_packages")
     private val onboardingDoneKey = booleanPreferencesKey("onboarding_done")
+    private val homeCoachDoneKey = booleanPreferencesKey("home_coach_done")
 
     val selectedPackageNames: Flow<Set<String>> = context.dataStore.data
         .map { it[selectedPackagesKey] ?: emptySet() }
@@ -23,11 +24,18 @@ class AppSelectionRepository(private val context: Context) {
     val onboardingCompleted: Flow<Boolean> = context.dataStore.data
         .map { it[onboardingDoneKey] ?: false }
 
+    val homeCoachCompleted: Flow<Boolean> = context.dataStore.data
+        .map { it[homeCoachDoneKey] ?: false }
+
     suspend fun setSelectedPackages(packages: Set<String>) {
         context.dataStore.edit { it[selectedPackagesKey] = packages }
     }
 
     suspend fun setOnboardingCompleted() {
         context.dataStore.edit { it[onboardingDoneKey] = true }
+    }
+
+    suspend fun setHomeCoachCompleted() {
+        context.dataStore.edit { it[homeCoachDoneKey] = true }
     }
 }

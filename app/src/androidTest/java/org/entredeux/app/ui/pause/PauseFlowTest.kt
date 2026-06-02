@@ -1,7 +1,7 @@
 package org.entredeux.app.ui.pause
 
-import androidx.compose.ui.test.assertIsEnabled
-import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertDoesNotExist
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -57,7 +57,7 @@ class PauseFlowTest {
     )
 
     @Test
-    fun proceedButton_disabledUntilIntentionSelected() {
+    fun proceedButton_appearsAfterIntentionSelected() {
         val viewModel = newViewModel()
 
         composeRule.setContent {
@@ -70,11 +70,13 @@ class PauseFlowTest {
             }
         }
 
-        composeRule.onNodeWithText("Open the app").assertIsNotEnabled()
+        composeRule.onNodeWithText("Open", substring = true).assertDoesNotExist()
 
         composeRule.onNodeWithText("I need this for one specific task").performClick()
+        // Settle the enter animation under the manually driven clock.
+        composeRule.mainClock.advanceTimeBy(2_000)
 
-        composeRule.onNodeWithText("Open the app").assertIsEnabled()
+        composeRule.onNodeWithText("Open", substring = true).assertIsDisplayed()
     }
 
     @Test
@@ -113,7 +115,8 @@ class PauseFlowTest {
         }
 
         composeRule.onNodeWithText("I am checking something briefly").performClick()
-        composeRule.onNodeWithText("Open the app").performClick()
+        composeRule.mainClock.advanceTimeBy(2_000)
+        composeRule.onNodeWithText("Open", substring = true).performClick()
 
         assert(proceeded) { "onProceed was not called" }
     }

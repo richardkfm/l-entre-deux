@@ -167,8 +167,8 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.7.0
-**Phase:** Phase 0–6 (code work shipped; F-Droid submission as `1.0.0`
+**Version:** 0.8.0
+**Phase:** Phase 0–7 (code work shipped; F-Droid submission as `1.0.0`
 is the only remaining item).
 **Last updated:** 2026-06-02.
 
@@ -180,10 +180,16 @@ What exists:
 - Onboarding (3 screens, shown once).
 - App selection screen: lists installed launchable apps, persists
   selection via DataStore.
-- Home screen: grid of selected apps; tapping opens the pause flow.
-- Pause flow: one calm screen — a slow breathing-circle animation, the
-  intention prompt, and proceed / back-out. Choosing an intention is the
-  only question; proceeding launches the target app via explicit Intent.
+- Home screen: grid of selected apps; tapping opens the pause flow. A
+  one-time guided coach (`CoachStep`) walks new users through ① adding an
+  app and ② pinning it to the home screen, with a pulsing highlight on the
+  relevant control and a dismissible bottom card. Tracked by the
+  `home_coach_done` preference.
+- Pause flow: one calm screen — a layered breathing aura (radial glow +
+  ripple rings + gradient core on a Canvas), a kicker label, the heading,
+  and the intention prompt shown as animated selectable cards (each with a
+  one-line hint). Choosing an intention is the only question; the Open
+  button animates in and launches the target app via explicit Intent.
   Every pause (proceeded or backed out) is logged to Room. No time-limit
   question, no notifications.
 - Settings screen: manage apps, wipe session log.
