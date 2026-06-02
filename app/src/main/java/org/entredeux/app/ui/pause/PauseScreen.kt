@@ -13,7 +13,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,12 +30,11 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -175,19 +173,25 @@ fun PauseScreen(
                 }
             }
 
-            TextButton(
+            Spacer(Modifier.height(12.dp))
+
+            // Stepping away is the gentle, affirming choice, so it's always a
+            // substantial button — not a faint link — and tapping it takes the
+            // user out of the app entirely (back to their home screen).
+            FilledTonalButton(
                 onClick = {
                     viewModel.onBackOut()
                     onBackOut()
                 },
-                colors = ButtonDefaults.textButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                ),
+                shape = RoundedCornerShape(28.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp),
+                    .height(56.dp),
             ) {
-                Text(stringResource(R.string.pause_back_out))
+                Text(
+                    stringResource(R.string.pause_back_out),
+                    style = MaterialTheme.typography.titleMedium,
+                )
             }
         }
     }
@@ -202,15 +206,9 @@ private fun IntentionCard(
 ) {
     val container by animateColorAsState(
         if (selected) MaterialTheme.colorScheme.primaryContainer
-        else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        else MaterialTheme.colorScheme.surfaceVariant,
         label = "container",
     )
-    val borderColor by animateColorAsState(
-        if (selected) MaterialTheme.colorScheme.primary
-        else MaterialTheme.colorScheme.outlineVariant,
-        label = "border",
-    )
-    val borderWidth by animateDpAsState(if (selected) 2.dp else 1.dp, label = "borderWidth")
     val titleColor =
         if (selected) MaterialTheme.colorScheme.onPrimaryContainer
         else MaterialTheme.colorScheme.onSurface
@@ -218,7 +216,6 @@ private fun IntentionCard(
     Surface(
         color = container,
         shape = RoundedCornerShape(20.dp),
-        border = BorderStroke(borderWidth, borderColor),
         modifier = Modifier
             .fillMaxWidth()
             .selectable(selected = selected, role = Role.RadioButton, onClick = onClick),

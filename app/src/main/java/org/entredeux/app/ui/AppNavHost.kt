@@ -1,5 +1,8 @@
 package org.entredeux.app.ui
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -41,6 +44,12 @@ import org.entredeux.app.ui.settings.SettingsScreen
 import org.entredeux.app.ui.settings.SettingsViewModel
 
 data class ShortcutRequest(val packageName: String, val id: Long = System.currentTimeMillis())
+
+private tailrec fun Context.findActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.findActivity()
+    else -> null
+}
 
 private val topLevelRoutes = setOf("home", "reflection", "settings")
 
@@ -176,7 +185,14 @@ fun AppNavHost(
                         intent?.let { context.startActivity(it) }
                         navController.popBackStack()
                     },
-                    onBackOut = { navController.popBackStack() },
+                    onBackOut = {
+                        // Backing out means "I don't need this app right now."
+                        // Reset our own state to Home, then drop the whole task
+                        // to the background so the user lands back on their
+                        // launcher — out of the way, as if they never opened it.
+                        navController.popBackStack()
+                        context.findActivity()?.moveTaskToBack(true)
+                    },
                 )
             }
 

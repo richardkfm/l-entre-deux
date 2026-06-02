@@ -1,0 +1,5 @@
+Pause-screen polish.
+
+The intention options are now clean, borderless Material cards. And the "leave it" choice is clearer and more prominent: instead of a confusing "Not now", a full-width button reading "I'll leave it for now" that takes you straight back to your home screen.
+
+No new permissions.

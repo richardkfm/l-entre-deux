@@ -1,0 +1,5 @@
+Améliorations de l'écran de pause.
+
+Les options d'intention sont désormais des cartes Material épurées, sans bordure. Et le choix « laisser tomber » est plus clair et plus visible : au lieu d'un « Pas maintenant » ambigu, un bouton pleine largeur « Je le laisse pour l'instant » qui vous ramène directement à votre écran d'accueil.
+
+Aucune nouvelle permission.
