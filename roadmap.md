@@ -40,7 +40,8 @@ Status legend: `[x]` done · `[~]` in progress · `[ ]` not started.
       richer data is needed).
 - [x] Launcher grid screen on Home showing selected apps as tiles.
 - [x] Pause flow screen: choose intention, optionally choose budget,
-      proceed or back out.
+      proceed or back out. *(The budget question was later removed in the
+      0.7.0 design pass — see Phase 7. The pause now asks intention only.)*
 - [x] Launch the target app via `Intent` after the pause completes.
 - [x] Onboarding: 2–4 screens explaining what the app does.
 - [x] One Compose UI test for the pause-flow happy path.
@@ -52,22 +53,27 @@ through l’entre-deux with a calm pause in the middle.
 ## Phase 3 — Intention logging and micro-session budgeting
 **Target version:** 0.3.0.
 
+> **Superseded in 0.7.0:** the micro-session budgeting half of this phase
+> (time limits, the budget reminder notification, and the `POST_NOTIFICATIONS`
+> permission) was removed in the Phase 7 design pass. Intention logging
+> stays. See Phase 7.
+
 - [x] Room schema for `PauseEvent` (id, ts, package, intention, budget,
-      outcome).
+      outcome). *(The `budget` column was dropped in 0.7.0 via a migration.)*
 - [x] DAO and repository; unit tests for queries.
 - [x] Pause flow records each event locally.
-- [x] Optional budget reminder via a one-shot local notification when the
-      chosen budget elapses. Single channel, no badges, no follow-ups.
-- [x] Settings: default budget, wipe local data.
+- [x] ~~Optional budget reminder via a one-shot local notification.~~
+      *Removed in 0.7.0.*
+- [x] Settings: ~~default budget,~~ wipe local data.
 
-Definition of done: pause events are persisted privately; setting a
-budget produces a single calm reminder.
+Definition of done: pause events are persisted privately.
 
 ## Phase 4 — Local reflection and weekly insights
 **Target version:** 0.4.0.
 
 - [x] Reflection screen: per-app counts, intention mix, time-of-day
-      heatmap, budget-set vs not, back-out rate.
+      heatmap, ~~budget-set vs not,~~ back-out rate. *(Budget section
+      removed in 0.7.0.)*
 - [x] All summaries computed locally from Room. No streaks, no scores.
 - [x] Empty state copy that matches `docs/ui-principles.md`.
 
@@ -106,6 +112,30 @@ patterns about themselves.
 Definition of done: a user can long-press an app tile, pin the shortcut
 to their home screen, then tap that shortcut and land on the pause flow
 for that app — no new permissions, no launcher replacement.
+
+## Phase 7 — Design pass: calmer pause, discoverable pinning
+**Target version:** 0.7.0.
+
+A focused design pass after dogfooding revealed two problems: the pause
+screen asked too much, and the home-screen pinning — the product's core
+mechanic — was hidden behind a long-press.
+
+- [x] Pause screen reduced to one question (intention) plus a slow
+      breathing-circle animation; proceed / back-out unchanged.
+- [x] Time limits / micro-session budgeting removed end to end (UI, the
+      budget reminder, the alarm receiver, the default-budget setting, the
+      Reflection time-limits section, and the `budgetMinutes` column via a
+      Room v1→v2 migration that preserves existing history).
+- [x] `POST_NOTIFICATIONS` and the budget-alarm receiver dropped from the
+      manifest. The app now requests zero runtime permissions.
+- [x] Visible "pin to home screen" button on every Home tile (local vector
+      drawable, no new icon dependency); long-press menu kept as a fallback.
+- [x] English and French strings updated; privacy and permissions docs
+      updated to reflect the reduced footprint.
+
+Definition of done: the pause is a single calm step, and a first-time user
+can see how to pin an app to their real home screen without discovering a
+hidden gesture.
 
 ## Phase X — Optional advanced or sensitive capabilities
 **Default: not pursued. Every item here requires a public decision first.**
@@ -148,6 +178,7 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 0–5 code work shipped at `0.5.0`. The only remaining Phase 5
-item is the actual F-Droid submission, which will be cut as `1.0.0`
-once the app is exercised on real devices.
+Phase 0–7 code work shipped, most recently the `0.7.0` design pass
+(calmer one-question pause, visible home-screen pinning, time limits
+removed). The only remaining item is the actual F-Droid submission,
+which will be cut as `1.0.0` once the app is exercised on real devices.

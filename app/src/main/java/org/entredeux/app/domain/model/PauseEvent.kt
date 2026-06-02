@@ -5,6 +5,5 @@ data class PauseEvent(
     val timestamp: Long,
     val packageName: String,
     val intentionKey: String,
-    val budgetMinutes: Int?,
     val outcome: PauseOutcome,
 )

@@ -65,14 +65,12 @@ class PauseEventRepositoryTest {
             timestamp = 42_000L,
             packageName = "com.example.app",
             intentionKey = "brief_check",
-            budgetMinutes = 5,
             outcome = PauseOutcome.PROCEEDED,
         )
         repo.record(event)
         val stored = repo.recentEvents().first().single()
         assertEquals(event.packageName, stored.packageName)
         assertEquals(event.intentionKey, stored.intentionKey)
-        assertEquals(event.budgetMinutes, stored.budgetMinutes)
         assertEquals(event.outcome, stored.outcome)
     }
 
@@ -83,7 +81,6 @@ class PauseEventRepositoryTest {
         timestamp = timestamp,
         packageName = "com.example.test",
         intentionKey = "specific_task",
-        budgetMinutes = null,
         outcome = outcome,
     )
 }

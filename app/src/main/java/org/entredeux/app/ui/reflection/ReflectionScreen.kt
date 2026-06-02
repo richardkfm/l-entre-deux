@@ -118,21 +118,6 @@ private fun ReflectionContent(
         items(stats.timeOfDay, key = { "tod_${it.period.name}" }) { todCount ->
             TimeOfDayRow(todCount)
         }
-
-        item(key = "budget_divider") { HorizontalDivider() }
-        item(key = "budget_header") { SectionHeader(stringResource(R.string.reflection_section_budget)) }
-        item(key = "budget_set") {
-            ListItem(
-                headlineContent = { Text(stringResource(R.string.reflection_budget_set)) },
-                trailingContent = { Text("${stats.withBudgetCount}") },
-            )
-        }
-        item(key = "budget_none") {
-            ListItem(
-                headlineContent = { Text(stringResource(R.string.reflection_budget_none)) },
-                trailingContent = { Text("${stats.totalPauses - stats.withBudgetCount}") },
-            )
-        }
     }
 }
 

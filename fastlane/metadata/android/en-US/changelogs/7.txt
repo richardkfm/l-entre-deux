@@ -1,0 +1,7 @@
+A calmer pause and a clearer killer feature.
+
+The pause screen now asks one thing — your intention — with a slow breathing animation to settle into the moment. The per-pause time-limit question is gone.
+
+Every app tile on the Home screen now shows a visible "pin to home screen" button, so it's obvious you can pin an app and have every tap route through the pause.
+
+Time limits and their reminder notification were removed, and with them the notification permission. The app now requests no runtime permissions at all.

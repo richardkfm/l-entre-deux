@@ -1,0 +1,7 @@
+Une pause plus apaisante et une fonction clé plus visible.
+
+L'écran de pause ne demande désormais qu'une chose — votre intention — avec une lente animation de respiration pour s'installer dans l'instant. La question de la limite de temps a disparu.
+
+Chaque tuile d'application de l'écran d'accueil affiche maintenant un bouton « épingler à l'écran d'accueil » bien visible : on voit tout de suite qu'on peut épingler une application et faire passer chaque appui par la pause.
+
+Les limites de temps et leur notification de rappel ont été retirées, ainsi que la permission de notification. L'application ne demande désormais aucune permission.

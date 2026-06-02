@@ -11,7 +11,6 @@ data class PauseEventEntity(
     val timestamp: Long,
     val packageName: String,
     val intentionKey: String,
-    val budgetMinutes: Int?,
     val outcome: String,
 ) {
     fun toDomain() = PauseEvent(
@@ -19,7 +18,6 @@ data class PauseEventEntity(
         timestamp = timestamp,
         packageName = packageName,
         intentionKey = intentionKey,
-        budgetMinutes = budgetMinutes,
         outcome = PauseOutcome.valueOf(outcome),
     )
 }
@@ -29,6 +27,5 @@ fun PauseEvent.toEntity() = PauseEventEntity(
     timestamp = timestamp,
     packageName = packageName,
     intentionKey = intentionKey,
-    budgetMinutes = budgetMinutes,
     outcome = outcome.name,
 )

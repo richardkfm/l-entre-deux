@@ -10,15 +10,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--
-      POST_NOTIFICATIONS: required on Android 13+ (API 33+) to show the
-      optional budget-reminder notification. Requested at runtime only when
-      the user selects a time budget in the pause flow. The app functions
-      fully without this permission — the reminder is soft and optional.
-      See docs/permissions-and-risks.md.
-    -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
-    <!--
       Declare visibility into apps that have a launcher intent so
       PackageManager.queryIntentActivities can enumerate them.
       QUERY_ALL_PACKAGES is deliberately not used.
@@ -61,11 +52,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <!-- Receives the one-shot budget alarm and posts the reminder notification. -->
-        <receiver
-            android:name=".data.local.BudgetAlarmReceiver"
-            android:exported="false" />
 
     </application>
 

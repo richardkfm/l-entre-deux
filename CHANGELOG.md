@@ -9,6 +9,49 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.7.0] — 2026-06-02
+
+Design pass: a calmer pause and a discoverable killer feature. Removes the
+time-limit/budget feature — and with it the `POST_NOTIFICATIONS` permission.
+
+### Added
+- **Visible "pin to home screen" button on every Home tile.** Pinning an app
+  through the pause is the core of the product, so it no longer hides behind a
+  long-press. Each tile now shows a pin icon (a local vector drawable, no new
+  icon dependency) that calls the existing `ShortcutRepository`. The long-press
+  menu is kept as a secondary affordance.
+- **Breathing animation on the pause screen.** A slow expand/contract circle
+  (`rememberInfiniteTransition`, ~4s reverse loop) gives the moment a calming
+  focal point. Purely decorative — the screen works the same with motion
+  reduced or ignored.
+
+### Changed
+- **The pause screen now asks one question, not two.** It shows the breathing
+  circle, the intention prompt, the three intention choices, and Open / Not
+  now. The per-pause time-limit chooser is gone.
+- `PauseScreen` / `PauseViewModel` no longer depend on the budget scheduler,
+  the default-budget preference, or the notification permission launcher.
+- Home tiles cap the label at two lines to make room for the pin button.
+
+### Removed
+- **Time limits / micro-session budgeting, end to end.** Deleted
+  `BudgetNotificationScheduler`, `BudgetAlarmReceiver`, and `NotificationHelper`;
+  removed the "Default time limit" setting, the Reflection "Time limits"
+  section, the `default_budget_minutes` preference, and the `budgetMinutes`
+  column from the `PauseEvent` log.
+- **`POST_NOTIFICATIONS` permission** and the budget-alarm `<receiver>` are no
+  longer declared. The app now requests no runtime permissions at all. See the
+  updated `docs/permissions-and-risks.md` and `docs/privacy-principles.md`.
+
+### Migration
+- Room database bumped to version 2 with `MIGRATION_1_2`, which recreates the
+  `pause_events` table without `budgetMinutes`. Existing reflection history is
+  preserved across the upgrade.
+
+### Notes
+- No new dependencies. No analytics. `INTERNET` still not declared, and the
+  manifest now declares zero runtime permissions.
+
 ## [0.6.0] — 2026-05-11
 
 Phase 6: home-screen shortcut pinning.

@@ -52,16 +52,6 @@ class GetReflectionStatsUseCaseTest {
     }
 
     @Test
-    fun budget_counts_are_correct() {
-        val events = listOf(
-            pause(budget = 5),
-            pause(budget = null),
-            pause(budget = 10),
-        )
-        assertEquals(2, getReflectionStats(events)!!.withBudgetCount)
-    }
-
-    @Test
     fun intention_mix_counts_all_entries() {
         val events = listOf(
             pause(intention = Intention.SPECIFIC_TASK),
@@ -95,13 +85,11 @@ class GetReflectionStatsUseCaseTest {
         pkg: String = "com.example",
         outcome: PauseOutcome = PauseOutcome.PROCEEDED,
         intention: Intention = Intention.BRIEF_CHECK,
-        budget: Int? = null,
         ts: Long = System.currentTimeMillis(),
     ) = PauseEvent(
         timestamp = ts,
         packageName = pkg,
         intentionKey = intention.stableKey,
-        budgetMinutes = budget,
         outcome = outcome,
     )
 }

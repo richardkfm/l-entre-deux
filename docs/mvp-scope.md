@@ -24,48 +24,42 @@ local reflection.**
   documented honestly in onboarding.
 
 ### 3. Pause flow (Phase 2)
-- A short, full-screen, calm screen.
+- A short, full-screen, calm screen with a slow breathing-circle animation.
 - One tap to pick an intention from a small fixed set:
   - "I need this for one specific task"
   - "I am checking something briefly"
   - "I opened this automatically"
-- One tap to optionally pick a session budget: 3, 5, or 10 minutes, or
-  "no budget".
 - One tap to proceed; one tap to back out.
 - Total flow targets ≤ 2 taps to proceed.
 
+> The pause originally also asked for an optional session budget. That
+> question, and the micro-session budgeting feature behind it, were removed
+> in the 0.7.0 design pass to keep the moment calm. The pause now asks
+> intention only.
+
 ### 4. Intention logging (Phase 3)
 - Each pause flow records (locally only): timestamp, target package,
-  selected intention, selected budget (if any), and whether the user
-  proceeded or backed out.
+  selected intention, and whether the user proceeded or backed out.
 - No content of any other app is recorded. Ever.
 
-### 5. Micro-session budgeting (Phase 3)
-- After proceeding with a budget, a gentle local notification fires when
-  the budget elapses. The notification is a soft reminder, not an
-  enforcement action. It does not lock anything.
-- Going over budget is recorded as a data point, not a failure.
-
-### 6. Reflection screen (Phase 4)
+### 5. Reflection screen (Phase 4)
 - A read-only local view summarizing the user’s recent pauses:
   - which apps trigger the most autopilot pauses
   - which times of day
-  - how often a budget was set vs not
   - how often the user backed out at the pause
 - No streaks. No scores. No comparative shaming.
 
-### 7. Onboarding (Phase 2 / 4)
+### 6. Onboarding (Phase 2 / 4)
 - 2–4 short screens explaining what the app does, what it does not do,
   and what permissions it asks for.
 - A clear statement that data never leaves the device.
 
-### 8. Settings (Phase 2 onward)
+### 7. Settings (Phase 2 onward)
 - Manage selected apps.
-- Manage default budget.
 - Wipe local data with a single confirmation.
 - Theme follows system.
 
-### 9. Foundations
+### 8. Foundations
 - Kotlin + Jetpack Compose.
 - Room for structured logs.
 - DataStore (Preferences) for settings.
@@ -83,7 +77,9 @@ These are not bad ideas; they are deferred to keep MVP small and trusted.
 - **UsageStats + overlay detection.** Possible Phase 5+, opt-in only.
 - **Always-on foreground service.**
 - **Cloud sync, accounts, sign-in.**
-- **Notifications beyond a single optional budget reminder.**
+- **Notifications.** None — the app posts no notifications.
+- **Time limits / session budgets.** Removed in 0.7.0; the pause asks
+  intention only.
 - **Streaks, points, badges, rewards, leaderboards.**
 - **Social features, sharing, friends.**
 - **Coach, advice, tips, AI suggestions.**
@@ -102,7 +98,7 @@ A user can:
 1. Install the APK from F-Droid (or sideload).
 2. Pick three apps in under a minute.
 3. Open one of them through l’entre-deux, see a calm pause, pick an
-   intention, optionally set a budget, and arrive in the target app.
+   intention, and arrive in the target app.
 4. Open the reflection screen a few days later and see plain-language
    patterns about their own usage.
 5. Read the privacy section in-app and feel confident no data left their

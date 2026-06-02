@@ -41,7 +41,6 @@ fun getReflectionStats(events: List<PauseEvent>): ReflectionStats? {
             TimeOfDayCount(TimeOfDay.EVENING, todCounts[2]),
             TimeOfDayCount(TimeOfDay.NIGHT, todCounts[3]),
         ),
-        withBudgetCount = events.count { it.budgetMinutes != null },
     )
 }
 
