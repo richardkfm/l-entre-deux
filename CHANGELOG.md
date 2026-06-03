@@ -9,6 +9,28 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.9.0] — 2026-06-02
+
+The pause is a little different each time — on purpose, to defeat autopilot.
+
+### Added
+- **Rotating reflective line.** The fixed "A small pause" kicker is replaced
+  by one of several short, calm phrases about time, focus, and the present
+  moment, chosen at random for each pause (`pause_phrases` string-array, en
+  and fr). Kept deliberately gentle — no urgency, scarcity, or guilt, per
+  `docs/ui-principles.md`.
+- **Shuffled layout.** Each pause randomly picks one of three arrangements,
+  moving the breathing aura, the intention cards, and — crucially — the
+  **Open** and **leave** buttons (including their order) to different spots.
+  You can't dismiss the pause from muscle memory; you have to actually look.
+  Both actions stay clearly labelled, so this disrupts autopilot without
+  becoming a dark pattern.
+
+### Notes
+- The chosen phrase and layout are fixed for the duration of a single pause
+  (they survive rotation) and re-roll the next time you open one.
+- No new permissions, no new dependencies.
+
 ## [0.8.1] — 2026-06-02
 
 Pause-screen refinements.
