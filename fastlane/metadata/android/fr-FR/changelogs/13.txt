@@ -1,0 +1,3 @@
+Encore un peu de finition sur l'écran de pause.
+
+Des libellés plus courts et plus légers pour les choix. Un peu plus d'espace au-dessus de l'animation. Et les points sont maintenant plus petits et dérivent plus naturellement — chacun traçant sa propre trajectoire douce et bouclée.

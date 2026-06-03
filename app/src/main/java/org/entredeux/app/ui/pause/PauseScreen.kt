@@ -107,8 +107,9 @@ fun PauseScreen(
                 .padding(horizontal = 24.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(8.dp))
             PhraseLine(phrase)
+            Spacer(Modifier.height(28.dp))
             BreathingAura(
                 Modifier
                     .weight(1f)
@@ -213,11 +214,16 @@ private fun LeaveButton(onClick: () -> Unit) {
 }
 
 private class Dot(
-    val rr: Float,           // base distance from centre, 0..1
-    val theta0: Float,       // base angle
-    val orbitCycles: Float,  // whole epicycle turns per loop → seamless
-    val orbitPhase: Float,
-    val orbitR: Float,       // epicycle radius as a fraction of the field
+    val rr: Float,        // base distance from centre, 0..1
+    val theta0: Float,    // base angle
+    // Two superimposed epicycles (the second counter-rotating) trace an
+    // organic, non-circular path. Whole-number cycles keep the loop seamless.
+    val cyc1: Float,
+    val phase1: Float,
+    val r1: Float,
+    val cyc2: Float,
+    val phase2: Float,
+    val r2: Float,
     val sizeFactor: Float,
 )
 
@@ -225,14 +231,18 @@ private class Dot(
 private fun buildDots(count: Int): List<Dot> {
     val golden = (PI * (3.0 - sqrt(5.0))).toFloat()
     return List(count) { i ->
-        val rnd = ((i * 9301 + 49297) % 233280) / 233280f
+        val rnd1 = ((i * 9301 + 49297) % 233280) / 233280f
+        val rnd2 = ((i * 4801 + 9973) % 134456) / 134456f
         Dot(
             rr = sqrt((i + 0.5f) / count),
             theta0 = i * golden,
-            orbitCycles = (1 + (i % 3)).toFloat(),
-            orbitPhase = rnd,
-            orbitR = 0.02f + rnd * 0.05f,
-            sizeFactor = 0.5f + rnd,
+            cyc1 = (1 + (i % 2)).toFloat(),
+            phase1 = rnd1,
+            r1 = 0.018f + rnd1 * 0.032f,
+            cyc2 = -(2 + (i % 2)).toFloat(),
+            phase2 = rnd2,
+            r2 = 0.010f + rnd2 * 0.022f,
+            sizeFactor = 0.5f + rnd2,
         )
     }
 }
@@ -267,7 +277,7 @@ private fun BreathingAura(modifier: Modifier = Modifier) {
         initialValue = 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 13000, easing = LinearEasing),
+            animation = tween(durationMillis = 17000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart,
         ),
         label = "orbit",
@@ -285,7 +295,7 @@ private fun BreathingAura(modifier: Modifier = Modifier) {
             val field = maxR * 0.9f
             val spinAngle = spin * twoPi
             val breathScale = 0.82f + 0.18f * breath
-            val baseDot = maxR * 0.018f
+            val baseDot = maxR * 0.013f
 
             // Soft central glow for depth, breathing with the field.
             val glowR = maxR * (0.6f + 0.32f * breath)
@@ -302,8 +312,10 @@ private fun BreathingAura(modifier: Modifier = Modifier) {
             dots.forEach { d ->
                 val angle = d.theta0 + spinAngle
                 val baseR = d.rr * field * breathScale
-                val ox = d.orbitR * maxR * cos((orbit * d.orbitCycles + d.orbitPhase) * twoPi)
-                val oy = d.orbitR * maxR * sin((orbit * d.orbitCycles + d.orbitPhase) * twoPi)
+                val e1 = (orbit * d.cyc1 + d.phase1) * twoPi
+                val e2 = (orbit * d.cyc2 + d.phase2) * twoPi
+                val ox = (d.r1 * cos(e1) + d.r2 * cos(e2)) * maxR
+                val oy = (d.r1 * sin(e1) + d.r2 * sin(e2)) * maxR
                 val x = center.x + baseR * cos(angle) + ox
                 val y = center.y + baseR * sin(angle) + oy
 
@@ -312,7 +324,7 @@ private fun BreathingAura(modifier: Modifier = Modifier) {
                 val bright = 0.45f * breath + 0.55f * wave
                 val edgeFade = 1f - d.rr * 0.45f
                 val alpha = ((0.12f + 0.55f * bright) * edgeFade).coerceIn(0f, 1f)
-                val radius = baseDot * (0.6f + d.sizeFactor) * (0.6f + 0.5f * bright)
+                val radius = baseDot * (0.5f + 0.8f * d.sizeFactor) * (0.6f + 0.5f * bright)
                 drawCircle(color = dotColor.copy(alpha = alpha), radius = radius, center = Offset(x, y))
             }
         }

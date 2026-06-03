@@ -167,7 +167,7 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.9.2
+**Version:** 0.9.3
 **Phase:** Phase 0–7 (code work shipped; F-Droid submission as `1.0.0`
 is the only remaining item).
 **Last updated:** 2026-06-03.

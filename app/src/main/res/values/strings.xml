@@ -34,10 +34,10 @@
     <!-- Pause flow -->
     <string name="pause_heading">Before you open %s</string>
     <string name="pause_intention_label">Why are you opening this?</string>
-    <string name="pause_intention_specific_task">I need this for one specific task</string>
-    <string name="pause_intention_brief_check">I am checking something briefly</string>
-    <string name="pause_intention_autopilot">I opened this automatically</string>
-    <string name="pause_back_out">I\'ll leave it for now</string>
+    <string name="pause_intention_specific_task">Need this for one specific task</string>
+    <string name="pause_intention_brief_check">Checking something briefly</string>
+    <string name="pause_intention_autopilot">Opened this automatically</string>
+    <string name="pause_back_out">Leave it for now</string>
     <string name="pause_app_not_found">App not found.</string>
     <!-- A short reflective line shown at random on each pause. Keep them
          calm and non-judgmental — no urgency, scarcity, or guilt. -->
