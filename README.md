@@ -45,6 +45,9 @@ place. F-Droid submission as `1.0.0` is the only remaining item. See
 - Not a streak / badge / points wellness app.
 - Not commercial. No ads, no upsells, no accounts.
 
+  <img width="576" height="1280" alt="grafik" src="https://github.com/user-attachments/assets/541f324c-da52-43eb-afe7-b78d1205d6cc" />
+
+
 ## How this differs from Google’s Pause Point
 
 Android 17 ships *Pause Point* as part of Google’s Digital Wellbeing. It,
