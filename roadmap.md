@@ -137,6 +137,12 @@ mechanic — was hidden behind a long-press.
 - [x] One-time guided start that hand-holds new users through ① add an app
       and ② pin it to the home screen, with a pulsing highlight and a
       dismissible bottom card. (0.8.0)
+- [x] Borderless intention cards; the back-out action reworded to "I'll
+      leave it for now" and made a prominent button that backgrounds the app
+      (returns to the launcher). (0.8.1)
+- [x] Anti-autopilot variation: a random reflective phrase per pause and one
+      of three shuffled layouts that move the aura, cards, and both buttons
+      so the screen can't be dismissed from muscle memory. (0.9.0)
 - [x] English and French strings updated; privacy and permissions docs
       updated to reflect the reduced footprint.
 
@@ -185,9 +191,9 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 0–7 code work shipped, most recently the `0.8.0` polish (layered
-breathing animation, redesigned pause cards, and a one-time guided start)
-on top of the `0.7.0` design pass (one-question pause, visible home-screen
-pinning, time limits removed). The only remaining item is the actual
-F-Droid submission, which will be cut as `1.0.0` once the app is exercised
-on real devices.
+Phase 0–7 code work shipped, most recently the `0.9.0` anti-autopilot
+variation (random reflective phrase + shuffled layouts) and the `0.8.x`
+polish (layered breathing animation, redesigned/ borderless pause cards, a
+clearer "leave" action, and a one-time guided start) on top of the `0.7.0`
+design pass. The only remaining item is the actual F-Droid submission,
+which will be cut as `1.0.0` once the app is exercised on real devices.

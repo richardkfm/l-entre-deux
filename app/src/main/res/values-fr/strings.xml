@@ -31,7 +31,6 @@
     <string name="selection_search_hint">Rechercher</string>
 
     <!-- Pause flow -->
-    <string name="pause_kicker">Une petite pause</string>
     <string name="pause_heading">Avant d\'ouvrir %s</string>
     <string name="pause_intention_label">Pourquoi ouvrez-vous cette application ?</string>
     <string name="pause_intention_specific_task">J\'en ai besoin pour une tâche précise</string>
@@ -43,6 +42,16 @@
     <string name="pause_proceed">Ouvrir %s</string>
     <string name="pause_back_out">Je le laisse pour l\'instant</string>
     <string name="pause_app_not_found">Application introuvable.</string>
+    <!-- Une courte phrase de réflexion affichée au hasard à chaque pause.
+         À garder calme et sans jugement — ni urgence, ni rareté, ni culpabilité. -->
+    <string-array name="pause_phrases">
+        <item>Cet instant est le seul qui soit.</item>
+        <item>L\'attention, c\'est ainsi que passent nos journées.</item>
+        <item>La concentration est une forme tranquille de liberté.</item>
+        <item>Le temps offert avec intention est du temps bien gardé.</item>
+        <item>Il y a de la beauté dans un seul souffle, sans hâte.</item>
+        <item>Là où va votre attention, votre vie suit.</item>
+    </string-array>
 
     <!-- Reflection -->
     <string name="reflection_title">Réflexion</string>

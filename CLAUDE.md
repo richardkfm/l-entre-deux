@@ -167,7 +167,7 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.8.1
+**Version:** 0.9.0
 **Phase:** Phase 0–7 (code work shipped; F-Droid submission as `1.0.0`
 is the only remaining item).
 **Last updated:** 2026-06-02.
@@ -186,14 +186,18 @@ What exists:
   relevant control and a dismissible bottom card. Tracked by the
   `home_coach_done` preference.
 - Pause flow: one calm screen — a layered breathing aura (radial glow +
-  ripple rings + gradient core on a Canvas), a kicker label, the heading,
-  and the intention prompt shown as borderless Material selectable cards
-  (each with a one-line hint). Choosing an intention is the only question;
-  the Open button animates in and launches the target app via explicit
-  Intent. The prominent "I'll leave it for now" button is always present and
-  sends the app to the background (`moveTaskToBack`) so the user returns to
-  their launcher. Every pause (proceeded or backed out) is logged to Room.
-  No time-limit question, no notifications.
+  ripple rings + gradient core on a Canvas), a randomly chosen reflective
+  line (`pause_phrases`), the heading, and the intention prompt shown as
+  borderless Material selectable cards (each with a one-line hint). Choosing
+  an intention is the only question; the Open button animates in and
+  launches the target app via explicit Intent. The prominent "I'll leave it
+  for now" button is always present and sends the app to the background
+  (`moveTaskToBack`) so the user returns to their launcher. To resist
+  autopilot, each pause randomly picks one of three layouts that move the
+  aura, the cards, and the two buttons (incl. their order); both actions
+  stay clearly labelled, so it disrupts blind tapping without being a dark
+  pattern. Every pause (proceeded or backed out) is logged to Room. No
+  time-limit question, no notifications.
 - Settings screen: manage apps, wipe session log.
 - Reflection screen: per-app counts, intention mix, time-of-day
   distribution, back-out count. All computed locally from Room. No
