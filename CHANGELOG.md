@@ -9,6 +9,19 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.9.3] — 2026-06-03
+
+Pause-screen micro-polish.
+
+### Changed
+- **Shorter button copy.** Dropped the repetitive leading "I" from every
+  choice — "I opened this automatically" → "Opened this automatically", and
+  likewise for the others and the get-out button ("Leave it for now").
+- **More breathing room** between the reflective line and the animation.
+- **Calmer dot field.** Smaller dots, and each now follows two superimposed
+  (counter-rotating) epicycles instead of one, so the motion flows more
+  naturally and organically. Still fully seamless.
+
 ## [0.9.2] — 2026-06-03
 
 Pause-screen bug fix and polish.

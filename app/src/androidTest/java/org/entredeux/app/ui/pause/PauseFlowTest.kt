@@ -69,7 +69,7 @@ class PauseFlowTest {
             }
         }
 
-        composeRule.onNodeWithText("I'll leave it for now").performClick()
+        composeRule.onNodeWithText("Leave it for now").performClick()
 
         assert(backedOut) { "onBackOut was not called" }
     }
@@ -90,7 +90,7 @@ class PauseFlowTest {
         }
 
         // Naming an intention is the act of proceeding — one tap opens the app.
-        composeRule.onNodeWithText("I am checking something briefly").performClick()
+        composeRule.onNodeWithText("Checking something briefly").performClick()
 
         assert(proceeded) { "onProceed was not called" }
     }

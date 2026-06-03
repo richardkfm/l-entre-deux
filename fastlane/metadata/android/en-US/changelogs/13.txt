@@ -1,0 +1,3 @@
+A little more polish on the pause screen.
+
+Shorter, lighter wording on the choices (no more repetitive "I"). A bit more space above the breathing animation. And the dots are smaller now and drift more naturally — each tracing its own gentle, looping path.
