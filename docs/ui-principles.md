@@ -34,9 +34,10 @@ Every screen should feel like the app is getting out of the user’s way.
 ## 4. The pause flow is the product
 
 - Reachable in ≤ 2 taps from any path that opens a watched app.
-- Total interaction to proceed: pick an intention (1 tap), confirm (1 tap).
-  Two taps. A slow breathing animation gives the moment room without adding
-  a single thing to read or decide.
+- Total interaction to proceed: tap the intention that fits (1 tap) — naming
+  it is what opens the app; there is no separate confirm button. A slow
+  breathing animation gives the moment room without adding a single thing to
+  read or decide.
 - Designed to be readable and tappable in low-attention contexts (one-
   handed, in a queue, half-distracted).
 - No "level up" decorations or progress rewards.

@@ -146,6 +146,11 @@ mechanic — was hidden behind a long-press.
       The rest of the layout stays put. (0.9.0, refined in 0.9.1)
 - [x] App-selection "Done" button so the user moves forward without reaching
       for Back; onboarding intro reworded around the in-between. (0.9.1)
+- [x] Pause screen always fits one view — the aura flexes to fill leftover
+      space (fixes clipped buttons, no scrolling); tapping an intention opens
+      the app directly (no separate Open button); intention subtitles
+      dropped; richer seamless dot animation (rotating whole + epicycles +
+      outward wave). (0.9.2)
 - [x] English and French strings updated; privacy and permissions docs
       updated to reflect the reduced footprint.
 
@@ -195,8 +200,10 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 ## Current status
 
 Phase 0–7 code work shipped, most recently the `0.9.x` anti-autopilot
-variation (random reflective phrase + shuffled button order) with UX fixes
-(app-selection "Done" button, reworded intro) and the `0.8.x`
+variation (random reflective phrase + shuffled button order), pause-screen
+fixes (always fits one view, tap-to-open, calmer single-line choices, seamless dot
+animation) and UX fixes (app-selection "Done" button, reworded intro), on
+top of the `0.8.x`
 polish (layered breathing animation, redesigned/ borderless pause cards, a
 clearer "leave" action, and a one-time guided start) on top of the `0.7.0`
 design pass. The only remaining item is the actual F-Droid submission,

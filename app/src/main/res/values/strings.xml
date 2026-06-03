@@ -35,12 +35,8 @@
     <string name="pause_heading">Before you open %s</string>
     <string name="pause_intention_label">Why are you opening this?</string>
     <string name="pause_intention_specific_task">I need this for one specific task</string>
-    <string name="pause_intention_specific_task_hint">A clear job to do, then out</string>
     <string name="pause_intention_brief_check">I am checking something briefly</string>
-    <string name="pause_intention_brief_check_hint">A quick look at one thing</string>
     <string name="pause_intention_autopilot">I opened this automatically</string>
-    <string name="pause_intention_autopilot_hint">My thumb got here on its own</string>
-    <string name="pause_proceed">Open %s</string>
     <string name="pause_back_out">I\'ll leave it for now</string>
     <string name="pause_app_not_found">App not found.</string>
     <!-- A short reflective line shown at random on each pause. Keep them

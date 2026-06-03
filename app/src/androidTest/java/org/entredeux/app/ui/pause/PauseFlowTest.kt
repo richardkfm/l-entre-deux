@@ -1,7 +1,5 @@
 package org.entredeux.app.ui.pause
 
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertDoesNotExist
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -57,29 +55,6 @@ class PauseFlowTest {
     )
 
     @Test
-    fun proceedButton_appearsAfterIntentionSelected() {
-        val viewModel = newViewModel()
-
-        composeRule.setContent {
-            EntreDeuxTheme {
-                PauseScreen(
-                    viewModel = viewModel,
-                    onProceed = {},
-                    onBackOut = {},
-                )
-            }
-        }
-
-        composeRule.onNodeWithText("Open", substring = true).assertDoesNotExist()
-
-        composeRule.onNodeWithText("I need this for one specific task").performClick()
-        // Settle the enter animation under the manually driven clock.
-        composeRule.mainClock.advanceTimeBy(2_000)
-
-        composeRule.onNodeWithText("Open", substring = true).assertIsDisplayed()
-    }
-
-    @Test
     fun backOut_callsCallback() {
         val viewModel = newViewModel()
         var backedOut = false
@@ -100,7 +75,7 @@ class PauseFlowTest {
     }
 
     @Test
-    fun happyPath_selectIntentionAndProceed() {
+    fun tappingIntention_proceeds() {
         val viewModel = newViewModel()
         var proceeded = false
 
@@ -114,9 +89,8 @@ class PauseFlowTest {
             }
         }
 
+        // Naming an intention is the act of proceeding — one tap opens the app.
         composeRule.onNodeWithText("I am checking something briefly").performClick()
-        composeRule.mainClock.advanceTimeBy(2_000)
-        composeRule.onNodeWithText("Open", substring = true).performClick()
 
         assert(proceeded) { "onProceed was not called" }
     }

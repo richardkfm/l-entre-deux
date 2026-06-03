@@ -1,0 +1,7 @@
+Pause-screen fixes and polish.
+
+Fixed a layout bug where a button could be cut off and the open action went missing — the screen now always fits in one view, so nothing is ever clipped.
+
+Tapping an intention now opens the app directly (no separate button), and the small subtitles are gone for a calmer, lighter screen.
+
+The breathing animation is richer and now loops seamlessly: a slowly turning field of dots, each on its own little orbit, with light rippling outward — like one quiet, living whole.
