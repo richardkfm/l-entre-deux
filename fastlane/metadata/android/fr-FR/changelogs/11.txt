@@ -1,0 +1,9 @@
+Quelques petits correctifs.
+
+Au moment de choisir des applications, un bouton « Terminé » bien visible permet d'avancer — plus besoin du bouton Retour.
+
+L'intro parle désormais du moment entre les deux, plutôt que d'« une pause ».
+
+Sur l'écran de pause, tout reste à sa place, mais les quatre boutons — vos trois intentions et le bouton « laisser tomber » — apparaissent dans un ordre différent à chaque fois, pour qu'on les lise vraiment au lieu d'appuyer par habitude.
+
+L'animation de respiration est désormais un doux nuage de petits points qui dérivent et scintillent — quelque chose d'apaisant où poser le regard.

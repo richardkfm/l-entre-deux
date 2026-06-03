@@ -9,6 +9,31 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.9.1] — 2026-06-03
+
+Three UX fixes.
+
+### Added
+- **"Done" button on the app-selection screen.** Selections already persist
+  as you toggle them, but the only way out was the Back arrow — easy to miss.
+  A clear bottom "Done" button now carries the user forward.
+
+### Changed
+- **Onboarding intro reworded.** "A small pause" → "A moment in between",
+  with body copy that leans into the in-between / intention idea rather than
+  the word "pause".
+- **Pause screen: stable layout, shuffled buttons.** Reverted 0.9.0's
+  whole-layout shuffle — every element (phrase, breathing aura, heading,
+  prompt) now stays put. The anti-autopilot effect comes from shuffling just
+  the four action buttons instead: the three intention choices and the
+  get-out button appear in a random order each pause. The Open button stays
+  in its fixed spot. Both proceeding and leaving remain clearly labelled.
+- **New breathing animation.** The aura is now a living field of ~76 small
+  dots arranged in a sunflower (phyllotaxis) spread. They breathe outward
+  and back together while each drifts on its own gentle orbit and softly
+  twinkles, so no two frames look quite alike — calming to rest your eyes
+  on rather than a flat pulse.
+
 ## [0.9.0] — 2026-06-02
 
 The pause is a little different each time — on purpose, to defeat autopilot.

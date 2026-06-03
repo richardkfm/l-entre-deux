@@ -140,9 +140,12 @@ mechanic — was hidden behind a long-press.
 - [x] Borderless intention cards; the back-out action reworded to "I'll
       leave it for now" and made a prominent button that backgrounds the app
       (returns to the launcher). (0.8.1)
-- [x] Anti-autopilot variation: a random reflective phrase per pause and one
-      of three shuffled layouts that move the aura, cards, and both buttons
-      so the screen can't be dismissed from muscle memory. (0.9.0)
+- [x] Anti-autopilot variation: a random reflective phrase per pause, and a
+      shuffled order for the four action buttons (the three intentions + the
+      get-out button) so the screen can't be dismissed from muscle memory.
+      The rest of the layout stays put. (0.9.0, refined in 0.9.1)
+- [x] App-selection "Done" button so the user moves forward without reaching
+      for Back; onboarding intro reworded around the in-between. (0.9.1)
 - [x] English and French strings updated; privacy and permissions docs
       updated to reflect the reduced footprint.
 
@@ -191,8 +194,9 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 0–7 code work shipped, most recently the `0.9.0` anti-autopilot
-variation (random reflective phrase + shuffled layouts) and the `0.8.x`
+Phase 0–7 code work shipped, most recently the `0.9.x` anti-autopilot
+variation (random reflective phrase + shuffled button order) with UX fixes
+(app-selection "Done" button, reworded intro) and the `0.8.x`
 polish (layered breathing animation, redesigned/ borderless pause cards, a
 clearer "leave" action, and a one-time guided start) on top of the `0.7.0`
 design pass. The only remaining item is the actual F-Droid submission,
