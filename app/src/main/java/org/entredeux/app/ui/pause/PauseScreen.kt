@@ -18,7 +18,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +26,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -38,6 +36,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,7 +52,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.entredeux.app.R
@@ -80,7 +78,12 @@ private val intentionOptions = listOf(
     ),
 )
 
-private const val LAYOUT_COUNT = 3
+// The four buttons whose order is shuffled each pause: the three intentions
+// plus the get-out action. Everything else on the screen stays put.
+private sealed interface PauseAction {
+    data class Choose(val option: IntentionOption) : PauseAction
+    data object Leave : PauseAction
+}
 
 @Composable
 fun PauseScreen(
@@ -91,14 +94,17 @@ fun PauseScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val phrases = stringArrayResource(R.array.pause_phrases)
 
-    // Chosen once per visit (survives recomposition / rotation, fresh on each
-    // new pause). The layout shuffles so the screen can't be dismissed from
-    // muscle memory — you have to actually read it. Both actions stay clearly
-    // labelled; only their position changes.
+    // Chosen once per visit (survive recomposition / rotation, fresh on each
+    // new pause). The phrase rotates, and the four action buttons are shuffled
+    // so the screen can't be cleared from muscle memory — you have to read it.
+    // Both proceeding and leaving stay clearly labelled; only order changes.
     val phraseSeed = rememberSaveable { Random.nextInt() }
-    val layoutSeed = rememberSaveable { Random.nextInt() }
+    val orderSeed = rememberSaveable { Random.nextInt() }
     val phrase = phrases[phraseSeed.mod(phrases.size)]
-    val layout = layoutSeed.mod(LAYOUT_COUNT)
+    val actions = remember(orderSeed) {
+        (intentionOptions.map { PauseAction.Choose(it) } + PauseAction.Leave)
+            .shuffled(Random(orderSeed.toLong()))
+    }
 
     val backdrop = Brush.verticalGradient(
         listOf(
@@ -121,52 +127,35 @@ fun PauseScreen(
                 .padding(horizontal = 24.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            when (layout) {
-                0 -> {
-                    Spacer(Modifier.height(8.dp))
-                    PhraseLine(phrase)
-                    Spacer(Modifier.weight(0.6f))
-                    BreathingAura()
-                    Spacer(Modifier.weight(0.6f))
-                    PauseHeader(uiState.appLabel)
-                    Spacer(Modifier.height(20.dp))
-                    IntentionList(selected, viewModel::selectIntention)
-                    Spacer(Modifier.weight(1f))
-                    ProceedButton(selected != null, uiState.appLabel, proceed)
-                    Spacer(Modifier.height(12.dp))
-                    LeaveButton(leave)
-                }
+            Spacer(Modifier.height(8.dp))
+            PhraseLine(phrase)
+            Spacer(Modifier.weight(0.6f))
+            BreathingAura()
+            Spacer(Modifier.weight(0.6f))
+            PauseHeader(uiState.appLabel)
+            Spacer(Modifier.height(20.dp))
 
-                1 -> {
-                    Spacer(Modifier.height(8.dp))
-                    BreathingAura(size = 176.dp)
-                    Spacer(Modifier.height(16.dp))
-                    PhraseLine(phrase)
-                    Spacer(Modifier.height(24.dp))
-                    PauseHeader(uiState.appLabel)
-                    Spacer(Modifier.height(20.dp))
-                    IntentionList(selected, viewModel::selectIntention)
-                    Spacer(Modifier.weight(1f))
-                    LeaveButton(leave)
-                    Spacer(Modifier.height(12.dp))
-                    ProceedButton(selected != null, uiState.appLabel, proceed)
-                }
+            Column(
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                actions.forEach { action ->
+                    when (action) {
+                        is PauseAction.Choose -> IntentionCard(
+                            title = stringResource(action.option.labelRes),
+                            hint = stringResource(action.option.hintRes),
+                            selected = selected == action.option.intention,
+                            onClick = { viewModel.selectIntention(action.option.intention) },
+                        )
 
-                else -> {
-                    Spacer(Modifier.height(8.dp))
-                    PhraseLine(phrase)
-                    Spacer(Modifier.height(16.dp))
-                    PauseHeader(uiState.appLabel)
-                    Spacer(Modifier.height(20.dp))
-                    IntentionList(selected, viewModel::selectIntention)
-                    Spacer(Modifier.weight(0.5f))
-                    BreathingAura(size = 156.dp)
-                    Spacer(Modifier.weight(0.5f))
-                    ProceedButton(selected != null, uiState.appLabel, proceed)
-                    Spacer(Modifier.height(12.dp))
-                    LeaveButton(leave)
+                        PauseAction.Leave -> LeaveButton(onClick = leave)
+                    }
                 }
             }
+
+            Spacer(Modifier.weight(1f))
+
+            ProceedButton(visible = selected != null, appLabel = uiState.appLabel, onClick = proceed)
         }
     }
 }
@@ -202,26 +191,7 @@ private fun PauseHeader(appLabel: String) {
 }
 
 @Composable
-private fun IntentionList(selected: Intention?, onSelect: (Intention) -> Unit) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .selectableGroup(),
-    ) {
-        intentionOptions.forEach { option ->
-            IntentionCard(
-                title = stringResource(option.labelRes),
-                hint = stringResource(option.hintRes),
-                selected = selected == option.intention,
-                onClick = { onSelect(option.intention) },
-            )
-        }
-    }
-}
-
-@Composable
-private fun ColumnScope.ProceedButton(visible: Boolean, appLabel: String, onClick: () -> Unit) {
+private fun ProceedButton(visible: Boolean, appLabel: String, onClick: () -> Unit) {
     AnimatedVisibility(
         visible = visible,
         enter = fadeIn() + slideInVertically { it / 2 },
@@ -334,7 +304,7 @@ private fun SelectionDot(selected: Boolean) {
 // rings, and a gentle gradient core that swells and settles like a breath.
 // Purely decorative — not announced to screen readers.
 @Composable
-private fun BreathingAura(size: Dp = 240.dp) {
+private fun BreathingAura() {
     val transition = rememberInfiniteTransition(label = "aura")
     val breath by transition.animateFloat(
         initialValue = 0f,
@@ -359,9 +329,9 @@ private fun BreathingAura(size: Dp = 240.dp) {
     val coreInner = MaterialTheme.colorScheme.primaryContainer
     val coreOuter = MaterialTheme.colorScheme.primary
 
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.size(size)) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.size(240.dp)) {
         Canvas(Modifier.fillMaxSize()) {
-            val maxR = this.size.minDimension / 2f
+            val maxR = size.minDimension / 2f
 
             val glowR = maxR * (0.7f + 0.3f * breath)
             drawCircle(

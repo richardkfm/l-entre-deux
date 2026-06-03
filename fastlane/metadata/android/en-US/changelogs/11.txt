@@ -1,0 +1,7 @@
+A few small fixes.
+
+When choosing apps, there's now a clear "Done" button to move forward — no need to reach for Back.
+
+The intro now talks about the moment in between, rather than "a pause".
+
+On the pause screen, everything stays in its place, but the four buttons — your three intentions and the "leave it" button — appear in a different order each time, so you actually read them instead of tapping from habit.

@@ -6,8 +6,8 @@
     <string name="onboarding_skip">Skip</string>
     <string name="onboarding_next">Next</string>
     <string name="onboarding_get_started">Get started</string>
-    <string name="onboarding_page1_heading">A small pause</string>
-    <string name="onboarding_page1_body">l\'entre-deux adds a moment before you open a chosen app. You decide which apps. You decide whether to proceed.</string>
+    <string name="onboarding_page1_heading">A moment in between</string>
+    <string name="onboarding_page1_body">Between reaching for a chosen app and opening it, l\'entre-deux makes a little room — to notice what you actually came for. You pick the apps, and you can always go ahead.</string>
     <string name="onboarding_page2_heading">Name your intention</string>
     <string name="onboarding_page2_body">Before the app opens, you pick why you\'re opening it. No scores, no streaks, no lectures.</string>
     <string name="onboarding_page3_heading">Your data stays here</string>
@@ -29,6 +29,7 @@
     <string name="selection_back">Back</string>
     <string name="selection_empty">No apps found.</string>
     <string name="selection_search_hint">Search</string>
+    <string name="selection_done">Done</string>
 
     <!-- Pause flow -->
     <string name="pause_heading">Before you open %s</string>

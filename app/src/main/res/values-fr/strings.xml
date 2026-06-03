@@ -6,8 +6,8 @@
     <string name="onboarding_skip">Passer</string>
     <string name="onboarding_next">Suivant</string>
     <string name="onboarding_get_started">Commencer</string>
-    <string name="onboarding_page1_heading">Une petite pause</string>
-    <string name="onboarding_page1_body">l\'entre-deux ajoute un instant avant que vous ouvriez une application choisie. Vous décidez quelles applications. Vous décidez si vous continuez.</string>
+    <string name="onboarding_page1_heading">Un moment entre les deux</string>
+    <string name="onboarding_page1_body">Entre le geste vers une application choisie et son ouverture, l\'entre-deux ménage un petit espace — pour remarquer ce que vous venez vraiment faire. Vous choisissez les applications, et vous pouvez toujours continuer.</string>
     <string name="onboarding_page2_heading">Nommez votre intention</string>
     <string name="onboarding_page2_body">Avant que l\'application s\'ouvre, vous indiquez pourquoi. Pas de score, pas de série, pas de sermon.</string>
     <string name="onboarding_page3_heading">Vos données restent ici</string>
@@ -29,6 +29,7 @@
     <string name="selection_back">Retour</string>
     <string name="selection_empty">Aucune application trouvée.</string>
     <string name="selection_search_hint">Rechercher</string>
+    <string name="selection_done">Terminé</string>
 
     <!-- Pause flow -->
     <string name="pause_heading">Avant d\'ouvrir %s</string>

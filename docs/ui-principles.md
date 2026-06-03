@@ -41,11 +41,11 @@ Every screen should feel like the app is getting out of the user’s way.
   handed, in a queue, half-distracted).
 - No "level up" decorations or progress rewards.
 - **Intentional variation, not gamification.** The pause deliberately
-  rotates a short reflective phrase and shuffles between a few layouts (the
-  position and order of the aura, the intention cards, and the proceed /
-  leave buttons) so it can't be dismissed from pure muscle memory — the
-  whole point is to make the person look. This is *not* a dark pattern:
-  both the proceed and leave actions are always present and clearly
+  rotates a short reflective phrase, and shuffles the order of its four
+  action buttons (the three intention choices and the get-out button) so it
+  can't be dismissed from pure muscle memory — the whole point is to make
+  the person look. The rest of the screen stays put. This is *not* a dark
+  pattern: both proceeding and leaving are always present and clearly
   labelled, and neither is ever hidden, disabled-by-trickery, or disguised
   as the other. Don't "fix" the moving buttons — the movement is the
   feature.

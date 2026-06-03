@@ -167,10 +167,10 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.9.0
+**Version:** 0.9.1
 **Phase:** Phase 0–7 (code work shipped; F-Droid submission as `1.0.0`
 is the only remaining item).
-**Last updated:** 2026-06-02.
+**Last updated:** 2026-06-03.
 
 What exists:
 - Full documentation set in `docs/`.
@@ -179,7 +179,8 @@ What exists:
   Compose, DataStore Preferences, Room.
 - Onboarding (3 screens, shown once).
 - App selection screen: lists installed launchable apps, persists
-  selection via DataStore.
+  selection via DataStore as toggled; a bottom "Done" button carries the
+  user forward (Back also works).
 - Home screen: grid of selected apps; tapping opens the pause flow. A
   one-time guided coach (`CoachStep`) walks new users through ① adding an
   app and ② pinning it to the home screen, with a pulsing highlight on the
@@ -191,13 +192,14 @@ What exists:
   borderless Material selectable cards (each with a one-line hint). Choosing
   an intention is the only question; the Open button animates in and
   launches the target app via explicit Intent. The prominent "I'll leave it
-  for now" button is always present and sends the app to the background
-  (`moveTaskToBack`) so the user returns to their launcher. To resist
-  autopilot, each pause randomly picks one of three layouts that move the
-  aura, the cards, and the two buttons (incl. their order); both actions
-  stay clearly labelled, so it disrupts blind tapping without being a dark
-  pattern. Every pause (proceeded or backed out) is logged to Room. No
-  time-limit question, no notifications.
+  for now" button sends the app to the background (`moveTaskToBack`) so the
+  user returns to their launcher. To resist autopilot, the screen layout is
+  fixed but the four action buttons — the three intention cards and the
+  get-out button — are shuffled into a random order each pause (the Open
+  button stays in its fixed spot); both actions stay clearly labelled, so it
+  disrupts blind tapping without being a dark pattern. Every pause
+  (proceeded or backed out) is logged to Room. No time-limit question, no
+  notifications.
 - Settings screen: manage apps, wipe session log.
 - Reflection screen: per-app counts, intention mix, time-of-day
   distribution, back-out count. All computed locally from Room. No
