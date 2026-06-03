@@ -28,6 +28,11 @@ Three UX fixes.
   the four action buttons instead: the three intention choices and the
   get-out button appear in a random order each pause. The Open button stays
   in its fixed spot. Both proceeding and leaving remain clearly labelled.
+- **New breathing animation.** The aura is now a living field of ~76 small
+  dots arranged in a sunflower (phyllotaxis) spread. They breathe outward
+  and back together while each drifts on its own gentle orbit and softly
+  twinkles, so no two frames look quite alike — calming to rest your eyes
+  on rather than a flat pulse.
 
 ## [0.9.0] — 2026-06-02
 

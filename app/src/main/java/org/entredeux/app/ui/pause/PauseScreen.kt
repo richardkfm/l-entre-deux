@@ -41,6 +41,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -56,6 +57,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.entredeux.app.R
 import org.entredeux.app.domain.model.Intention
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 import kotlin.random.Random
 
 private data class IntentionOption(val intention: Intention, val labelRes: Int, val hintRes: Int)
@@ -300,11 +305,45 @@ private fun SelectionDot(selected: Boolean) {
     }
 }
 
-// Layered breathing visualisation: a soft radial glow, expanding ripple
-// rings, and a gentle gradient core that swells and settles like a breath.
-// Purely decorative — not announced to screen readers.
+private class Dot(
+    val baseX: Float,
+    val baseY: Float,
+    val ringR: Float,
+    val phase: Float,
+    val driftPhaseX: Float,
+    val driftPhaseY: Float,
+    val driftSpeedX: Float,
+    val driftSpeedY: Float,
+    val sizeFactor: Float,
+)
+
+// A phyllotaxis (sunflower) spread gives an organic, non-grid scatter.
+private fun buildDots(count: Int): List<Dot> {
+    val golden = (PI * (3.0 - sqrt(5.0))).toFloat()
+    return List(count) { i ->
+        val rr = sqrt((i + 0.5f) / count)
+        val theta = i * golden
+        val rnd = ((i * 9301 + 49297) % 233280) / 233280f
+        Dot(
+            baseX = rr * cos(theta),
+            baseY = rr * sin(theta),
+            ringR = rr,
+            phase = (i * 0.6180340f) % 1f,
+            driftPhaseX = rnd,
+            driftPhaseY = (i * 0.7548777f) % 1f,
+            driftSpeedX = 0.5f + (i % 4) * 0.17f,
+            driftSpeedY = 0.6f + (i % 3) * 0.21f,
+            sizeFactor = 0.5f + rnd,
+        )
+    }
+}
+
+// A living layer of small dots that breathe outward and back while each
+// drifts on its own gentle orbit — organic, never quite the same frame
+// twice. Purely decorative; not announced to screen readers.
 @Composable
 private fun BreathingAura() {
+    val dots = remember { buildDots(76) }
     val transition = rememberInfiniteTransition(label = "aura")
     val breath by transition.animateFloat(
         initialValue = 0f,
@@ -315,28 +354,33 @@ private fun BreathingAura() {
         ),
         label = "breath",
     )
-    val ripple by transition.animateFloat(
+    val drift by transition.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 5200, easing = LinearEasing),
+            animation = tween(durationMillis = 16000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart,
         ),
-        label = "ripple",
+        label = "drift",
     )
 
-    val glow = MaterialTheme.colorScheme.primary
-    val coreInner = MaterialTheme.colorScheme.primaryContainer
-    val coreOuter = MaterialTheme.colorScheme.primary
+    val dotColor = MaterialTheme.colorScheme.primary
+    val glowColor = MaterialTheme.colorScheme.primary
+    val twoPi = (2.0 * PI).toFloat()
 
     Box(contentAlignment = Alignment.Center, modifier = Modifier.size(240.dp)) {
         Canvas(Modifier.fillMaxSize()) {
             val maxR = size.minDimension / 2f
+            val field = maxR * 0.9f
+            val globalScale = 0.78f + 0.24f * breath
+            val driftAmp = maxR * 0.06f
+            val baseDot = maxR * 0.02f
 
-            val glowR = maxR * (0.7f + 0.3f * breath)
+            // Soft central glow for depth, breathing with the field.
+            val glowR = maxR * (0.65f + 0.30f * breath)
             drawCircle(
                 brush = Brush.radialGradient(
-                    colors = listOf(glow.copy(alpha = 0.22f + 0.10f * breath), Color.Transparent),
+                    colors = listOf(glowColor.copy(alpha = 0.14f + 0.08f * breath), Color.Transparent),
                     center = center,
                     radius = glowR,
                 ),
@@ -344,28 +388,19 @@ private fun BreathingAura() {
                 center = center,
             )
 
-            repeat(3) { i ->
-                val frac = (ripple + i / 3f) % 1f
-                val r = maxR * (0.32f + 0.62f * frac)
-                val alpha = (1f - frac).coerceIn(0f, 1f) * 0.45f
-                drawCircle(
-                    color = glow.copy(alpha = alpha),
-                    radius = r,
-                    center = center,
-                    style = Stroke(width = 1.5.dp.toPx()),
-                )
+            dots.forEach { d ->
+                val twinkle = 0.5f + 0.5f * sin((drift * d.driftSpeedX + d.phase) * twoPi)
+                val pulse = 0.5f * breath + 0.5f * twinkle
+                val dx = cos((drift * d.driftSpeedX + d.driftPhaseX) * twoPi) * driftAmp
+                val dy = sin((drift * d.driftSpeedY + d.driftPhaseY) * twoPi) * driftAmp
+                val x = center.x + d.baseX * field * globalScale + dx
+                val y = center.y + d.baseY * field * globalScale + dy
+                val edgeFade = 1f - d.ringR * 0.5f
+                val alpha = ((0.16f + 0.60f * pulse) * edgeFade * (0.7f + 0.3f * breath))
+                    .coerceIn(0f, 1f)
+                val radius = baseDot * (0.6f + 1.1f * d.sizeFactor) * (0.55f + 0.5f * pulse)
+                drawCircle(color = dotColor.copy(alpha = alpha), radius = radius, center = Offset(x, y))
             }
-
-            val coreR = maxR * (0.30f + 0.10f * breath)
-            drawCircle(
-                brush = Brush.radialGradient(
-                    colors = listOf(coreInner, coreOuter),
-                    center = center,
-                    radius = coreR,
-                ),
-                radius = coreR,
-                center = center,
-            )
         }
     }
 }

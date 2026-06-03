@@ -186,9 +186,9 @@ What exists:
   app and ② pinning it to the home screen, with a pulsing highlight on the
   relevant control and a dismissible bottom card. Tracked by the
   `home_coach_done` preference.
-- Pause flow: one calm screen — a layered breathing aura (radial glow +
-  ripple rings + gradient core on a Canvas), a randomly chosen reflective
-  line (`pause_phrases`), the heading, and the intention prompt shown as
+- Pause flow: one calm screen — a breathing aura of ~76 small dots in a
+  phyllotaxis spread that swell and drift on a Canvas, a randomly chosen
+  reflective line (`pause_phrases`), the heading, and the intention prompt shown as
   borderless Material selectable cards (each with a one-line hint). Choosing
   an intention is the only question; the Open button animates in and
   launches the target app via explicit Intent. The prominent "I'll leave it
