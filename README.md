@@ -11,7 +11,7 @@ for your phone and actually using it. This app lives in that moment.
 Instead of blocking apps, it adds a short, respectful pause that asks you
 to name your intention. Then it gets out of the way.
 
-**Status:** v0.9.1 — Phases 0–7 code work complete. Onboarding, a guided
+**Status:** v0.9.2 — Phases 0–7 code work complete. Onboarding, a guided
 first run, app selection, a calm one-question pause flow with an organic
 dot-field breathing animation and a rotating reflective line, intention
 logging, on-device reflection, accessibility pass, French localization,

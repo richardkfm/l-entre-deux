@@ -35,12 +35,8 @@
     <string name="pause_heading">Avant d\'ouvrir %s</string>
     <string name="pause_intention_label">Pourquoi ouvrez-vous cette application ?</string>
     <string name="pause_intention_specific_task">J\'en ai besoin pour une tâche précise</string>
-    <string name="pause_intention_specific_task_hint">Une tâche claire, puis je sors</string>
     <string name="pause_intention_brief_check">Je vérifie quelque chose rapidement</string>
-    <string name="pause_intention_brief_check_hint">Un coup d\'œil sur une seule chose</string>
     <string name="pause_intention_autopilot">Je l\'ai ouverte automatiquement</string>
-    <string name="pause_intention_autopilot_hint">Mon pouce est venu tout seul</string>
-    <string name="pause_proceed">Ouvrir %s</string>
     <string name="pause_back_out">Je le laisse pour l\'instant</string>
     <string name="pause_app_not_found">Application introuvable.</string>
     <!-- Une courte phrase de réflexion affichée au hasard à chaque pause.

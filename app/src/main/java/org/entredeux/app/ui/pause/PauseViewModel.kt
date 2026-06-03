@@ -16,11 +16,7 @@ import org.entredeux.app.domain.model.Intention
 import org.entredeux.app.domain.model.PauseEvent
 import org.entredeux.app.domain.model.PauseOutcome
 
-data class PauseUiState(
-    val appLabel: String = "",
-    val appFound: Boolean = true,
-    val selectedIntention: Intention? = null,
-)
+data class PauseUiState(val appLabel: String = "")
 
 class PauseViewModel(
     private val installedAppsRepository: InstalledAppsRepository,
@@ -35,32 +31,22 @@ class PauseViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val label = installedAppsRepository.getAppLabel(packageName)
-            _uiState.update {
-                it.copy(appLabel = label ?: packageName, appFound = label != null)
-            }
+            _uiState.update { it.copy(appLabel = label ?: packageName) }
         }
     }
 
-    fun selectIntention(intention: Intention) {
-        _uiState.update { it.copy(selectedIntention = intention) }
-    }
+    // Naming the intention is the act of proceeding — one tap opens the app.
+    fun proceed(intention: Intention) = record(intention.stableKey, PauseOutcome.PROCEEDED)
 
-    fun onProceed() {
-        record(PauseOutcome.PROCEEDED)
-    }
+    fun backOut() = record(BACKED_OUT_INTENTION, PauseOutcome.BACKED_OUT)
 
-    fun onBackOut() {
-        record(PauseOutcome.BACKED_OUT)
-    }
-
-    private fun record(outcome: PauseOutcome) {
-        val intention = _uiState.value.selectedIntention ?: return
+    private fun record(intentionKey: String, outcome: PauseOutcome) {
         appScope.launch {
             pauseEventRepository.record(
                 PauseEvent(
                     timestamp = System.currentTimeMillis(),
                     packageName = packageName,
-                    intentionKey = intention.stableKey,
+                    intentionKey = intentionKey,
                     outcome = outcome,
                 ),
             )
@@ -68,6 +54,12 @@ class PauseViewModel(
     }
 
     companion object {
+        // A back-out has no "why I'm opening it" intention. We store an empty
+        // key (rather than changing the schema): the reflection intention-mix
+        // matches on stable keys, so empty simply isn't counted there, while
+        // the back-out still counts toward the per-app and back-out totals.
+        private const val BACKED_OUT_INTENTION = ""
+
         fun factory(
             installedAppsRepository: InstalledAppsRepository,
             pauseEventRepository: PauseEventRepository,

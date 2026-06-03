@@ -167,7 +167,7 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.9.1
+**Version:** 0.9.2
 **Phase:** Phase 0–7 (code work shipped; F-Droid submission as `1.0.0`
 is the only remaining item).
 **Last updated:** 2026-06-03.
@@ -186,20 +186,21 @@ What exists:
   app and ② pinning it to the home screen, with a pulsing highlight on the
   relevant control and a dismissible bottom card. Tracked by the
   `home_coach_done` preference.
-- Pause flow: one calm screen — a breathing aura of ~76 small dots in a
-  phyllotaxis spread that swell and drift on a Canvas, a randomly chosen
-  reflective line (`pause_phrases`), the heading, and the intention prompt shown as
-  borderless Material selectable cards (each with a one-line hint). Choosing
-  an intention is the only question; the Open button animates in and
-  launches the target app via explicit Intent. The prominent "I'll leave it
-  for now" button sends the app to the background (`moveTaskToBack`) so the
-  user returns to their launcher. To resist autopilot, the screen layout is
-  fixed but the four action buttons — the three intention cards and the
-  get-out button — are shuffled into a random order each pause (the Open
-  button stays in its fixed spot); both actions stay clearly labelled, so it
-  disrupts blind tapping without being a dark pattern. Every pause
-  (proceeded or backed out) is logged to Room. No time-limit question, no
-  notifications.
+- Pause flow: one calm single-view screen (never scrolls — the aura flexes
+  to fill the space left by the fixed elements, so everything always fits) —
+  a randomly chosen reflective line (`pause_phrases`), a breathing aura of
+  ~84 dots in a phyllotaxis spread that together form a slowly rotating whole
+  (global spin + per-dot epicycles + an outward brightness wave, all on
+  whole-number cycles so the loop is seamless), the heading, and the four
+  action buttons.
+  The buttons are uniform single-line pills — the three intentions plus the
+  "I'll leave it for now" get-out button — shuffled into a random order each
+  pause to resist autopilot (both kinds stay clearly labelled, so it's not a
+  dark pattern). Tapping an intention is the act of proceeding: it logs the
+  choice and launches the target app via explicit Intent (no separate Open
+  button). Leaving sends the app to the background (`moveTaskToBack`) so the
+  user returns to their launcher. Every pause (proceeded or backed out) is
+  logged to Room. No time-limit question, no notifications.
 - Settings screen: manage apps, wipe session log.
 - Reflection screen: per-app counts, intention mix, time-of-day
   distribution, back-out count. All computed locally from Room. No

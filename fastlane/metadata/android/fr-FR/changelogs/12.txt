@@ -1,0 +1,7 @@
+Correctifs et finitions de l'écran de pause.
+
+Correction d'un bug de mise en page où un bouton pouvait être coupé et l'action d'ouverture disparaissait — l'écran tient désormais toujours sur une seule vue, plus rien n'est tronqué.
+
+Toucher une intention ouvre maintenant l'application directement (plus de bouton séparé), et les petits sous-titres ont disparu pour un écran plus calme et épuré.
+
+L'animation de respiration est plus riche et boucle sans accroc : un champ de points qui tourne lentement, chacun sur sa petite orbite, avec une lumière qui se propage vers l'extérieur — comme un tout vivant et paisible.

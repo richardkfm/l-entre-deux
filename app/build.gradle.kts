@@ -13,8 +13,8 @@ android {
         applicationId = "org.entredeux.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 11
-        versionName = "0.9.1"
+        versionCode = 12
+        versionName = "0.9.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

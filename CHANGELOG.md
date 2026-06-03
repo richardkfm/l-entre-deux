@@ -9,6 +9,36 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.9.2] — 2026-06-03
+
+Pause-screen bug fix and polish.
+
+### Fixed
+- **Buttons could be clipped / the proceed button went missing.** The screen
+  content (large aura + four buttons + a separate Open button) overflowed on
+  some devices, cutting off the last option and pushing "Open" off-screen.
+  The breathing aura now flexes to fill whatever vertical space is left after
+  the fixed elements (phrase, heading, the four buttons), so the whole screen
+  always fits in a single view — no scrolling, nothing clipped.
+
+### Changed
+- **Tapping an intention now opens the app directly** — the separate "Open"
+  button is gone. Naming the intention *is* the act of proceeding (one tap),
+  which is simpler and removes the overflow.
+- **Intention subtitles removed.** Each intention is a single calm line; the
+  one-line hints are gone, leaving less to read and a quieter screen.
+- All four choices are now uniform pill buttons (three intentions + the
+  get-out button), still shuffled in order each pause.
+- **Richer, seamless breathing animation.** The dot field now reads as one
+  slowly turning whole — the structure rotates like a galaxy, each dot rides
+  its own small epicycle, and a brightness wave ripples outward. All motion
+  runs on whole-number cycles, so the loop no longer visibly jumps back.
+
+### Notes
+- A back-out carries no intention; it's logged with an empty intention key
+  (no schema change), so the reflection back-out and per-app totals still
+  count it while the intention mix correctly ignores it.
+
 ## [0.9.1] — 2026-06-03
 
 Three UX fixes.
