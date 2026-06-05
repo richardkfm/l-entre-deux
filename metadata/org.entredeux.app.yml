@@ -1,0 +1,32 @@
+# F-Droid build recipe for l'entre-deux.
+#
+# This is NOT consumed by the app build. It is the metadata file F-Droid
+# uses to build and publish the app. Copy it into the fdroiddata
+# repository at metadata/org.entredeux.app.yml and open a merge request
+# (https://gitlab.com/fdroid/fdroiddata), or attach it to a Request For
+# Packaging issue (https://gitlab.com/fdroid/rfp). It lives here so the
+# recipe is version-controlled alongside the app it builds.
+
+Categories:
+  - Time
+License: GPL-3.0-only
+AuthorName: Richard Gasch
+SourceCode: https://github.com/richardkfm/l-entre-deux
+IssueTracker: https://github.com/richardkfm/l-entre-deux/issues
+Changelog: https://github.com/richardkfm/l-entre-deux/blob/HEAD/CHANGELOG.md
+
+RepoType: git
+Repo: https://github.com/richardkfm/l-entre-deux.git
+
+Builds:
+  - versionName: 1.0.0
+    versionCode: 14
+    commit: v1.0.0
+    subdir: app
+    gradle:
+      - yes
+
+AutoUpdateMode: Version v%v
+UpdateCheckMode: Tags
+CurrentVersion: 1.0.0
+CurrentVersionCode: 14

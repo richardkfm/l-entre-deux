@@ -1,0 +1,3 @@
+First public release — the F-Droid 1.0.
+
+The same calm app you've been using, now cut as a stable 1.0: pick the apps that pull you in, meet a short breathing pause that asks for your intention, pin those apps to your home screen so every tap routes through the pause, and review your patterns privately on-device. Local-only, no accounts, no telemetry, no INTERNET permission.

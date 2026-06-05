@@ -1,0 +1,3 @@
+Première version publique — la 1.0 pour F-Droid.
+
+La même application apaisante, désormais en version stable 1.0 : choisissez les applications qui vous happent, rencontrez une courte pause respirée qui vous demande votre intention, épinglez ces applications sur votre écran d'accueil pour que chaque ouverture passe par la pause, et consultez vos habitudes en toute confidentialité, sur l'appareil. Tout en local, sans compte, sans télémétrie, sans permission INTERNET.

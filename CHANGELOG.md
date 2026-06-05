@@ -9,6 +9,21 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [1.0.0] — 2026-06-05
+
+First public release — the F-Droid 1.0. No new behaviour over 0.9.3; this
+is the stable cut of the full MVP submitted to F-Droid.
+
+### Added
+- App screenshot in the F-Droid listing metadata
+  (`fastlane/metadata/android/{en-US,fr-FR}/images/phoneScreenshots/`).
+
+### Changed
+- Version promoted to `1.0.0`, marking the first F-Droid release of the
+  complete MVP: app selection, the calm intention pause, home-screen
+  shortcut pinning, on-device reflection, English and French UI, and a
+  local-only, permission-free, INTERNET-free build.
+
 ## [0.9.3] — 2026-06-03
 
 Pause-screen micro-polish.

@@ -89,8 +89,13 @@ patterns about themselves.
 - [x] App icon and visual identity (adaptive icon with monochrome
       themed-icon variant).
 - [x] R8 / shrinker configured; reproducible Gradle build verified.
-- [x] F-Droid metadata under `fastlane/metadata/android/`.
-- [ ] First F-Droid submission as v1.0.0.
+- [x] F-Droid metadata under `fastlane/metadata/android/` (titles, short
+      and full descriptions, per-version changelogs, and a phone
+      screenshot).
+- [x] `1.0.0` release prepared: version bumped, CHANGELOG cut, F-Droid
+      build recipe drafted at `metadata/org.entredeux.app.yml`.
+- [~] First F-Droid submission as v1.0.0 — tag `v1.0.0` and open the
+      `fdroiddata` merge request (or RFP issue). External, owner-driven.
 
 ## Phase 6 — Home-screen shortcut pinning
 **Target version:** 0.6.0.
