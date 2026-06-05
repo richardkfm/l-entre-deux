@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -124,7 +123,7 @@ fun PauseScreen(
             ) {
                 actions.forEach { action ->
                     when (action) {
-                        is PauseAction.Choose -> IntentionButton(
+                        is PauseAction.Choose -> PauseButton(
                             title = stringResource(action.option.labelRes),
                             onClick = {
                                 viewModel.proceed(action.option.intention)
@@ -132,7 +131,8 @@ fun PauseScreen(
                             },
                         )
 
-                        PauseAction.Leave -> LeaveButton(
+                        PauseAction.Leave -> PauseButton(
+                            title = stringResource(R.string.pause_back_out),
                             onClick = {
                                 viewModel.backOut()
                                 onBackOut()
@@ -175,8 +175,11 @@ private fun PauseHeader(appLabel: String) {
     )
 }
 
+// Every choice — the three intentions and the get-out — is the same plain
+// pill. Identical styling means the only way to tell them apart is to read
+// them, which is the whole point of the pause.
 @Composable
-private fun IntentionButton(title: String, onClick: () -> Unit) {
+private fun PauseButton(title: String, onClick: () -> Unit) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceVariant,
         shape = RoundedCornerShape(28.dp),
@@ -194,22 +197,6 @@ private fun IntentionButton(title: String, onClick: () -> Unit) {
                 modifier = Modifier.padding(horizontal = 16.dp),
             )
         }
-    }
-}
-
-@Composable
-private fun LeaveButton(onClick: () -> Unit) {
-    FilledTonalButton(
-        onClick = onClick,
-        shape = RoundedCornerShape(28.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp),
-    ) {
-        Text(
-            stringResource(R.string.pause_back_out),
-            style = MaterialTheme.typography.titleMedium,
-        )
     }
 }
 

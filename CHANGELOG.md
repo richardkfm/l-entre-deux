@@ -9,6 +9,14 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [0.9.4] — 2026-06-03
+
+### Changed
+- **All four pause buttons now look identical.** The get-out button
+  ("Leave it for now") was a tonal button; it's now the same plain pill as
+  the three intentions. Since nothing distinguishes them by appearance, the
+  only way to pick is to read — which is exactly what the pause is for.
+
 ## [0.9.3] — 2026-06-03
 
 Pause-screen micro-polish.
