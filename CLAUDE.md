@@ -194,10 +194,11 @@ What exists:
   (global spin + per-dot epicycles + an outward brightness wave, all on
   whole-number cycles so the loop is seamless), the heading, and the four
   action buttons.
-  The buttons are uniform single-line pills — the three intentions plus the
-  "I'll leave it for now" get-out button — shuffled into a random order each
-  pause to resist autopilot (both kinds stay clearly labelled, so it's not a
-  dark pattern). Tapping an intention is the act of proceeding: it logs the
+  The buttons are four identical single-line pills — the three intentions
+  plus the "Leave it for now" get-out button, styled the same so the only
+  way to tell them apart is to read them — shuffled into a random order each
+  pause to resist autopilot (every option stays clearly labelled, so it's
+  not a dark pattern). Tapping an intention is the act of proceeding: it logs the
   choice and launches the target app via explicit Intent (no separate Open
   button). Leaving sends the app to the background (`moveTaskToBack`) so the
   user returns to their launcher. Every pause (proceeded or backed out) is
