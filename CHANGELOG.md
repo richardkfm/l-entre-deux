@@ -9,13 +9,25 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
-## [0.9.4] — 2026-06-03
+## [1.0.0] — 2026-06-05
+
+First public release — the F-Droid 1.0. The stable cut of the full MVP
+submitted to F-Droid.
+
+### Added
+- App screenshot in the F-Droid listing metadata
+  (`fastlane/metadata/android/{en-US,fr-FR}/images/phoneScreenshots/`).
 
 ### Changed
-- **All four pause buttons now look identical.** The get-out button
-  ("Leave it for now") was a tonal button; it's now the same plain pill as
-  the three intentions. Since nothing distinguishes them by appearance, the
-  only way to pick is to read — which is exactly what the pause is for.
+- **Uniform pause buttons.** All four options on the pause screen — the
+  three intentions and "Leave it for now" — now share one identical
+  style. Leaving is no longer a visually distinct tonal button, so it
+  can't be picked out by shape or colour and has to be read like every
+  other choice.
+- Version promoted to `1.0.0`, marking the first F-Droid release of the
+  complete MVP: app selection, the calm intention pause, home-screen
+  shortcut pinning, on-device reflection, English and French UI, and a
+  local-only, permission-free, INTERNET-free build.
 
 ## [0.9.3] — 2026-06-03
 

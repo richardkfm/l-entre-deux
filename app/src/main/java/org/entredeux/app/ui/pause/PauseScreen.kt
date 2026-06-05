@@ -175,9 +175,9 @@ private fun PauseHeader(appLabel: String) {
     )
 }
 
-// Every choice — the three intentions and the get-out — is the same plain
-// pill. Identical styling means the only way to tell them apart is to read
-// them, which is the whole point of the pause.
+// Every choice on the pause screen — the three intentions and the get-out
+// action — uses this one identical button so leaving can't be told apart
+// by shape or colour and has to be read like any other option.
 @Composable
 private fun PauseButton(title: String, onClick: () -> Unit) {
     Surface(

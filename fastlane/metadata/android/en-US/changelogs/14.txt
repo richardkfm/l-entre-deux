@@ -1,1 +1,5 @@
-On the pause screen, all four buttons now look the same — including the "leave it" one. Nothing stands out by colour, so you read your choice instead of reaching for a familiar shape.
+First public release — the F-Droid 1.0.
+
+The same calm app, now cut as a stable 1.0: pick the apps that pull you in, meet a short breathing pause that asks for your intention, pin those apps to your home screen so every tap routes through the pause, and review your patterns privately on-device. Local-only, no accounts, no telemetry, no INTERNET permission.
+
+The four buttons on the pause screen now all look the same, so "leave it for now" reads like any other choice rather than standing out.

@@ -167,10 +167,11 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 0.9.4
-**Phase:** Phase 0–7 (code work shipped; F-Droid submission as `1.0.0`
-is the only remaining item).
-**Last updated:** 2026-06-03.
+**Version:** 1.0.0
+**Phase:** Phase 0–7 complete. `1.0.0` release prepared for F-Droid; the
+only remaining step is the external submission (tag `v1.0.0` + fdroiddata
+merge request).
+**Last updated:** 2026-06-05.
 
 What exists:
 - Full documentation set in `docs/`.
@@ -234,11 +235,16 @@ What exists:
 - Unit tests for use cases; instrumented tests for Room DAO and pause flow UI.
 - Gradle version catalog (`gradle/libs.versions.toml`).
 - GitHub Actions workflow running lint + test + assembleDebug.
+- F-Droid release assets for `1.0.0`: a phone screenshot under
+  `fastlane/metadata/android/{en-US,fr-FR}/images/phoneScreenshots/` and
+  a build recipe at `metadata/org.entredeux.app.yml` ready to drop into a
+  fdroiddata merge request.
 
 What is intentionally missing:
 - Any sensitive capability — deferred indefinitely; see
   [`docs/permissions-and-risks.md`](docs/permissions-and-risks.md).
-- F-Droid submission. Listed as the final Phase 5 item; will land
-  alongside the `1.0.0` tag once the app is exercised on real devices.
+- The F-Droid submission itself. The `1.0.0` release is prepared; the
+  remaining step is external: tag `v1.0.0` and open the fdroiddata merge
+  request (or RFP issue).
 
-Next: **F-Droid submission as `1.0.0`**.
+Next: **Tag `v1.0.0` and submit to F-Droid.**

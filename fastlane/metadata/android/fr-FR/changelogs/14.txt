@@ -1,1 +1,5 @@
-Sur l'écran de pause, les quatre boutons se ressemblent désormais — y compris celui pour « laisser tomber ». Rien ne ressort par la couleur, on lit donc son choix au lieu de viser une forme familière.
+Première version publique — la 1.0 pour F-Droid.
+
+La même application apaisante, désormais en version stable 1.0 : choisissez les applications qui vous happent, rencontrez une courte pause respirée qui vous demande votre intention, épinglez ces applications sur votre écran d'accueil pour que chaque ouverture passe par la pause, et consultez vos habitudes en toute confidentialité, sur l'appareil. Tout en local, sans compte, sans télémétrie, sans permission INTERNET.
+
+Les quatre boutons de l'écran de pause ont désormais tous la même apparence : « Laisser pour l'instant » se lit comme n'importe quel autre choix au lieu de se démarquer.
