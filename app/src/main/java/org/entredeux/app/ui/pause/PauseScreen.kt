@@ -1,6 +1,5 @@
 package org.entredeux.app.ui.pause
 
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -211,6 +210,9 @@ private class Dot(
     val cyc2: Float,
     val phase2: Float,
     val r2: Float,
+    // A slow angular sway so the spin reads as fluid, not rigid-body.
+    val swayCyc: Float,
+    val swayPhase: Float,
     val sizeFactor: Float,
 )
 
@@ -229,25 +231,40 @@ private fun buildDots(count: Int): List<Dot> {
             cyc2 = -(2 + (i % 2)).toFloat(),
             phase2 = rnd2,
             r2 = 0.010f + rnd2 * 0.022f,
+            swayCyc = (1 + (i % 3)).toFloat(),
+            swayPhase = rnd1,
             sizeFactor = 0.5f + rnd2,
         )
     }
 }
 
+// Skewed breath waveform: warping the phase with a sine makes the rise
+// (inhale) quicker and the fall (exhale) longer, like real breathing.
+// Still strictly 2π-periodic, so the loop stays seamless.
+private fun breathWave(phase: Float): Float {
+    val theta = phase * (2.0 * PI).toFloat()
+    return 0.5f - 0.5f * cos(theta + 0.45f * sin(theta))
+}
+
 // A living layer of dots that together form one slowly turning whole: the
-// field rotates like a galaxy, each dot rides its own small epicycle, and a
-// brightness wave ripples outward — all on whole-number cycles so the loop
-// is seamless (no jump back). Purely decorative; not read by screen readers.
+// field rotates like a galaxy (with a gentle per-dot sway so the turn feels
+// fluid rather than rigid), each dot rides its own small epicycle, the
+// breath ripples outward through the field instead of scaling it in
+// lockstep, and the whole aura drifts slightly around its anchor — all on
+// whole-number cycles so the loop is seamless (no jump back). Purely
+// decorative; not read by screen readers.
 @Composable
 private fun BreathingAura(modifier: Modifier = Modifier) {
     val dots = remember { buildDots(84) }
     val transition = rememberInfiniteTransition(label = "aura")
-    val breath by transition.animateFloat(
+    // Raw 0..1 phase (not a reversing tween) so each dot can sample the
+    // breath waveform at its own radial lag.
+    val breathPhase by transition.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 5000, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse,
+            animation = tween(durationMillis = 10000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart,
         ),
         label = "breath",
     )
@@ -275,39 +292,56 @@ private fun BreathingAura(modifier: Modifier = Modifier) {
     val twoPi = (2.0 * PI).toFloat()
     val waveCycles = 2f
     val waveLength = 2.2f
+    val breathLag = 0.18f
 
     Box(contentAlignment = Alignment.Center, modifier = modifier) {
         Canvas(Modifier.fillMaxSize()) {
             val maxR = size.minDimension / 2f
             val field = maxR * 0.9f
             val spinAngle = spin * twoPi
-            val breathScale = 0.82f + 0.18f * breath
             val baseDot = maxR * 0.013f
 
-            // Soft central glow for depth, breathing with the field.
-            val glowR = maxR * (0.6f + 0.32f * breath)
+            // The whole field wanders a little around its anchor, like
+            // something floating rather than something mounted.
+            val cx = center.x + maxR * 0.020f * sin(orbit * twoPi)
+            val cy = center.y + maxR * 0.016f * cos(orbit * 2f * twoPi + 1f)
+
+            // Soft central glow for depth, breathing with the centre of the
+            // field (lag zero — the breath starts here and ripples outward).
+            val glowBreath = breathWave(breathPhase)
+            val glowR = maxR * (0.6f + 0.32f * glowBreath)
             drawCircle(
                 brush = Brush.radialGradient(
-                    colors = listOf(glowColor.copy(alpha = 0.12f + 0.08f * breath), Color.Transparent),
-                    center = center,
+                    colors = listOf(glowColor.copy(alpha = 0.12f + 0.08f * glowBreath), Color.Transparent),
+                    center = Offset(cx, cy),
                     radius = glowR,
                 ),
                 radius = glowR,
-                center = center,
+                center = Offset(cx, cy),
             )
 
             dots.forEach { d ->
-                val angle = d.theta0 + spinAngle
+                // Each dot breathes slightly after the one inside it, so the
+                // inhale travels outward through the field.
+                val breath = breathWave(breathPhase - d.rr * breathLag)
+                val breathScale = 0.82f + 0.18f * breath
+
+                val sway = 0.09f * (1.2f - d.rr) *
+                    sin((orbit * d.swayCyc + d.swayPhase) * twoPi)
+                val angle = d.theta0 + spinAngle + sway
                 val baseR = d.rr * field * breathScale
                 val e1 = (orbit * d.cyc1 + d.phase1) * twoPi
                 val e2 = (orbit * d.cyc2 + d.phase2) * twoPi
                 val ox = (d.r1 * cos(e1) + d.r2 * cos(e2)) * maxR
                 val oy = (d.r1 * sin(e1) + d.r2 * sin(e2)) * maxR
-                val x = center.x + baseR * cos(angle) + ox
-                val y = center.y + baseR * sin(angle) + oy
+                val x = cx + baseR * cos(angle) + ox
+                val y = cy + baseR * sin(angle) + oy
 
-                // A brightness wave travelling outward through the structure.
-                val wave = 0.5f + 0.5f * sin((orbit * waveCycles - d.rr * waveLength) * twoPi)
+                // A brightness wave travelling outward through the structure;
+                // a touch of per-dot jitter keeps it from reading as perfect
+                // concentric rings.
+                val wave = 0.5f + 0.5f *
+                    sin((orbit * waveCycles - d.rr * waveLength + (d.phase2 - 0.5f) * 0.14f) * twoPi)
                 val bright = 0.45f * breath + 0.55f * wave
                 val edgeFade = 1f - d.rr * 0.45f
                 val alpha = ((0.12f + 0.55f * bright) * edgeFade).coerceIn(0f, 1f)

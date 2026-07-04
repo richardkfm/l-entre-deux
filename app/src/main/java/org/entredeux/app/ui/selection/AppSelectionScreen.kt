@@ -5,13 +5,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,8 +20,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -53,22 +53,16 @@ fun AppSelectionScreen(
                         )
                     }
                 },
+                actions = {
+                    // "Done" lives in the top bar so it stays reachable while
+                    // the keyboard is open for the search field. Selections
+                    // persist as they're toggled, so it's simply a clear way
+                    // forward — the user shouldn't have to reach for Back.
+                    TextButton(onClick = onBack) {
+                        Text(stringResource(R.string.selection_done))
+                    }
+                },
             )
-        },
-        bottomBar = {
-            // Selections persist as they're toggled, so "Done" is simply a
-            // clear way forward — the user shouldn't have to reach for Back.
-            Surface(shadowElevation = 3.dp) {
-                Button(
-                    onClick = onBack,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
-                        .heightIn(min = 52.dp),
-                ) {
-                    Text(stringResource(R.string.selection_done))
-                }
-            }
         },
     ) { innerPadding ->
         if (uiState.isLoading) {
@@ -86,13 +80,13 @@ fun AppSelectionScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding)
+                .imePadding(),
         ) {
             item {
                 OutlinedTextField(
                     value = uiState.query,
                     onValueChange = viewModel::onQueryChange,
-                    placeholder = { Text(stringResource(R.string.selection_search_hint)) },
                     label = { Text(stringResource(R.string.selection_search_hint)) },
                     singleLine = true,
                     modifier = Modifier

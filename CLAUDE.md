@@ -167,11 +167,11 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 1.0.0
+**Version:** 1.0.1
 **Phase:** Phase 0–7 complete. `1.0.0` release prepared for F-Droid; the
 only remaining step is the external submission (tag `v1.0.0` + fdroiddata
-merge request).
-**Last updated:** 2026-06-05.
+merge request). `1.0.1` is design polish on top.
+**Last updated:** 2026-07-04.
 
 What exists:
 - Full documentation set in `docs/`.
@@ -180,8 +180,10 @@ What exists:
   Compose, DataStore Preferences, Room.
 - Onboarding (3 screens, shown once).
 - App selection screen: lists installed launchable apps, persists
-  selection via DataStore as toggled; a bottom "Done" button carries the
-  user forward (Back also works).
+  selection via DataStore as toggled; a "Done" action in the top bar
+  carries the user forward (Back also works) — top, not bottom, so the
+  open keyboard never covers it while searching. The list pads itself
+  above the keyboard (`imePadding`).
 - Home screen: grid of selected apps; tapping opens the pause flow. A
   one-time guided coach (`CoachStep`) walks new users through ① adding an
   app and ② pinning it to the home screen, with a pulsing highlight on the
@@ -191,9 +193,11 @@ What exists:
   to fill the space left by the fixed elements, so everything always fits) —
   a randomly chosen reflective line (`pause_phrases`), a breathing aura of
   ~84 dots in a phyllotaxis spread that together form a slowly rotating whole
-  (global spin + per-dot epicycles + an outward brightness wave, all on
-  whole-number cycles so the loop is seamless), the heading, and the four
-  action buttons.
+  (global spin softened by per-dot sway, per-dot epicycles, a skewed breath
+  waveform — quicker inhale, longer exhale — that ripples outward with a
+  per-dot radial lag, a jittered outward brightness wave, and a slow drift
+  of the whole field around its anchor, all on whole-number cycles so the
+  loop is seamless), the heading, and the four action buttons.
   The buttons are four identical single-line pills — the three intentions
   plus the "Leave it for now" get-out button, styled the same so the only
   way to tell them apart is to read them — shuffled into a random order each

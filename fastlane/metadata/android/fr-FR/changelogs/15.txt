@@ -1,0 +1,5 @@
+Peaufinage du design.
+
+Le bouton « Terminé » de l'écran de sélection des applications est passé dans la barre du haut : le clavier ne le recouvre plus pendant la recherche, et la liste garde ses dernières lignes accessibles au-dessus du clavier.
+
+L'animation respirée de l'écran de pause est plus organique : la respiration se propage vers l'extérieur avec une inspiration plus rapide et une expiration plus longue, la rotation ondule doucement au lieu de tourner rigidement, et l'ensemble dérive légèrement autour de son centre.
