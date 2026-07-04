@@ -9,6 +9,27 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [1.0.1] — 2026-07-04
+
+Design polish: a more organic pause animation, and a "Done" button that
+stays reachable while the keyboard is open.
+
+### Changed
+- **"Done" moved to the top bar on the app-selection screen.** It used to
+  sit in a bottom bar, where the keyboard covered it whenever the search
+  field was focused. The list now also pads itself above the keyboard so
+  the last rows stay reachable, and the search field no longer repeats
+  its label as a placeholder.
+- **More organic pause animation.** The breath is now a skewed waveform
+  (quicker inhale, longer exhale, like real breathing) that ripples
+  outward through the field with a small per-dot lag instead of scaling
+  every dot in lockstep; each dot sways gently around the shared spin so
+  the rotation reads as fluid rather than rigid-body; the brightness wave
+  carries a touch of per-dot jitter so it no longer forms perfect
+  concentric rings; and the whole aura drifts slightly around its anchor.
+  All movements remain on whole-number cycles, so the loop is still
+  seamless.
+
 ## [1.0.0] — 2026-06-05
 
 First public release — the F-Droid 1.0. The stable cut of the full MVP

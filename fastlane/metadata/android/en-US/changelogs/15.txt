@@ -1,0 +1,5 @@
+Design polish.
+
+The "Done" button on the app-selection screen moved to the top bar, so the keyboard no longer covers it while you search, and the list keeps its last rows reachable above the keyboard.
+
+The breathing animation on the pause screen is more organic: the breath ripples outward through the field with a quicker inhale and a longer exhale, the rotation sways gently instead of turning rigidly, and the whole aura drifts softly around its centre.
