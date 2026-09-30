@@ -1,59 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Entre Deux</string>
+    <string name="app_name">l\'entre-deux</string>
 
-    <!-- Onboarding -->
-    <string name="onboarding_skip">Skip</string>
-    <string name="onboarding_next">Next</string>
-    <string name="onboarding_get_started">Get started</string>
-    <string name="onboarding_page1_heading">A moment in between</string>
-    <string name="onboarding_page1_body">Between reaching for a chosen app and opening it, l\'entre-deux makes a little room — to notice what you actually came for. You pick the apps, and you can always go ahead.</string>
-    <string name="onboarding_page2_heading">Name your intention</string>
-    <string name="onboarding_page2_body">Before the app opens, you pick why you\'re opening it. No scores, no streaks, no lectures.</string>
-    <string name="onboarding_page3_heading">Your data stays here</string>
-    <string name="onboarding_page3_body">Everything is stored only on this device. No accounts, no sync, no analytics. You can delete it all from settings at any time.</string>
+    <!-- Onboarding: one screen, set like a dictionary entry. -->
+    <string name="onboarding_word" translatable="false">entre-deux</string>
+    <string name="onboarding_grammar" translatable="false">nom masculin · /ɑ̃.tʁə.dø/</string>
+    <string name="onboarding_definition_1">1. The space between two things.</string>
+    <string name="onboarding_definition_2">2. Here: the moment between reaching for an app and opening it.</string>
+    <string name="onboarding_promise">Choose the apps that pull you in. Each time you open one, you\'ll be asked one small question, and you can always go ahead. Everything stays on this phone.</string>
+    <string name="onboarding_cta">Choose my apps</string>
 
     <!-- Navigation -->
-    <string name="nav_home">Home</string>
+    <string name="nav_home">Apps</string>
     <string name="nav_reflection">Reflection</string>
     <string name="nav_settings">Settings</string>
 
     <!-- Home -->
-    <string name="home_add_apps">Add apps</string>
-    <string name="home_empty_hint">Tap "Add apps" to choose which apps to open through the pause.</string>
+    <string name="home_add_apps">Choose apps</string>
+    <string name="home_empty_hint">No apps yet. Choose the ones you\'d like to open with a pause first.</string>
+    <string name="home_empty_action">Choose apps</string>
     <string name="home_open_via_pause">Open %s through the pause</string>
-    <string name="home_settings">Settings</string>
+    <string name="apps_section_unpinned">Not pinned yet</string>
+    <string name="apps_section_pinned">On your home screen</string>
+    <string name="apps_pin">Pin</string>
+    <string name="apps_pinned">Pinned</string>
+    <string name="apps_footer">Pinned icons open through the pause. Move them to where the originals were. Day to day, you won\'t need to open this app.</string>
+    <string name="apps_try">Try the pause (nothing is saved)</string>
 
     <!-- App selection -->
     <string name="selection_title">Choose apps</string>
-    <string name="selection_back">Back</string>
     <string name="selection_empty">No apps found.</string>
     <string name="selection_search_hint">Search</string>
     <string name="selection_done">Done</string>
+    <string name="selection_section_chosen">Chosen</string>
+    <string name="selection_section_often">Often chosen</string>
+    <string name="selection_section_all">All apps</string>
 
     <!-- Pause flow -->
     <string name="pause_heading">Before you open %s</string>
-    <string name="pause_intention_label">Why are you opening this?</string>
-    <string name="pause_intention_specific_task">Need this for one specific task</string>
-    <string name="pause_intention_brief_check">Checking something briefly</string>
-    <string name="pause_intention_autopilot">Opened this automatically</string>
-    <string name="pause_back_out">Leave it for now</string>
-    <string name="pause_app_not_found">App not found.</string>
-    <!-- A short reflective line shown at random on each pause. Keep them
-         calm and non-judgmental — no urgency, scarcity, or guilt. -->
-    <string-array name="pause_phrases">
-        <item>This moment is the only one there is.</item>
-        <item>Attention is how we spend our days.</item>
-        <item>Focus is a quiet kind of freedom.</item>
-        <item>Time given with intention is time well kept.</item>
-        <item>There is beauty in a single, unhurried breath.</item>
-        <item>Where your attention goes, your life follows.</item>
+    <string name="pause_intention_label">What brings you here?</string>
+    <string name="pause_intention_specific_task">One specific thing</string>
+    <string name="pause_intention_brief_check">A quick look</string>
+    <string name="pause_intention_autopilot">Out of habit</string>
+    <string name="pause_back_out">Not now</string>
+    <!-- Epigraphs shown at random on each pause, signed like a book's.
+         French originals by writers now in the public domain; the English
+         lines are this project's own translations. Keep them calm: no
+         urgency, scarcity or guilt. pause_epigraph_author has the same order. -->
+    <string-array name="pause_epigraph_text">
+        <item>When I dance, I dance; when I sleep, I sleep.</item>
+        <item>Attention is the rarest and purest form of generosity.</item>
+        <item>The greatest thing in the world is to know how to belong to oneself.</item>
+        <item>The wind is rising. We must try to live.</item>
+        <item>“I have done nothing today.” What? Have you not lived?</item>
+        <item>My trade and my art is living.</item>
     </string-array>
+    <string-array name="pause_epigraph_author" translatable="false">
+        <item>Montaigne</item>
+        <item>Simone Weil</item>
+        <item>Montaigne</item>
+        <item>Paul Valéry</item>
+        <item>Montaigne</item>
+        <item>Montaigne</item>
+    </string-array>
+    <!-- Material look: the epigraph on one line. %1$s text, %2$s author. -->
+    <string name="pause_epigraph_line" translatable="false">%1$s — %2$s</string>
 
     <!-- Reflection -->
     <string name="reflection_title">Reflection</string>
     <string name="reflection_empty">Nothing to look at yet.</string>
-    <string name="reflection_section_overview">Overview</string>
+    <string name="reflection_empty_period">Nothing in the last 7 days. The rest is under All time.</string>
+    <string name="reflection_period_week">Last 7 days</string>
+    <string name="reflection_period_all">All time</string>
+    <string name="reflection_since">Since %s</string>
+    <string name="reflection_sentence_period">Most came %s.</string>
+    <string name="reflection_when_morning">in the morning</string>
+    <string name="reflection_when_afternoon">in the afternoon</string>
+    <string name="reflection_when_evening">in the evening</string>
+    <string name="reflection_when_night">at night</string>
+    <string name="reflection_sentence_app">%s came up most often.</string>
+    <string name="reflection_dial_cd">Pauses by hour of the day</string>
     <string name="reflection_section_apps">By app</string>
     <string name="reflection_section_intentions">Intentions</string>
     <string name="reflection_section_time_of_day">Time of day</string>
@@ -64,45 +90,50 @@
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
-    <string name="settings_manage_apps">Manage apps</string>
-    <string name="settings_wipe_data">Wipe session log</string>
-    <string name="settings_wipe_data_desc">Permanently deletes your recorded pauses. Your app selection is kept.</string>
-    <string name="settings_wipe_confirm_title">Wipe session log?</string>
+    <string name="settings_manage_apps">Choose apps</string>
+    <string name="settings_section_apps">Apps</string>
+    <string name="settings_section_look">Look</string>
+    <string name="settings_look_papier">Papier &amp; encre</string>
+    <string name="settings_look_papier_desc">Paper, ink and a serif. The default.</string>
+    <string name="settings_look_material">Material</string>
+    <string name="settings_look_material_desc">Your wallpaper\'s colours and the system font, as in earlier versions.</string>
+    <string name="settings_tint">Tint the pause by time of day</string>
+    <string name="settings_tint_desc">Paper by day, the blue hour in the evening, candlelight at night.</string>
+    <string name="settings_section_pause">Pause</string>
+    <string name="settings_grace">No pause right after</string>
+    <string name="settings_grace_desc">If you reopen the same app within 2 minutes of opening it through the pause, it opens directly.</string>
+    <string name="settings_section_data">Your data</string>
+    <string name="settings_data_promise">Everything stays on this phone. l\'entre-deux has no internet permission and no account.</string>
+    <string name="settings_section_about">About</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_source">Source code</string>
+    <string name="settings_source_desc">Free software under the GPL-3.0</string>
+    <string name="settings_typeface">Typeface</string>
+    <string name="settings_typeface_desc">Spectral by Production Type, SIL Open Font License</string>
+    <string name="settings_wipe_data">Delete pause history</string>
+    <string name="settings_wipe_data_desc">Permanently deletes your recorded pauses. Your chosen apps are kept.</string>
+    <string name="settings_wipe_confirm_title">Delete pause history?</string>
     <string name="settings_wipe_confirm_body">This permanently deletes all recorded pauses from this device. It cannot be undone.</string>
     <string name="settings_wipe_confirm_yes">Delete</string>
     <string name="settings_wipe_confirm_no">Cancel</string>
-    <string name="settings_wipe_done">Session log cleared.</string>
+    <string name="settings_wipe_done">Pause history deleted.</string>
 
     <!-- Home screen shortcuts (Phase 6) -->
-    <string name="home_pin_shortcut">Add to home screen</string>
     <string name="home_pin_shortcut_cd">Pin %s to your home screen</string>
-    <string name="home_tile_options">Options for %s</string>
-    <string name="home_shortcut_success">Shortcut requested — check your home screen</string>
+    <string name="home_shortcut_success">%s is on your home screen</string>
     <string name="home_shortcut_unsupported">Your launcher doesn\'t support pinned shortcuts</string>
 
-    <!-- Guided start -->
-    <string name="coach_step">Step %1$d of %2$d</string>
-    <string name="coach_add_title">Add an app</string>
-    <string name="coach_add_body">Tap the + button to choose the apps that pull you in.</string>
-    <string name="coach_pin_title">Pin it to your home screen</string>
-    <string name="coach_pin_body">Tap the pin on an app. From then on, every tap on it begins with a calm pause — no need to open this app first.</string>
-    <string name="coach_skip">Skip</string>
-    <string name="coach_done">Got it</string>
 
     <!-- Content descriptions -->
-    <string name="cd_settings">Settings</string>
     <string name="cd_back">Back</string>
-    <string name="cd_app_icon">%s icon</string>
-    <string name="cd_selected">Selected</string>
-    <string name="cd_onboarding_progress">Page %1$d of %2$d</string>
 
     <!-- Plurals -->
-    <plurals name="reflection_total_pauses">
-        <item quantity="one">%d pause recorded</item>
-        <item quantity="other">%d pauses recorded</item>
+    <plurals name="reflection_sentence_total">
+        <item quantity="one">%d pause.</item>
+        <item quantity="other">%d pauses.</item>
     </plurals>
     <plurals name="reflection_backed_out">
-        <item quantity="one">You backed out %d time</item>
-        <item quantity="other">You backed out %d times</item>
+        <item quantity="one">“Not now”, once.</item>
+        <item quantity="other">“Not now”, %d times.</item>
     </plurals>
 </resources>

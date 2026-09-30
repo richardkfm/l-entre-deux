@@ -1,109 +1,89 @@
 package org.entredeux.app.ui.onboarding
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import org.entredeux.app.R
 
-private data class OnboardingPage(val headingRes: Int, val bodyRes: Int)
-
-private val pages = listOf(
-    OnboardingPage(R.string.onboarding_page1_heading, R.string.onboarding_page1_body),
-    OnboardingPage(R.string.onboarding_page2_heading, R.string.onboarding_page2_body),
-    OnboardingPage(R.string.onboarding_page3_heading, R.string.onboarding_page3_body),
-)
-
+// One screen, set like a dictionary entry: the name, what it means here,
+// the promise, and a single way forward into choosing apps.
 @Composable
 fun OnboardingScreen(
     viewModel: OnboardingViewModel,
     onDone: () -> Unit,
 ) {
-    var pageIndex by remember { mutableIntStateOf(0) }
-    val page = pages[pageIndex]
-    val isLast = pageIndex == pages.lastIndex
-
-    val finish = {
-        viewModel.completeOnboarding()
-        onDone()
-    }
-
+    val type = MaterialTheme.typography
+    val colors = MaterialTheme.colorScheme
     Scaffold { innerPadding ->
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(horizontal = 32.dp),
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 28.dp, vertical = 24.dp),
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 96.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(
-                    text = stringResource(page.headingRes),
-                    style = MaterialTheme.typography.headlineMedium,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.semantics { heading() },
-                )
-                Spacer(Modifier.height(24.dp))
-                Text(
-                    text = stringResource(page.bodyRes),
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center,
-                )
+            Text(
+                text = stringResource(R.string.app_name).lowercase(),
+                style = type.labelLarge.copy(letterSpacing = 1.5.sp),
+                color = colors.onSurfaceVariant,
+            )
+            Spacer(Modifier.weight(1f).heightIn(min = 48.dp))
+            Text(
+                text = stringResource(R.string.onboarding_word),
+                style = type.displayMedium.copy(fontWeight = FontWeight.Light),
+                color = colors.onSurface,
+                modifier = Modifier.semantics { heading() },
+            )
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = stringResource(R.string.onboarding_grammar),
+                // System font on purpose: Spectral has no ɑ or ʁ, and a line
+                // mixing two typefaces looks broken.
+                style = type.titleMedium.copy(fontStyle = FontStyle.Italic),
+                color = colors.onSurfaceVariant,
+            )
+            Spacer(Modifier.height(16.dp))
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(stringResource(R.string.onboarding_definition_1), style = type.bodyLarge, color = colors.onSurface)
+                Text(stringResource(R.string.onboarding_definition_2), style = type.bodyLarge, color = colors.onSurface)
             }
-
-            Row(
+            Spacer(Modifier.weight(1f).heightIn(min = 48.dp))
+            Text(
+                text = stringResource(R.string.onboarding_promise),
+                style = type.bodyMedium,
+                color = colors.onSurfaceVariant,
+            )
+            Spacer(Modifier.height(20.dp))
+            Button(
+                onClick = {
+                    viewModel.completeOnboarding()
+                    onDone()
+                },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 32.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
+                    .heightIn(min = 52.dp),
             ) {
-                if (!isLast) {
-                    TextButton(onClick = finish) {
-                        Text(stringResource(R.string.onboarding_skip))
-                    }
-                } else {
-                    Spacer(Modifier.weight(1f))
-                }
-
-                Button(
-                    onClick = {
-                        if (isLast) finish() else pageIndex++
-                    },
-                ) {
-                    Text(
-                        if (isLast) stringResource(R.string.onboarding_get_started)
-                        else stringResource(R.string.onboarding_next),
-                    )
-                }
+                Text(stringResource(R.string.onboarding_cta))
             }
         }
     }

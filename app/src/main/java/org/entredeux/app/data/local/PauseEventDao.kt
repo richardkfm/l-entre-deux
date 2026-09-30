@@ -17,6 +17,9 @@ interface PauseEventDao {
     @Query("SELECT * FROM pause_events ORDER BY timestamp DESC")
     fun allEvents(): Flow<List<PauseEventEntity>>
 
+    @Query("SELECT MAX(timestamp) FROM pause_events WHERE packageName = :packageName AND outcome = 'PROCEEDED'")
+    suspend fun lastProceededAt(packageName: String): Long?
+
     @Query("DELETE FROM pause_events")
     suspend fun deleteAll()
 }

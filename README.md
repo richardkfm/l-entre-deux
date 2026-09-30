@@ -11,16 +11,16 @@ for your phone and actually using it. This app lives in that moment.
 Instead of blocking apps, it adds a short, respectful pause that asks you
 to name your intention. Then it gets out of the way.
 
-**Status:** v1.0.1 — Phases 0–7 code work complete. Onboarding, a guided
-first run, app selection, a calm one-question pause flow with an organic
-dot-field breathing animation and a rotating reflective line, intention
-logging, on-device reflection, accessibility pass, French localization,
-adaptive icon, R8, F-Droid metadata, and home-screen shortcut pinning all in
-place. The `1.0.0` release is prepared; F-Droid submission is the only
-remaining item. `1.0.1` is a design-polish pass on top. See
-[`roadmap.md`](roadmap.md).
+**Status:** v1.3.0 — Phases 0–8 complete. Phase 8 (*Papier & encre*)
+gave the pause its own window, straight from a pinned icon, an
+acknowledgement when you choose, a paper-and-ink look with the Spectral
+serif tinted by the time of day (the earlier Material look stays available
+in Settings), a one-path first run, and a weekly reflection carnet. The
+`1.0.0` release is prepared; F-Droid submission is the only remaining
+item. See [`roadmap.md`](roadmap.md).
 
-**License:** [GPL-3.0](LICENSE).
+**License:** [GPL-3.0](LICENSE). The bundled Spectral typeface is under the
+[SIL Open Font License 1.1](fonts/Spectral-OFL.txt).
 **Distribution target:** F-Droid first.
 **Languages:** English, French.
 
@@ -31,8 +31,8 @@ remaining item. `1.0.1` is a design-polish pass on top. See
 1. You pick the apps that pull you in.
 2. When you go to open one of them through l’entre-deux, you see a short
    pause screen.
-3. You tap an intention: *I need this for one specific task* / *I am
-   checking something briefly* / *I opened this automatically.*
+3. You tap an intention: *One specific thing* / *A quick look* /
+   *Out of habit* — or *Not now*.
 4. You proceed.
 5. Later, a private, on-device reflection screen shows your patterns. No
    scores, no streaks.
@@ -46,7 +46,7 @@ remaining item. `1.0.1` is a design-polish pass on top. See
 - Not a streak / badge / points wellness app.
 - Not commercial. No ads, no upsells, no accounts.
 
-  <img width="300" height="667" alt="grafik" src="https://github.com/user-attachments/assets/541f324c-da52-43eb-afe7-b78d1205d6cc" />
+  <img width="300" alt="The pause: an epigraph by Simone Weil, a field of dots, Instagram, and four answers" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1_pause.png" />
 
 
 ## How this differs from Google’s Pause Point
@@ -60,9 +60,8 @@ dashboards, app timers that grey an app out, scheduled focus modes. They
 answer the question *how long*.
 
 l’entre-deux asks a different question: *why*. The pause has one job — to
-let you **name your intention** before you go in (*I need this for one
-specific task* / *I am checking something briefly* / *I opened this
-automatically*). We never show a time-spent score, never lock you out, and
+let you **name your intention** before you go in (*One specific thing* /
+*A quick look* / *Out of habit*). We never show a time-spent score, never lock you out, and
 never measure you against a goal, a streak, or anyone else.
 
 That single shift — from *how long* to *why* — is the whole product.
@@ -101,6 +100,7 @@ CLAUDE.md                        — working notes for AI assistants and contrib
 CHANGELOG.md                     — semver changes
 roadmap.md                       — phased delivery plan and current status
 LICENSE                          — GPL-3.0
+fonts/Spectral-OFL.txt           — licence of the bundled Spectral typeface
 docs/
   product-brief.md               — what the app is and is not
   mvp-scope.md                   — sharply scoped MVP definition

@@ -9,15 +9,20 @@ toujours continuer.
 
 Fonctionnalités
 
-* Choisissez les applications qui vous happent.
-* Touchez l’une d’elles via l’entre-deux pour voir une courte pause
-  avec une lente animation de respiration.
-* Choisissez une intention : tâche précise, vérification rapide, ou
-  pilote automatique. C’est la seule question — puis vous continuez.
-* Épinglez une application à votre véritable écran d’accueil, pour que
-  chaque appui passe par la pause.
-* Un écran de réflexion privé, calculé localement, montre vos
-  habitudes. Pas de score, pas de série, pas de comparaison.
+* Choisissez les applications qui vous happent et épinglez-les sur votre
+  véritable écran d’accueil, pour que chaque appui passe par la pause.
+* La pause s’ouvre dans sa propre fenêtre, calme, avec un nuage de
+  points qui respire, une phrase de Montaigne, Simone Weil ou Valéry, et
+  une seule question : Une chose précise, Un coup d’œil, Par habitude ou
+  Pas maintenant. La nommer, c’est ce qui ouvre l’application.
+* Rouvrez la même application dans les deux minutes et elle s’ouvre
+  directement (désactivable).
+* Un carnet hebdomadaire privé, calculé localement, montre vos habitudes
+  en quelques phrases et un cadran de la journée. Pas de score, pas de
+  série, pas de comparaison.
+* Deux apparences : Papier & encre (papier, encre et le caractère
+  Spectral, teinté selon l’heure) ou Material (les couleurs de votre
+  fond d’écran).
 * Interface en français et en anglais.
 
 Vie privée et confiance

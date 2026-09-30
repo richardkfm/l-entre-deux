@@ -8,6 +8,7 @@ import org.entredeux.app.data.apps.InstalledAppsRepository
 import org.entredeux.app.data.local.AppDatabase
 import org.entredeux.app.data.local.PauseEventRepository
 import org.entredeux.app.data.prefs.AppSelectionRepository
+import org.entredeux.app.data.prefs.SettingsRepository
 import org.entredeux.app.data.shortcuts.ShortcutRepository
 
 class EntreDeuxApplication : Application() {
@@ -24,6 +25,8 @@ class EntreDeuxApplication : Application() {
         private set
     lateinit var shortcutRepository: ShortcutRepository
         private set
+    lateinit var settingsRepository: SettingsRepository
+        private set
 
     override fun onCreate() {
         super.onCreate()
@@ -31,5 +34,6 @@ class EntreDeuxApplication : Application() {
         appSelectionRepository = AppSelectionRepository(this)
         pauseEventRepository = PauseEventRepository(AppDatabase.getInstance(this).pauseEventDao())
         shortcutRepository = ShortcutRepository(this)
+        settingsRepository = SettingsRepository(this)
     }
 }

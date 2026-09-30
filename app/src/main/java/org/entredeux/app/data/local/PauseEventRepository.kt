@@ -16,6 +16,8 @@ class PauseEventRepository(private val dao: PauseEventDao) {
     fun allEvents(): Flow<List<PauseEvent>> =
         dao.allEvents().map { list -> list.map { it.toDomain() } }
 
+    suspend fun lastProceededAt(packageName: String): Long? = dao.lastProceededAt(packageName)
+
     suspend fun deleteAll() {
         dao.deleteAll()
     }

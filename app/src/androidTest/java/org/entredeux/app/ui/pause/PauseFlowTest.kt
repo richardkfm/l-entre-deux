@@ -69,7 +69,9 @@ class PauseFlowTest {
             }
         }
 
-        composeRule.onNodeWithText("Leave it for now").performClick()
+        composeRule.onNodeWithText("Not now").performClick()
+        // Leaving lets the aura disperse before handing back.
+        composeRule.mainClock.advanceTimeBy(1_000)
 
         assert(backedOut) { "onBackOut was not called" }
     }
@@ -90,7 +92,9 @@ class PauseFlowTest {
         }
 
         // Naming an intention is the act of proceeding — one tap opens the app.
-        composeRule.onNodeWithText("Checking something briefly").performClick()
+        composeRule.onNodeWithText("A quick look").performClick()
+        // The chosen answer is acknowledged (ink fill) before the app opens.
+        composeRule.mainClock.advanceTimeBy(1_000)
 
         assert(proceeded) { "onProceed was not called" }
     }

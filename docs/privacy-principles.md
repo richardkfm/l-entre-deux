@@ -72,7 +72,7 @@ the user check it by:
 
 ## 7. User-controlled data lifecycle
 
-- "Wipe session log" in Settings, with a confirmation dialog, deletes
+- "Delete pause history" in Settings, with a confirmation dialog, deletes
   all `PauseEvent` rows permanently. App selection is kept.
 - Uninstalling the app removes all data. There is no off-device residue
   because there is no off-device storage.
@@ -92,6 +92,14 @@ out), one row is written to the on-device Room database:
 
 Nothing else is recorded. The content of the target app, notifications,
 network traffic, and any other app's data are never seen or stored.
+
+The optional "No pause right after" setting (on by default since 1.1.0)
+reads the timestamp of the most recent `PROCEEDED` row for the app being
+opened, on the device, and skips the pause if it is less than two minutes
+old. Openings skipped this way are not logged. Settings themselves (look,
+this switch) live in a local DataStore file next to the app selection.
+The time-of-day tint (1.3.0) only reads the phone's clock when the pause
+opens; nothing about it is stored.
 
 ## 8. Honest disclosures
 

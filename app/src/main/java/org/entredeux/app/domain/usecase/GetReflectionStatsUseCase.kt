@@ -12,7 +12,10 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-fun getReflectionStats(events: List<PauseEvent>): ReflectionStats? {
+fun getReflectionStats(
+    events: List<PauseEvent>,
+    zone: ZoneId = ZoneId.systemDefault(),
+): ReflectionStats? {
     if (events.isEmpty()) return null
 
     val perApp = events.groupBy { it.packageName }
@@ -23,11 +26,12 @@ fun getReflectionStats(events: List<PauseEvent>): ReflectionStats? {
         IntentionCount(intention, events.count { it.intentionKey == intention.stableKey })
     }
 
-    val zone = ZoneId.systemDefault()
     val todCounts = IntArray(4)
+    val hourly = IntArray(24)
     events.forEach { event ->
         val hour = ZonedDateTime.ofInstant(Instant.ofEpochMilli(event.timestamp), zone).hour
         todCounts[hourToIndex(hour)]++
+        hourly[hour]++
     }
 
     return ReflectionStats(
@@ -41,6 +45,7 @@ fun getReflectionStats(events: List<PauseEvent>): ReflectionStats? {
             TimeOfDayCount(TimeOfDay.EVENING, todCounts[2]),
             TimeOfDayCount(TimeOfDay.NIGHT, todCounts[3]),
         ),
+        hourly = hourly.toList(),
     )
 }
 

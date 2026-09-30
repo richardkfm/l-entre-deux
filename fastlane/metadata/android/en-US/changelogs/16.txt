@@ -1,0 +1,5 @@
+Fixes and clearer words.
+
+The pause now works at very large text sizes: answers grow instead of being cut off. The answers are shorter: One specific thing, A quick look, Out of habit, Not now.
+
+No more light flash in dark mode, no empty home screen flashing before your apps load, and quick taps when choosing apps no longer drop a choice. Pinned icons now look exactly like the originals, and moving between screens is quicker.

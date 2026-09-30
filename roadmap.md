@@ -163,6 +163,55 @@ Definition of done: the pause is a single calm step, and a first-time user
 can see how to pin an app to their real home screen without discovering a
 hidden gesture.
 
+## Phase 8 — Papier & encre: a pause that feels like a gift
+**Target version:** 1.0.2 → 1.3.0.
+
+A UX review after 1.0.1 (every screen driven through Robolectric, in light,
+dark, French and at 200 % text) found real bugs and a pause that cost more
+reading and time than it needed. This phase fixes those first, then gives
+the app its own visual voice while keeping today's Material look as an
+option in Settings.
+
+### 1.0.2 — fixes
+- [x] Pause survives very large text: answers grow instead of clipping, the
+      aura steps aside, and the column scrolls only as a last resort.
+- [x] Night variant of the platform window theme (no light flash in dark
+      mode) and edge-to-edge with insets consumed once.
+- [x] Home no longer flashes its empty state before saved apps load; the
+      empty state has a real "Choose apps" button.
+- [x] App selection toggles atomically (fast taps can't drop a choice).
+- [x] 220 ms navigation fades instead of the 700 ms default.
+- [x] Short answers: One specific thing / A quick look / Out of habit /
+      Not now (stored keys unchanged).
+- [x] Outlined navigation icons and a dedicated Reflection icon.
+- [x] Pinned shortcuts use adaptive icons so launchers mask them like the
+      original.
+- [x] "Delete pause history" with a transient confirmation.
+
+### 1.1.0 — Papier & encre pause
+- [x] Look setting: Papier & encre (default) or Material (the 1.0.x look).
+- [x] Spectral (OFL) for the app's voice; paper-and-ink palettes.
+- [x] Dedicated pause activity for shortcuts: no Home flash, no Recents.
+- [x] Acknowledgement: ink fill, one haptic tick, the aura exhales.
+- [x] Signed epigraphs, monochrome target icon, a constellation per app.
+- [x] Optional grace window: reopening within 2 minutes skips the pause.
+- [x] Settings says the privacy promise, version, source and typeface.
+
+### 1.2.0 — first run as one path
+- [x] Definition screen → choose apps → pin → try the pause (a rehearsal
+      that is never logged). Replaces the three slides and the coach.
+- [x] Home becomes Apps: real icons and real pin state (read from the
+      launcher on resume), "Not pinned yet" first, and a confirmation once
+      the launcher has actually added the icon.
+- [x] Choose apps with icons, chosen first, local category suggestions.
+
+### 1.3.0 — carnet and the hours
+- [x] Reflection as a weekly carnet: sentences, 24-hour dial, dot counts,
+      last 7 days or all time.
+- [x] Pause tinted by time of day (jour, l'heure bleue, nuit), with a
+      switch in Settings.
+- [x] Store screenshots and descriptions show the new pause and carnet.
+
 ## Phase X — Optional advanced or sensitive capabilities
 **Default: not pursued. Every item here requires a public decision first.**
 
@@ -203,6 +252,12 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 ---
 
 ## Current status
+
+Phase 8 complete: `1.0.2` fixes, the `1.1.0` Papier & encre pause, the
+`1.2.0` first run and the `1.3.0` carnet and hours. The only remaining item
+is the F-Droid submission.
+
+Earlier:
 
 Phase 0–7 code work shipped, most recently the `0.9.x` anti-autopilot
 variation (random reflective phrase + shuffled button order), pause-screen

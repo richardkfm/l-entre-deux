@@ -1,0 +1,5 @@
+Papier & encre.
+
+The pause now opens in its own window straight from your pinned icon, and it answers back: the answer you choose fills with ink, a soft tick, and the app opens. Reopen the same app within two minutes and it opens directly.
+
+A new look, with paper, ink and the Spectral serif by day, and warm black and candlelight at night. Each pause is signed with a line from Montaigne, Simone Weil or Valéry. Prefer the earlier look? Settings → Look → Material.

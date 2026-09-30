@@ -1,0 +1,5 @@
+Corrections et mots plus clairs.
+
+La pause fonctionne désormais avec de très grandes tailles de texte : les réponses s'agrandissent au lieu d'être coupées. Les réponses sont plus courtes : Une chose précise, Un coup d'œil, Par habitude, Pas maintenant.
+
+Plus de flash clair en mode sombre, plus d'écran d'accueil vide avant le chargement de vos applications, et des touches rapides lors du choix des applications ne perdent plus de sélection. Les icônes épinglées ressemblent exactement aux originales, et le passage d'un écran à l'autre est plus rapide.

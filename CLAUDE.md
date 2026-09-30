@@ -101,6 +101,7 @@ CLAUDE.md                  this file
 CHANGELOG.md               semver changelog
 roadmap.md                 phased delivery + status
 LICENSE                    GPL-3.0
+fonts/                     licence of the bundled Spectral typeface (OFL)
 docs/
   product-brief.md
   mvp-scope.md
@@ -167,51 +168,75 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 1.0.1
-**Phase:** Phase 0–7 complete. `1.0.0` release prepared for F-Droid; the
-only remaining step is the external submission (tag `v1.0.0` + fdroiddata
-merge request). `1.0.1` is design polish on top.
-**Last updated:** 2026-07-04.
+**Version:** 1.3.0
+**Phase:** Phase 0–8 complete (Phase 8: Papier & encre, 1.0.2 → 1.3.0). `1.0.0` release prepared for F-Droid; the only remaining step is
+the external submission (tag `v1.0.0` + fdroiddata merge request).
+**Last updated:** 2026-09-30.
 
 What exists:
 - Full documentation set in `docs/`.
 - README, CLAUDE.md, roadmap, CHANGELOG.
 - Single-module Android app (`app/`) with Compose, Material 3, Navigation
   Compose, DataStore Preferences, Room.
-- Onboarding (3 screens, shown once).
-- App selection screen: lists installed launchable apps, persists
-  selection via DataStore as toggled; a "Done" action in the top bar
-  carries the user forward (Back also works) — top, not bottom, so the
-  open keyboard never covers it while searching. The list pads itself
-  above the keyboard (`imePadding`).
-- Home screen: grid of selected apps; tapping opens the pause flow. A
-  one-time guided coach (`CoachStep`) walks new users through ① adding an
-  app and ② pinning it to the home screen, with a pulsing highlight on the
-  relevant control and a dismissible bottom card. Tracked by the
-  `home_coach_done` preference.
-- Pause flow: one calm single-view screen (never scrolls — the aura flexes
-  to fill the space left by the fixed elements, so everything always fits) —
-  a randomly chosen reflective line (`pause_phrases`), a breathing aura of
-  ~84 dots in a phyllotaxis spread that together form a slowly rotating whole
+- Onboarding: one screen set like a dictionary entry ("entre-deux, nom
+  masculin"), the promise, and "Choose my apps", which leads straight into
+  selection; Done there lands on Apps.
+- App selection: installed launchable apps with icons, grouped (chosen at
+  open, "often chosen" from the app's declared category — social, video,
+  news, games — then all apps; flat when searching). Toggles persist
+  atomically. "Done" sits in the top bar so the keyboard never covers it.
+- Apps screen (route `home`, labelled Apps): the chosen apps with real
+  icons, "Not pinned yet" (each with a Pin button) above "On your home
+  screen". Pin state is read from `ShortcutManager` on every resume, and a
+  snackbar confirms once the launcher has really added the icon. A footer
+  says pinned icons are all you need day to day, with "Try the pause", a
+  rehearsal that is never logged (`PauseActivity` demo mode).
+- Two looks (Settings → Look): **Papier & encre** (default; paper-and-ink
+  palettes `PapierColors` / `NuitColors`, Spectral serif via `res/font/`)
+  and **Material** (the 1.0.x look: dynamic colour, system font, grey
+  pills). `LocalLook` lets the pause draw per look.
+- `PauseActivity`: the pause in its own non-exported, `singleTask`,
+  Recents-excluded task with a paper-and-dots splash. Pinned shortcuts and
+  in-app taps open it; legacy shortcuts are forwarded by `MainActivity`
+  and rewritten via `updateShortcuts`. A 2-minute grace window (setting,
+  on by default) skips the pause right after proceeding, unlogged.
+- Pause flow: one calm single-view screen (the aura flexes to fill the
+  space left by the fixed elements; only at very large text sizes does the
+  aura step aside and the column scroll, so nothing is ever clipped) —
+  a randomly chosen signed epigraph (`pause_epigraph_text` /
+  `pause_epigraph_author`), a breathing aura of 72–96 dots in a
+  phyllotaxis spread seeded by the app's package name (each app has its
+  own constellation) that together form a slowly rotating whole
   (global spin softened by per-dot sway, per-dot epicycles, a skewed breath
   waveform — quicker inhale, longer exhale — that ripples outward with a
   per-dot radial lag, a jittered outward brightness wave, and a slow drift
   of the whole field around its anchor, all on whole-number cycles so the
   loop is seamless), the heading, and the four action buttons.
   The buttons are four identical single-line pills — the three intentions
-  plus the "Leave it for now" get-out button, styled the same so the only
+  plus the "Not now" get-out button, styled the same so the only
   way to tell them apart is to read them — shuffled into a random order each
   pause to resist autopilot (every option stays clearly labelled, so it's
   not a dark pattern). Tapping an intention is the act of proceeding: it logs the
-  choice and launches the target app via explicit Intent (no separate Open
-  button). Leaving sends the app to the background (`moveTaskToBack`) so the
-  user returns to their launcher. Every pause (proceeded or backed out) is
+  choice, is acknowledged for 240 ms (ink fill from the finger, one haptic
+  tick, the aura exhales) and launches the target app (no separate Open
+  button). "Not now" disperses the aura and closes the pause task, so the
+  user is back on their launcher. With animations off, all of this is
+  instant and the aura still. Every pause (proceeded or backed out) is
   logged to Room. No time-limit question, no notifications.
-- Settings screen: manage apps, wipe session log.
-- Reflection screen: per-app counts, intention mix, time-of-day
-  distribution, back-out count. All computed locally from Room. No
-  scores, no streaks. Empty state when no data.
-- Bottom navigation bar: Home / Reflection / Settings.
+- Settings screen: choose apps, look, grace window, the privacy promise,
+  delete pause history, version, source, typeface credit.
+- Reflection screen, a weekly carnet: last 7 days or all time; a few plain
+  sentences (`describeReflection` names the busiest period or app only
+  when there is no tie), a 24-hour dial with one identical dot per pause,
+  then intentions, "Not now", apps and time of day as dot rows with the
+  number beside them. All computed locally from Room. No scores, no
+  streaks.
+- Papier pause tinted by local time in light mode (`pauseTintForHour`:
+  jour 6–17 h, heure bleue 18–21 h, nuit otherwise; `HeureBleueColors`),
+  with light system-bar icons on the dark tints. Settings switch, on by
+  default.
+- Bottom navigation bar: Apps / Reflection / Settings (outlined icons plus
+  two local vector marks).
 - Accessibility pass: `heading()` semantics on titles, `Role.Button` on
   clickable list rows, full-row `toggleable` on the app-selection list,
   48dp minimum touch targets, proper content descriptions on icon-only

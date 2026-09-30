@@ -26,9 +26,11 @@ local reflection.**
 ### 3. Pause flow (Phase 2)
 - A short, full-screen, calm screen with a slow breathing-circle animation.
 - One tap to pick an intention from a small fixed set:
-  - "I need this for one specific task"
-  - "I am checking something briefly"
-  - "I opened this automatically"
+  - "One specific thing"
+  - "A quick look"
+  - "Out of habit"
+  (Shortened from full sentences in 1.0.2; the stored intention keys are
+  unchanged.)
 - One tap to proceed; one tap to back out.
 - Total flow targets ≤ 2 taps to proceed.
 
@@ -51,7 +53,9 @@ local reflection.**
 
 ### 6. Onboarding (Phase 2 / 4)
 - 2–4 short screens explaining what the app does, what it does not do,
-  and what permissions it asks for.
+  and what permissions it asks for. (Since 1.2.0: one screen, a
+  definition of the name plus the promise, that leads straight into
+  choosing apps. The app asks for no permissions.)
 - A clear statement that data never leaves the device.
 
 ### 7. Settings (Phase 2 onward)

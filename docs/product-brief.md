@@ -42,9 +42,9 @@ interruption at the exact moment of the reach, so they can choose again.
 3. When the user taps one of those shortcuts, l’entre-deux shows a short,
    non-judgmental pause flow.
 4. The user names their intention in one tap:
-   - "I need this for one specific task"
-   - "I am checking something briefly"
-   - "I opened this automatically"
+   - "One specific thing"
+   - "A quick look"
+   - "Out of habit"
 5. They proceed to the app.
 6. Later, the user can open a private, local-only reflection screen showing
    patterns: which intentions, which apps, which times of day. No scores. No

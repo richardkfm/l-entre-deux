@@ -1,59 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Entre Deux</string>
+    <string name="app_name">l\'entre-deux</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_skip">Passer</string>
-    <string name="onboarding_next">Suivant</string>
-    <string name="onboarding_get_started">Commencer</string>
-    <string name="onboarding_page1_heading">Un moment entre les deux</string>
-    <string name="onboarding_page1_body">Entre le geste vers une application choisie et son ouverture, l\'entre-deux ménage un petit espace — pour remarquer ce que vous venez vraiment faire. Vous choisissez les applications, et vous pouvez toujours continuer.</string>
-    <string name="onboarding_page2_heading">Nommez votre intention</string>
-    <string name="onboarding_page2_body">Avant que l\'application s\'ouvre, vous indiquez pourquoi. Pas de score, pas de série, pas de sermon.</string>
-    <string name="onboarding_page3_heading">Vos données restent ici</string>
-    <string name="onboarding_page3_body">Tout est enregistré uniquement sur cet appareil. Pas de compte, pas de synchronisation, pas d\'analytique. Vous pouvez tout supprimer depuis les réglages à tout moment.</string>
+    <string name="onboarding_definition_1">1. L\'espace entre deux choses.</string>
+    <string name="onboarding_definition_2">2. Ici\u00A0: le moment entre le geste vers une application et son ouverture.</string>
+    <string name="onboarding_promise">Choisissez les applications qui vous happent. À chaque ouverture, une seule petite question, et vous pouvez toujours continuer. Tout reste sur ce téléphone.</string>
+    <string name="onboarding_cta">Choisir mes applications</string>
 
     <!-- Navigation -->
-    <string name="nav_home">Accueil</string>
+    <string name="nav_home">Applis</string>
     <string name="nav_reflection">Réflexion</string>
     <string name="nav_settings">Réglages</string>
 
     <!-- Home -->
-    <string name="home_add_apps">Ajouter des applications</string>
-    <string name="home_empty_hint">Touchez « Ajouter des applications » pour choisir quelles applications ouvrir via la pause.</string>
+    <string name="home_add_apps">Choisir des applications</string>
+    <string name="home_empty_hint">Aucune application pour l\'instant. Choisissez celles à ouvrir après une pause.</string>
+    <string name="home_empty_action">Choisir des applications</string>
     <string name="home_open_via_pause">Ouvrir %s via la pause</string>
-    <string name="home_settings">Réglages</string>
+    <string name="apps_section_unpinned">Pas encore épinglées</string>
+    <string name="apps_section_pinned">Sur votre écran d\'accueil</string>
+    <string name="apps_pin">Épingler</string>
+    <string name="apps_pinned">Épinglée</string>
+    <string name="apps_footer">Les icônes épinglées s\'ouvrent via la pause. Placez-les là où se trouvaient les originales. Au quotidien, vous n\'aurez pas besoin d\'ouvrir cette application.</string>
+    <string name="apps_try">Essayer la pause (rien n\'est enregistré)</string>
 
     <!-- App selection -->
     <string name="selection_title">Choisir des applications</string>
-    <string name="selection_back">Retour</string>
     <string name="selection_empty">Aucune application trouvée.</string>
     <string name="selection_search_hint">Rechercher</string>
     <string name="selection_done">Terminé</string>
+    <string name="selection_section_chosen">Choisies</string>
+    <string name="selection_section_often">Souvent choisies</string>
+    <string name="selection_section_all">Toutes les applications</string>
 
     <!-- Pause flow -->
     <string name="pause_heading">Avant d\'ouvrir %s</string>
-    <string name="pause_intention_label">Pourquoi ouvrez-vous cette application ?</string>
-    <string name="pause_intention_specific_task">Pour une tâche précise</string>
-    <string name="pause_intention_brief_check">Juste une vérification rapide</string>
-    <string name="pause_intention_autopilot">Ouverte automatiquement</string>
-    <string name="pause_back_out">Laisser pour l\'instant</string>
-    <string name="pause_app_not_found">Application introuvable.</string>
-    <!-- Une courte phrase de réflexion affichée au hasard à chaque pause.
-         À garder calme et sans jugement — ni urgence, ni rareté, ni culpabilité. -->
-    <string-array name="pause_phrases">
-        <item>Cet instant est le seul qui soit.</item>
-        <item>L\'attention, c\'est ainsi que passent nos journées.</item>
-        <item>La concentration est une forme tranquille de liberté.</item>
-        <item>Le temps offert avec intention est du temps bien gardé.</item>
-        <item>Il y a de la beauté dans un seul souffle, sans hâte.</item>
-        <item>Là où va votre attention, votre vie suit.</item>
+    <string name="pause_intention_label">Qu\'est-ce qui vous amène ?</string>
+    <string name="pause_intention_specific_task">Une chose précise</string>
+    <string name="pause_intention_brief_check">Un coup d\'œil</string>
+    <string name="pause_intention_autopilot">Par habitude</string>
+    <string name="pause_back_out">Pas maintenant</string>
+    <!-- Épigraphes affichées au hasard à chaque pause, signées comme dans
+         un livre. Textes originaux d'auteurs du domaine public. Les auteurs
+         sont dans values/ (pause_epigraph_author), dans le même ordre. -->
+    <string-array name="pause_epigraph_text">
+        <item>Quand je danse, je danse\u00A0; quand je dors, je dors.</item>
+        <item>L\'attention est la forme la plus rare et la plus pure de la générosité.</item>
+        <item>La plus grande chose du monde, c\'est de savoir être à soi.</item>
+        <item>Le vent se lève\u00A0!… Il faut tenter de vivre\u00A0!</item>
+        <item>«\u00A0Je n\'ai rien fait d\'aujourd\'hui.\u00A0» — Quoi\u00A0! avez-vous pas vécu\u00A0?</item>
+        <item>Mon métier et mon art, c\'est vivre.</item>
     </string-array>
 
     <!-- Reflection -->
     <string name="reflection_title">Réflexion</string>
     <string name="reflection_empty">Rien à regarder pour le moment.</string>
-    <string name="reflection_section_overview">Aperçu</string>
+    <string name="reflection_empty_period">Rien ces 7 derniers jours. Le reste est sous Depuis le début.</string>
+    <string name="reflection_period_week">7 derniers jours</string>
+    <string name="reflection_period_all">Depuis le début</string>
+    <string name="reflection_since">Depuis le %s</string>
+    <string name="reflection_sentence_period">La plupart ont eu lieu %s.</string>
+    <string name="reflection_when_morning">le matin</string>
+    <string name="reflection_when_afternoon">l\'après-midi</string>
+    <string name="reflection_when_evening">le soir</string>
+    <string name="reflection_when_night">la nuit</string>
+    <string name="reflection_sentence_app">%s est revenue le plus souvent.</string>
+    <string name="reflection_dial_cd">Pauses selon l\'heure de la journée</string>
     <string name="reflection_section_apps">Par application</string>
     <string name="reflection_section_intentions">Intentions</string>
     <string name="reflection_section_time_of_day">Moment de la journée</string>
@@ -64,45 +77,50 @@
 
     <!-- Settings -->
     <string name="settings_title">Réglages</string>
-    <string name="settings_manage_apps">Gérer les applications</string>
-    <string name="settings_wipe_data">Effacer le journal des sessions</string>
-    <string name="settings_wipe_data_desc">Supprime définitivement vos pauses enregistrées. Votre sélection d\'applications est conservée.</string>
-    <string name="settings_wipe_confirm_title">Effacer le journal des sessions ?</string>
+    <string name="settings_manage_apps">Choisir des applications</string>
+    <string name="settings_section_apps">Applications</string>
+    <string name="settings_section_look">Apparence</string>
+    <string name="settings_look_papier">Papier &amp; encre</string>
+    <string name="settings_look_papier_desc">Du papier, de l\'encre et un caractère à empattements. Par défaut.</string>
+    <string name="settings_look_material">Material</string>
+    <string name="settings_look_material_desc">Les couleurs de votre fond d\'écran et la police du système, comme dans les versions précédentes.</string>
+    <string name="settings_tint">Teinter la pause selon l\'heure</string>
+    <string name="settings_tint_desc">Papier le jour, l\'heure bleue le soir, lumière de bougie la nuit.</string>
+    <string name="settings_section_pause">Pause</string>
+    <string name="settings_grace">Pas de pause juste après</string>
+    <string name="settings_grace_desc">Si vous rouvrez la même application moins de 2 minutes après l\'avoir ouverte via la pause, elle s\'ouvre directement.</string>
+    <string name="settings_section_data">Vos données</string>
+    <string name="settings_data_promise">Tout reste sur ce téléphone. l\'entre-deux n\'a ni permission internet ni compte.</string>
+    <string name="settings_section_about">À propos</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_source">Code source</string>
+    <string name="settings_source_desc">Logiciel libre sous licence GPL-3.0</string>
+    <string name="settings_typeface">Police</string>
+    <string name="settings_typeface_desc">Spectral de Production Type, SIL Open Font License</string>
+    <string name="settings_wipe_data">Effacer l\'historique des pauses</string>
+    <string name="settings_wipe_data_desc">Supprime définitivement vos pauses enregistrées. Vos applications choisies sont conservées.</string>
+    <string name="settings_wipe_confirm_title">Effacer l\'historique des pauses ?</string>
     <string name="settings_wipe_confirm_body">Cette action supprime définitivement toutes les pauses enregistrées sur cet appareil. Elle est irréversible.</string>
     <string name="settings_wipe_confirm_yes">Supprimer</string>
     <string name="settings_wipe_confirm_no">Annuler</string>
-    <string name="settings_wipe_done">Journal des sessions effacé.</string>
+    <string name="settings_wipe_done">Historique des pauses effacé.</string>
 
     <!-- Home screen shortcuts (Phase 6) -->
-    <string name="home_pin_shortcut">Ajouter à l\'écran d\'accueil</string>
     <string name="home_pin_shortcut_cd">Épingler %s à votre écran d\'accueil</string>
-    <string name="home_tile_options">Options pour %s</string>
-    <string name="home_shortcut_success">Raccourci demandé — vérifiez votre écran d\'accueil</string>
+    <string name="home_shortcut_success">%s est sur votre écran d\'accueil</string>
     <string name="home_shortcut_unsupported">Votre lanceur ne prend pas en charge les raccourcis épinglés</string>
 
-    <!-- Guided start -->
-    <string name="coach_step">Étape %1$d sur %2$d</string>
-    <string name="coach_add_title">Ajoutez une application</string>
-    <string name="coach_add_body">Touchez le bouton + pour choisir les applications qui vous happent.</string>
-    <string name="coach_pin_title">Épinglez-la à votre écran d\'accueil</string>
-    <string name="coach_pin_body">Touchez l\'épingle sur une application. Ensuite, chaque appui sur celle-ci commence par une pause apaisante — sans passer par cette application.</string>
-    <string name="coach_skip">Passer</string>
-    <string name="coach_done">Compris</string>
 
     <!-- Content descriptions -->
-    <string name="cd_settings">Réglages</string>
     <string name="cd_back">Retour</string>
-    <string name="cd_app_icon">Icône %s</string>
-    <string name="cd_selected">Sélectionné</string>
-    <string name="cd_onboarding_progress">Page %1$d sur %2$d</string>
 
     <!-- Plurals -->
-    <plurals name="reflection_total_pauses">
-        <item quantity="one">%d pause enregistrée</item>
-        <item quantity="other">%d pauses enregistrées</item>
+    <plurals name="reflection_sentence_total">
+        <item quantity="one">%d pause.</item>
+        <item quantity="other">%d pauses.</item>
     </plurals>
     <plurals name="reflection_backed_out">
-        <item quantity="one">Vous avez fait demi-tour %d fois</item>
-        <item quantity="other">Vous avez fait demi-tour %d fois</item>
+        <item quantity="one">« Pas maintenant », %d fois.</item>
+        <item quantity="other">« Pas maintenant », %d fois.</item>
     </plurals>
 </resources>

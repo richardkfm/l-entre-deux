@@ -1,0 +1,5 @@
+A calmer first run.
+
+Setting up is now one path: what "entre-deux" means, then choosing your apps (with the ones that often pull people in suggested), then pinning them. You can try the pause once without anything being saved.
+
+Home is now "Apps": your chosen apps with their real icons, and whether each one is really on your home screen. Once they are pinned, you won't need to open l'entre-deux day to day.

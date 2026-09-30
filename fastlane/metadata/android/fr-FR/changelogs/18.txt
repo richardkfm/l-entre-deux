@@ -1,0 +1,5 @@
+Une mise en route plus calme.
+
+La mise en route suit maintenant un seul chemin : ce que veut dire « entre-deux », puis le choix de vos applications (celles qui happent souvent sont suggérées), puis l'épinglage. Vous pouvez essayer la pause une fois sans que rien ne soit enregistré.
+
+L'accueil devient « Applis » : vos applications choisies avec leurs vraies icônes, et si chacune est vraiment sur votre écran d'accueil. Une fois épinglées, vous n'aurez pas besoin d'ouvrir l'entre-deux au quotidien.

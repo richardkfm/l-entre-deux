@@ -9,6 +9,169 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [1.3.0] — 2026-09-30
+
+Reflection becomes a carnet, and the pause keeps Paris hours. This
+completes Phase 8.
+
+### Added
+- **Paris by the hour.** In light mode the Papier pause tints itself by
+  local time: paper by day (6–18 h), *l'heure bleue* in the evening (until
+  22 h), candlelight at night. Dark mode is always night. On by default;
+  Settings → Look → "Tint the pause by time of day".
+- **Last 7 days / All time** on Reflection, starting with the last seven
+  days.
+- **A dial of the day** on Reflection: one dot per pause at its hour
+  around a 24-hour ring, all drawn the same.
+
+### Changed
+- **Reflection speaks in sentences** before the numbers: "14 pauses. Most
+  came in the evening. Instagram came up most often. “Not now”, 3 times."
+  An observation is only made when it is clear; a tie names nothing.
+- Counts are shown as rows of dots with the number beside them, in a
+  readable size (they were the smallest text on the screen), and
+  "Not now" sits with the intentions.
+- New store screenshots (pause by day and by night, the carnet) in English
+  and French, and store descriptions that match the app.
+
+### Fixed
+- The pause keeps its answer order, its epigraph and a just-tapped answer
+  through rotation, a dark-mode switch or the process being recreated.
+  Before, each of these reshuffled the screen mid-decision, and a tap
+  during the acknowledgement could be logged without opening the app.
+- A newer shortcut tap always wins: a slower check still running for an
+  earlier app can no longer replace the pause you just asked for.
+- The pause paints its own background (paper, blue hour or night) as soon
+  as the look is known, before the grace check, instead of showing light
+  paper until everything has loaded. The system splash on Android 12+ is
+  still light in light mode.
+- The pronunciation on the onboarding screen uses one typeface; Spectral
+  has no ɑ or ʁ, so mixing fonts looked broken.
+
+## [1.2.0] — 2026-09-30
+
+The first run becomes one path that ends with the app out of the way.
+
+### Added
+- **"Try the pause"** on the Apps screen: a rehearsal of the real pause
+  that is never logged and opens nothing.
+- **Real pin state.** The Apps screen asks the launcher which icons are
+  actually pinned, every time it comes back into view, and confirms with
+  "Instagram is on your home screen" once the launcher has really added
+  it (instead of "Shortcut requested" before you had even answered).
+- **Suggestions when choosing apps.** Apps that declare themselves social,
+  video, news or games are grouped as "Often chosen", read from the app's
+  own metadata on the phone. Only a suggestion.
+
+### Changed
+- **Onboarding is one screen**, set like a dictionary entry: *entre-deux,
+  nom masculin*, what it means here, the promise that everything stays on
+  the phone, and "Choose my apps", which goes straight into choosing.
+  "Done" there lands on the Apps screen.
+- **Home is now "Apps"**: a list with each app's real icon, "Not pinned
+  yet" first (each with a Pin button) above "On your home screen", and a
+  footer saying that, once pinned, you won't need to open l'entre-deux day
+  to day.
+- **Choosing apps** shows icons, keeps the apps you had already chosen at
+  the top, and no longer moves a row out from under your finger when you
+  tick it.
+- The guided coach cards and the long-press menu on tiles are gone; the
+  list itself shows what is left to do.
+
+### Removed
+- The three onboarding slides, the coach (`home_coach_done` is no longer
+  read) and the pin drawable they used.
+
+## [1.1.0] — 2026-09-30
+
+Papier & encre: the pause gets its own window, its own voice, and answers
+back. The earlier look stays available.
+
+### Added
+- **Look setting** (Settings → Look). *Papier & encre* is the new default:
+  paper, blue-black ink and a fountain-pen blue by day; warm black and
+  candlelight at night. *Material* keeps the 1.0.x look exactly
+  (wallpaper colours, system font, grey pills).
+- **Spectral**, a screen serif by Production Type (Paris), bundled and
+  subset to Latin (about 190 KB for four styles), SIL Open Font License
+  1.1 (`fonts/Spectral-OFL.txt`). Used for titles and the pause; body text
+  stays in the system font.
+- **The pause answers back.** Choosing an intention fills the answer with
+  ink from where you touched it, gives one haptic tick and lets the aura
+  exhale, then the app opens (240 ms). "Not now" lets the aura disperse,
+  without a haptic. With system animations off, all of this is instant and
+  the aura stands still.
+- **No pause right after** (Settings → Pause, on by default): reopening
+  the same app within two minutes of proceeding through the pause opens it
+  directly. These openings are not logged.
+- **A constellation per app.** The dot field is seeded by the app's package
+  name, so every app has its own pattern.
+- **Signed epigraphs** replace the unsigned phrases: Montaigne (*Essais*
+  I.39, II.6, III.13), Simone Weil (letter to Joë Bousquet, 1942) and Paul
+  Valéry (*Le Cimetière marin*). French originals; the English lines are
+  this project's own translations.
+- The papier pause shows the target app's icon, greyed out, above its name.
+- Settings now states the privacy promise, and shows the version, the
+  source code link and the typeface credit.
+
+### Changed
+- **The pause is its own activity.** Pinned shortcuts open a small,
+  non-exported `PauseActivity` in its own task that never appears in
+  Recents, with a splash made of the pause's paper and dots. The first
+  frame after tapping a pinned icon is now the pause, and nothing of
+  l'entre-deux is left behind once the other app opens. Shortcuts pinned
+  before 1.1.0 keep working: `MainActivity` forwards them, and they are
+  rewritten in place to point at the pause.
+- The papier pause names the app plainly as its title ("Instagram") under
+  a calmer question, with hairline answers instead of grey slabs.
+- The app is now called "l'entre-deux" on the launcher and in the app, as
+  everywhere else.
+- "Delete pause history" is plain text, not alarm red.
+
+## [1.0.2] — 2026-09-30
+
+Fixes from a full UX review of 1.0.1.
+
+### Fixed
+- **Pause at very large text sizes.** At 200 % text on a small phone three
+  of the four answers were cut off mid-line and the aura shrank to a speck.
+  Answers now grow to fit their text, the aura steps aside when there is no
+  room for it, and the screen scrolls only as a last resort.
+- **Light flash in dark mode.** The platform window theme had no night
+  variant, so dark-mode users saw a light window (and, on Android 12+, a
+  light splash) before the app drew.
+- **Double status-bar gap** with edge-to-edge (Android 15+): the insets are
+  now consumed once by the navigation host.
+- **Home flashed its empty state** ("Tap Add apps…") for a moment on every
+  cold start, including when opening a pinned icon, before the saved apps
+  loaded. Home now waits for them.
+- **Fast taps on "Choose apps" could drop a choice**, because each toggle
+  read the selection and wrote it back in two steps. The toggle now happens
+  inside a single DataStore edit.
+- **Pinned shortcuts looked like copies.** They were built from a flat
+  bitmap, which launchers shrink onto a plate. They now use an adaptive
+  bitmap from the app icon's layers, so the launcher masks them like the
+  original.
+- The empty-Home hint referred to an "Add apps" label that didn't exist
+  (and Android stripped its quotation marks). It now says "No apps yet"
+  and has a real "Choose apps" button.
+- The "Session log cleared" line in Settings stayed on screen; it's now a
+  snackbar.
+
+### Changed
+- **Shorter answers on the pause**: One specific thing · A quick look ·
+  Out of habit · Not now (French: Une chose précise · Un coup d'œil · Par
+  habitude · Pas maintenant). They are shuffled, so all four are read every
+  time; this halves the reading. The question is now "What brings you
+  here?". Stored intention keys are unchanged, so history carries over.
+- Moving between screens fades in 220 ms instead of Navigation Compose's
+  700 ms default.
+- Outlined navigation icons, and a small dial-of-dots icon for Reflection
+  instead of the generic "info" symbol.
+- "Wipe session log" is now "Delete pause history"; Reflection says
+  "“Not now”, 3 times" instead of "You backed out 3 times".
+- Removed unused strings.
+
 ## [1.0.1] — 2026-07-04
 
 Design polish: a more organic pause animation, and a "Done" button that
