@@ -93,6 +93,12 @@ out), one row is written to the on-device Room database:
 Nothing else is recorded. The content of the target app, notifications,
 network traffic, and any other app's data are never seen or stored.
 
+The optional "No pause right after" setting (on by default since 1.1.0)
+reads the timestamp of the most recent `PROCEEDED` row for the app being
+opened, on the device, and skips the pause if it is less than two minutes
+old. Openings skipped this way are not logged. Settings themselves (look,
+this switch) live in a local DataStore file next to the app selection.
+
 ## 8. Honest disclosures
 
 - Onboarding states plainly what the app does and does not do.

@@ -189,12 +189,13 @@ option in Settings.
 - [x] "Delete pause history" with a transient confirmation.
 
 ### 1.1.0 — Papier & encre pause
-- [ ] Look setting: Papier & encre (default) or Material (the 1.0.x look).
-- [ ] Spectral (OFL) for the app's voice; paper-and-ink palettes.
-- [ ] Dedicated pause activity for shortcuts: no Home flash, no Recents.
-- [ ] Acknowledgement: ink fill, one haptic tick, the aura exhales.
-- [ ] Signed epigraphs, monochrome target icon, a constellation per app.
-- [ ] Optional grace window: reopening within 2 minutes skips the pause.
+- [x] Look setting: Papier & encre (default) or Material (the 1.0.x look).
+- [x] Spectral (OFL) for the app's voice; paper-and-ink palettes.
+- [x] Dedicated pause activity for shortcuts: no Home flash, no Recents.
+- [x] Acknowledgement: ink fill, one haptic tick, the aura exhales.
+- [x] Signed epigraphs, monochrome target icon, a constellation per app.
+- [x] Optional grace window: reopening within 2 minutes skips the pause.
+- [x] Settings says the privacy promise, version, source and typeface.
 
 ### 1.2.0 — first run as one path
 - [ ] Definition screen → choose apps → pin → try the pause.
@@ -246,9 +247,8 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 8 in progress: `1.0.2` fixes shipped (large text, dark-mode window,
-Home loading, atomic selection, faster navigation, short answers, adaptive
-shortcut icons). Next: the `1.1.0` Papier & encre pause.
+Phase 8 in progress: `1.0.2` fixes and the `1.1.0` Papier & encre pause
+shipped. Next: `1.2.0`, the first run as one path.
 
 Earlier:
 

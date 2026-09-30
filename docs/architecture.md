@@ -33,7 +33,8 @@ app/
   src/main/
     java/org/entredeux/app/
       EntreDeuxApplication.kt
-      MainActivity.kt
+      MainActivity.kt         Main app: NavHost for everything but the pause
+      PauseActivity.kt        The pause, opened by pinned shortcuts and taps
       ui/
         theme/                Compose theme (colors, typography, shapes)
         home/                 Launcher grid screen (Phase 2)
@@ -97,19 +98,21 @@ account.
 
 ## Navigation
 
-A single-activity app (`MainActivity`) hosting Compose `NavHost` with
-top-level routes:
+Two activities. `MainActivity` hosts a Compose `NavHost` with the routes:
 
 - `home` (launcher grid)
 - `selection` (pick apps)
-- `pause/{packageName}` (pause flow; opened via in-app tap or pinned
-  shortcut intent)
 - `reflection`
 - `settings`
 - `onboarding`
 
-The pause route can be entered from outside (a launcher shortcut intent)
-because the pause is the whole product surface for many sessions.
+The pause is the whole product surface for many sessions, so since 1.1.0
+it lives in its own `PauseActivity`: not exported, `singleTask` with an
+empty task affinity, excluded from Recents, with a splash that is the
+pause's own paper and dots. Pinned shortcuts and in-app taps open it with
+an explicit intent; after the choice it starts the target app and removes
+its own task, so nothing of l'entre-deux is left behind. `MainActivity`
+still accepts the pre-1.1.0 shortcut intent and forwards it.
 
 ## Threading and lifecycle
 

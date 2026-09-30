@@ -1,7 +1,6 @@
 package org.entredeux.app.data.shortcuts
 
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
@@ -11,6 +10,7 @@ import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import androidx.core.graphics.drawable.toBitmap
+import org.entredeux.app.PauseActivity
 import org.entredeux.app.R
 
 class ShortcutRepository(private val context: Context) {
@@ -23,11 +23,7 @@ class ShortcutRepository(private val context: Context) {
         val sm = context.getSystemService(ShortcutManager::class.java) ?: return false
         if (!sm.isRequestPinShortcutSupported) return false
 
-        val shortcutIntent = Intent(ACTION_PAUSE_LAUNCH).apply {
-            setClassName(context.packageName, "${context.packageName}.MainActivity")
-            putExtra(EXTRA_PACKAGE_NAME, packageName)
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        }
+        val shortcutIntent = PauseActivity.intent(context, packageName)
 
         val icon = try {
             shortcutIcon(context.packageManager.getApplicationIcon(packageName))
@@ -35,7 +31,7 @@ class ShortcutRepository(private val context: Context) {
             Icon.createWithResource(context, R.mipmap.ic_launcher)
         }
 
-        val info = ShortcutInfo.Builder(context, "pause_$packageName")
+        val info = ShortcutInfo.Builder(context, ID_PREFIX + packageName)
             .setShortLabel(label)
             .setLongLabel(label)
             .setIcon(icon)
@@ -44,6 +40,26 @@ class ShortcutRepository(private val context: Context) {
 
         sm.requestPinShortcut(info, null)
         return true
+    }
+
+    // Shortcuts pinned before 1.1.0 open MainActivity, which then had to
+    // start the whole app before the pause. Pinned shortcuts can be updated
+    // in place, so point them at PauseActivity; only the intent changes.
+    fun migratePinnedShortcuts() {
+        val sm = context.getSystemService(ShortcutManager::class.java) ?: return
+        val updates = sm.pinnedShortcuts
+            .filter { it.id.startsWith(ID_PREFIX) }
+            .map { pinned ->
+                ShortcutInfo.Builder(context, pinned.id)
+                    .setIntent(PauseActivity.intent(context, pinned.id.removePrefix(ID_PREFIX)))
+                    .build()
+            }
+        if (updates.isEmpty()) return
+        try {
+            sm.updateShortcuts(updates)
+        } catch (_: IllegalStateException) {
+            // Rate-limited; the legacy route through MainActivity still works.
+        }
     }
 
     // Launchers shape adaptive icons themselves and give plain bitmaps the
@@ -64,6 +80,7 @@ class ShortcutRepository(private val context: Context) {
 
     companion object {
         private const val ADAPTIVE_ICON_DP = 108
+        private const val ID_PREFIX = "pause_"
 
         const val ACTION_PAUSE_LAUNCH = "org.entredeux.app.action.PAUSE_LAUNCH"
         const val EXTRA_PACKAGE_NAME = "org.entredeux.app.extra.PACKAGE_NAME"

@@ -1,8 +1,5 @@
 package org.entredeux.app.ui
 
-import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -17,10 +14,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,32 +23,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.CoroutineScope
 import org.entredeux.app.R
 import org.entredeux.app.data.apps.InstalledAppsRepository
 import org.entredeux.app.data.local.PauseEventRepository
 import org.entredeux.app.data.prefs.AppSelectionRepository
+import org.entredeux.app.data.prefs.SettingsRepository
 import org.entredeux.app.data.shortcuts.ShortcutRepository
 import org.entredeux.app.ui.home.HomeScreen
 import org.entredeux.app.ui.home.HomeViewModel
 import org.entredeux.app.ui.onboarding.OnboardingScreen
 import org.entredeux.app.ui.onboarding.OnboardingViewModel
-import org.entredeux.app.ui.pause.PauseScreen
-import org.entredeux.app.ui.pause.PauseViewModel
 import org.entredeux.app.ui.reflection.ReflectionScreen
 import org.entredeux.app.ui.reflection.ReflectionViewModel
 import org.entredeux.app.ui.selection.AppSelectionScreen
 import org.entredeux.app.ui.selection.AppSelectionViewModel
 import org.entredeux.app.ui.settings.SettingsScreen
 import org.entredeux.app.ui.settings.SettingsViewModel
-
-data class ShortcutRequest(val packageName: String, val id: Long = System.currentTimeMillis())
-
-private tailrec fun Context.findActivity(): Activity? = when (this) {
-    is Activity -> this
-    is ContextWrapper -> baseContext.findActivity()
-    else -> null
-}
 
 private val topLevelRoutes = setOf("home", "reflection", "settings")
 
@@ -64,26 +49,17 @@ private const val NAV_FADE_MS = 220
 @Composable
 fun AppNavHost(
     startDestination: String,
-    shortcutRequest: ShortcutRequest?,
-    onShortcutHandled: () -> Unit,
     installedAppsRepository: InstalledAppsRepository,
     appSelectionRepository: AppSelectionRepository,
     pauseEventRepository: PauseEventRepository,
     shortcutRepository: ShortcutRepository,
-    appScope: CoroutineScope,
+    settingsRepository: SettingsRepository,
+    onOpenPause: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-
-    LaunchedEffect(shortcutRequest) {
-        val pkg = shortcutRequest?.packageName ?: return@LaunchedEffect
-        navController.navigate("pause/$pkg") {
-            launchSingleTop = true
-        }
-        onShortcutHandled()
-    }
 
     Scaffold(
         modifier = modifier,
@@ -168,7 +144,7 @@ fun AppNavHost(
                 HomeScreen(
                     viewModel = vm,
                     onNavigateToSelection = { navController.navigate("selection") },
-                    onNavigateToPause = { pkg -> navController.navigate("pause/$pkg") },
+                    onNavigateToPause = onOpenPause,
                 )
             }
 
@@ -182,36 +158,6 @@ fun AppNavHost(
                 )
             }
 
-            composable("pause/{packageName}") { backStackEntry ->
-                val packageName = backStackEntry.arguments?.getString("packageName") ?: return@composable
-                val vm: PauseViewModel = viewModel(
-                    key = packageName,
-                    factory = PauseViewModel.factory(
-                        installedAppsRepository,
-                        pauseEventRepository,
-                        appScope,
-                        packageName,
-                    ),
-                )
-                val context = LocalContext.current
-                PauseScreen(
-                    viewModel = vm,
-                    onProceed = {
-                        val intent = installedAppsRepository.getLaunchIntent(packageName)
-                        intent?.let { context.startActivity(it) }
-                        navController.popBackStack()
-                    },
-                    onBackOut = {
-                        // Backing out means "I don't need this app right now."
-                        // Reset our own state to Home, then drop the whole task
-                        // to the background so the user lands back on their
-                        // launcher — out of the way, as if they never opened it.
-                        navController.popBackStack()
-                        context.findActivity()?.moveTaskToBack(true)
-                    },
-                )
-            }
-
             composable("reflection") {
                 val vm: ReflectionViewModel = viewModel(
                     factory = ReflectionViewModel.factory(pauseEventRepository, installedAppsRepository),
@@ -221,7 +167,7 @@ fun AppNavHost(
 
             composable("settings") {
                 val vm: SettingsViewModel = viewModel(
-                    factory = SettingsViewModel.factory(pauseEventRepository),
+                    factory = SettingsViewModel.factory(pauseEventRepository, settingsRepository),
                 )
                 SettingsScreen(
                     viewModel = vm,

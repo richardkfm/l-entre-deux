@@ -3,6 +3,7 @@ package org.entredeux.app.data.apps
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import org.entredeux.app.domain.model.SelectedApp
 
 class InstalledAppsRepository(private val context: Context) {
@@ -30,6 +31,12 @@ class InstalledAppsRepository(private val context: Context) {
         } catch (_: PackageManager.NameNotFoundException) {
             null
         }
+    }
+
+    fun getAppIcon(packageName: String): Drawable? = try {
+        context.packageManager.getApplicationIcon(packageName)
+    } catch (_: PackageManager.NameNotFoundException) {
+        null
     }
 
     fun getLaunchIntent(packageName: String): Intent? =

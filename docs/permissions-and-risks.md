@@ -168,7 +168,10 @@ replacing the original app icon. Tap → pause flow → real app.
   links from other apps.
 
 **Verdict:** This is the current implementation. Together with Option A it
-forms the "intentional launcher" experience. The coverage gap is real and
+forms the "intentional launcher" experience. Since 1.1.0 pinned shortcuts
+open a small, non-exported `PauseActivity` (its own task, excluded from
+Recents); shortcuts pinned earlier are rewritten in place with
+`ShortcutManager.updateShortcuts()`, which needs no permission. The coverage gap is real and
 documented honestly in `docs/product-brief.md`.
 
 ## Required disclosures (whatever path we ship)

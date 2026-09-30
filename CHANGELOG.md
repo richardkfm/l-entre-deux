@@ -9,6 +9,52 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [1.1.0] — 2026-09-30
+
+Papier & encre: the pause gets its own window, its own voice, and answers
+back. The earlier look stays available.
+
+### Added
+- **Look setting** (Settings → Look). *Papier & encre* is the new default:
+  paper, blue-black ink and a fountain-pen blue by day; warm black and
+  candlelight at night. *Material* keeps the 1.0.x look exactly
+  (wallpaper colours, system font, grey pills).
+- **Spectral**, a screen serif by Production Type (Paris), bundled and
+  subset to Latin (about 190 KB for four styles), SIL Open Font License
+  1.1 (`fonts/Spectral-OFL.txt`). Used for titles and the pause; body text
+  stays in the system font.
+- **The pause answers back.** Choosing an intention fills the answer with
+  ink from where you touched it, gives one haptic tick and lets the aura
+  exhale, then the app opens (240 ms). "Not now" lets the aura disperse,
+  without a haptic. With system animations off, all of this is instant and
+  the aura stands still.
+- **No pause right after** (Settings → Pause, on by default): reopening
+  the same app within two minutes of proceeding through the pause opens it
+  directly. These openings are not logged.
+- **A constellation per app.** The dot field is seeded by the app's package
+  name, so every app has its own pattern.
+- **Signed epigraphs** replace the unsigned phrases: Montaigne (*Essais*
+  I.39, II.6, III.13), Simone Weil (letter to Joë Bousquet, 1942) and Paul
+  Valéry (*Le Cimetière marin*). French originals; the English lines are
+  this project's own translations.
+- The papier pause shows the target app's icon, greyed out, above its name.
+- Settings now states the privacy promise, and shows the version, the
+  source code link and the typeface credit.
+
+### Changed
+- **The pause is its own activity.** Pinned shortcuts open a small,
+  non-exported `PauseActivity` in its own task that never appears in
+  Recents, with a splash made of the pause's paper and dots. The first
+  frame after tapping a pinned icon is now the pause, and nothing of
+  l'entre-deux is left behind once the other app opens. Shortcuts pinned
+  before 1.1.0 keep working: `MainActivity` forwards them, and they are
+  rewritten in place to point at the pause.
+- The papier pause names the app plainly as its title ("Instagram") under
+  a calmer question, with hairline answers instead of grey slabs.
+- The app is now called "l'entre-deux" on the launcher and in the app, as
+  everywhere else.
+- "Delete pause history" is plain text, not alarm red.
+
 ## [1.0.2] — 2026-09-30
 
 Fixes from a full UX review of 1.0.1.

@@ -1,0 +1,5 @@
+Papier & encre.
+
+La pause s'ouvre désormais dans sa propre fenêtre, directement depuis votre icône épinglée, et elle répond : la réponse choisie se remplit d'encre, une légère vibration, et l'application s'ouvre. Rouvrez la même application dans les deux minutes et elle s'ouvre directement.
+
+Une nouvelle apparence : papier, encre et le caractère Spectral le jour, noir chaud et lumière de bougie la nuit. Chaque pause est signée d'une phrase de Montaigne, Simone Weil ou Valéry. Vous préférez l'ancienne apparence ? Réglages → Apparence → Material.

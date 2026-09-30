@@ -7,4 +7,8 @@
     <style name="Theme.EntreDeux" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@color/window_background</item>
     </style>
+
+    <!-- values-v31/ adds a splash that is the pause's own paper and dots,
+         so it reads as the pause's first frame. -->
+    <style name="Theme.EntreDeux.Pause" parent="Theme.EntreDeux" />
 </resources>

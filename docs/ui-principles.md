@@ -42,7 +42,7 @@ Every screen should feel like the app is getting out of the user’s way.
   handed, in a queue, half-distracted).
 - No "level up" decorations or progress rewards.
 - **Intentional variation, not gamification.** The pause deliberately
-  rotates a short reflective phrase, and shuffles the order of its four
+  rotates a short signed epigraph, and shuffles the order of its four
   action buttons (the three intention choices and the get-out button) so it
   can't be dismissed from pure muscle memory — the whole point is to make
   the person look. The rest of the screen stays put. This is *not* a dark
@@ -50,6 +50,16 @@ Every screen should feel like the app is getting out of the user’s way.
   labelled, and neither is ever hidden, disabled-by-trickery, or disguised
   as the other. Don't "fix" the moving buttons — the movement is the
   feature.
+- **Answer back, briefly.** Choosing an intention is acknowledged: ink
+  fills the answer from the finger, one haptic tick, the aura exhales, then
+  the app opens (240 ms). "Not now" disperses the aura without a haptic.
+  Nothing longer, nothing celebratory.
+- **Don't ask twice for one visit.** Reopening the same app within two
+  minutes of proceeding goes straight through (on by default, a switch in
+  Settings). It is not logged, since it isn't a new reach.
+- **The pause is its own window.** Pinned shortcuts open a small pause
+  activity directly, so its first frame is the pause and it never lingers
+  in Recents.
 
 ## 5. Minimum surface
 
@@ -62,7 +72,11 @@ Every screen should feel like the app is getting out of the user’s way.
 - All interactive elements have content descriptions.
 - Touch targets ≥ 48dp.
 - Color is never the only signal. Text contrast meets WCAG AA.
-- Respect system font scaling up to large accessibility sizes.
+- Respect system font scaling up to large accessibility sizes. On the
+  pause, answers grow with their text, the aura steps aside when there is
+  no room, and the screen scrolls only as a last resort.
+- With system animations turned off, the aura stands still and the
+  acknowledgement is instant.
 - Screen reader: the pause flow announces the chosen intention before
   proceeding. The breathing animation is decorative and is not announced.
 
@@ -81,13 +95,26 @@ Every screen should feel like the app is getting out of the user’s way.
 - Zero selected apps: a one-line, factual hint of how to add one.
 - Errors: state what happened in plain words, offer one obvious next step.
 
-## 9. Visual identity (provisional)
+## 9. Visual identity: Papier & encre
 
-- Material 3, dynamic color where supported.
-- Type scale: stick to defaults; do not introduce a custom typeface for the
-  MVP. Typeface decisions deferred until v0.5.
-- Iconography: Material Symbols, outlined weight. App-icon design deferred;
-  use a placeholder until the visual identity is settled.
+- **Default look: Papier & encre.** Paper (`#F2EEE6`), blue-black ink
+  (`#1D2433`) and one accent, fountain-pen blue (`#2B4C9B`). At night the
+  paper turns warm black (`#15130F`) and the accent candlelight
+  (`#E8C68A`). Neutrals lean warm, toward the launcher icon's umber.
+- **Material look, kept as an option** in Settings: wallpaper-based dynamic
+  colour and the system font, exactly the 1.0.x look. New behaviour (short
+  answers, acknowledgement, fixes) applies to both looks.
+- **Typeface:** Spectral (Production Type, Paris; SIL OFL 1.1), bundled and
+  subset to Latin, for the app's voice: titles, the pause question and
+  answers, epigraphs. Body and label text stay in the system sans. No
+  downloadable fonts (they depend on Play Services).
+- **Surfaces:** hairline outlines over filled slabs; at most one ink-filled
+  element per screen.
+- **Motion:** fades and gentle rises only. Screen changes 220 ms, pause
+  acknowledgement 240 ms, breath 10 s.
+- **Haptics:** one tick, only when an intention is named.
+- Iconography: Material Symbols, outlined weight, plus a few local vector
+  marks (the dial of dots, the splash cluster).
 
 ## 10. What we will not ship
 

@@ -11,16 +11,15 @@ for your phone and actually using it. This app lives in that moment.
 Instead of blocking apps, it adds a short, respectful pause that asks you
 to name your intention. Then it gets out of the way.
 
-**Status:** v1.0.1 — Phases 0–7 code work complete. Onboarding, a guided
-first run, app selection, a calm one-question pause flow with an organic
-dot-field breathing animation and a rotating reflective line, intention
-logging, on-device reflection, accessibility pass, French localization,
-adaptive icon, R8, F-Droid metadata, and home-screen shortcut pinning all in
-place. The `1.0.0` release is prepared; F-Droid submission is the only
-remaining item. `1.0.1` is a design-polish pass on top. See
-[`roadmap.md`](roadmap.md).
+**Status:** v1.1.0 — Phases 0–7 complete; Phase 8 (*Papier & encre*) in
+progress. The pause now opens in its own window straight from a pinned
+icon, answers back when you choose, and has its own paper-and-ink look with
+the Spectral serif (the earlier Material look stays available in
+Settings). The `1.0.0` release is prepared; F-Droid submission is the only
+remaining item. See [`roadmap.md`](roadmap.md).
 
-**License:** [GPL-3.0](LICENSE).
+**License:** [GPL-3.0](LICENSE). The bundled Spectral typeface is under the
+[SIL Open Font License 1.1](fonts/Spectral-OFL.txt).
 **Distribution target:** F-Droid first.
 **Languages:** English, French.
 
@@ -100,6 +99,7 @@ CLAUDE.md                        — working notes for AI assistants and contrib
 CHANGELOG.md                     — semver changes
 roadmap.md                       — phased delivery plan and current status
 LICENSE                          — GPL-3.0
+fonts/Spectral-OFL.txt           — licence of the bundled Spectral typeface
 docs/
   product-brief.md               — what the app is and is not
   mvp-scope.md                   — sharply scoped MVP definition

@@ -5,27 +5,38 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import org.entredeux.app.data.prefs.AppSelectionRepository
+import org.entredeux.app.data.prefs.SettingsRepository
+import org.entredeux.app.domain.model.Look
 
 sealed interface MainUiState {
     data object Loading : MainUiState
-    data object NeedsOnboarding : MainUiState
-    data object Ready : MainUiState
+    data class Loaded(val needsOnboarding: Boolean, val look: Look) : MainUiState
 }
 
-class MainViewModel(repo: AppSelectionRepository) : ViewModel() {
+class MainViewModel(
+    appSelectionRepository: AppSelectionRepository,
+    settingsRepository: SettingsRepository,
+) : ViewModel() {
 
-    val uiState: StateFlow<MainUiState> = repo.onboardingCompleted
-        .map { done -> if (done) MainUiState.Ready else MainUiState.NeedsOnboarding }
+    // Both are read before the first screen composes, so a Material user
+    // never sees a frame of the Papier look (or the other way round).
+    val uiState: StateFlow<MainUiState> = combine(
+        appSelectionRepository.onboardingCompleted,
+        settingsRepository.look,
+    ) { done, look -> MainUiState.Loaded(needsOnboarding = !done, look = look) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), MainUiState.Loading)
 
     companion object {
-        fun factory(repo: AppSelectionRepository) = object : ViewModelProvider.Factory {
+        fun factory(
+            appSelectionRepository: AppSelectionRepository,
+            settingsRepository: SettingsRepository,
+        ) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                MainViewModel(repo) as T
+                MainViewModel(appSelectionRepository, settingsRepository) as T
         }
     }
 }

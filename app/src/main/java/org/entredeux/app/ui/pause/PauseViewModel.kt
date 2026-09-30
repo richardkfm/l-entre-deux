@@ -1,5 +1,8 @@
 package org.entredeux.app.ui.pause
 
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -16,13 +19,18 @@ import org.entredeux.app.domain.model.Intention
 import org.entredeux.app.domain.model.PauseEvent
 import org.entredeux.app.domain.model.PauseOutcome
 
-data class PauseUiState(val appLabel: String = "")
+data class PauseUiState(
+    val appLabel: String = "",
+    val appIcon: ImageBitmap? = null,
+)
 
 class PauseViewModel(
     private val installedAppsRepository: InstalledAppsRepository,
     private val pauseEventRepository: PauseEventRepository,
     private val appScope: CoroutineScope,
     val packageName: String,
+    // A rehearsal during setup: shown exactly like a real pause, never logged.
+    private val demo: Boolean = false,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PauseUiState())
@@ -31,7 +39,10 @@ class PauseViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val label = installedAppsRepository.getAppLabel(packageName)
-            _uiState.update { it.copy(appLabel = label ?: packageName) }
+            val icon = installedAppsRepository.getAppIcon(packageName)
+                ?.toBitmap(ICON_PX, ICON_PX)
+                ?.asImageBitmap()
+            _uiState.update { it.copy(appLabel = label ?: packageName, appIcon = icon) }
         }
     }
 
@@ -41,6 +52,7 @@ class PauseViewModel(
     fun backOut() = record(BACKED_OUT_INTENTION, PauseOutcome.BACKED_OUT)
 
     private fun record(intentionKey: String, outcome: PauseOutcome) {
+        if (demo) return
         appScope.launch {
             pauseEventRepository.record(
                 PauseEvent(
@@ -54,6 +66,8 @@ class PauseViewModel(
     }
 
     companion object {
+        private const val ICON_PX = 128
+
         // A back-out has no "why I'm opening it" intention. We store an empty
         // key (rather than changing the schema): the reflection intention-mix
         // matches on stable keys, so empty simply isn't counted there, while
@@ -65,6 +79,7 @@ class PauseViewModel(
             pauseEventRepository: PauseEventRepository,
             appScope: CoroutineScope,
             packageName: String,
+            demo: Boolean = false,
         ) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
@@ -73,6 +88,7 @@ class PauseViewModel(
                     pauseEventRepository,
                     appScope,
                     packageName,
+                    demo,
                 ) as T
         }
     }

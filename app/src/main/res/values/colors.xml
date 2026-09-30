@@ -2,5 +2,7 @@
 <resources>
     <color name="ic_launcher_background">#F2EDE7</color>
     <color name="ic_launcher_foreground">#5D4F3F</color>
-    <color name="window_background">#FEF7FF</color>
+    <!-- Papier & encre: the default look's paper and ink. -->
+    <color name="window_background">#F2EEE6</color>
+    <color name="splash_dots">#2B4C9B</color>
 </resources>

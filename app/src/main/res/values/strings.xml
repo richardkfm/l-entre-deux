@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Entre Deux</string>
+    <string name="app_name">l\'entre-deux</string>
 
     <!-- Onboarding -->
     <string name="onboarding_skip">Skip</string>
@@ -37,16 +37,28 @@
     <string name="pause_intention_brief_check">A quick look</string>
     <string name="pause_intention_autopilot">Out of habit</string>
     <string name="pause_back_out">Not now</string>
-    <!-- A short reflective line shown at random on each pause. Keep them
-         calm and non-judgmental — no urgency, scarcity, or guilt. -->
-    <string-array name="pause_phrases">
-        <item>This moment is the only one there is.</item>
-        <item>Attention is how we spend our days.</item>
-        <item>Focus is a quiet kind of freedom.</item>
-        <item>Time given with intention is time well kept.</item>
-        <item>There is beauty in a single, unhurried breath.</item>
-        <item>Where your attention goes, your life follows.</item>
+    <!-- Epigraphs shown at random on each pause, signed like a book's.
+         French originals by writers now in the public domain; the English
+         lines are this project's own translations. Keep them calm: no
+         urgency, scarcity or guilt. pause_epigraph_author has the same order. -->
+    <string-array name="pause_epigraph_text">
+        <item>When I dance, I dance; when I sleep, I sleep.</item>
+        <item>Attention is the rarest and purest form of generosity.</item>
+        <item>The greatest thing in the world is to know how to belong to oneself.</item>
+        <item>The wind is rising. We must try to live.</item>
+        <item>“I have done nothing today.” What? Have you not lived?</item>
+        <item>My trade and my art is living.</item>
     </string-array>
+    <string-array name="pause_epigraph_author" translatable="false">
+        <item>Montaigne</item>
+        <item>Simone Weil</item>
+        <item>Montaigne</item>
+        <item>Paul Valéry</item>
+        <item>Montaigne</item>
+        <item>Montaigne</item>
+    </string-array>
+    <!-- Material look: the epigraph on one line. %1$s text, %2$s author. -->
+    <string name="pause_epigraph_line" translatable="false">%1$s — %2$s</string>
 
     <!-- Reflection -->
     <string name="reflection_title">Reflection</string>
@@ -62,7 +74,24 @@
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
-    <string name="settings_manage_apps">Manage apps</string>
+    <string name="settings_manage_apps">Choose apps</string>
+    <string name="settings_section_apps">Apps</string>
+    <string name="settings_section_look">Look</string>
+    <string name="settings_look_papier">Papier &amp; encre</string>
+    <string name="settings_look_papier_desc">Paper, ink and a serif. The default.</string>
+    <string name="settings_look_material">Material</string>
+    <string name="settings_look_material_desc">Your wallpaper\'s colours and the system font, as in earlier versions.</string>
+    <string name="settings_section_pause">Pause</string>
+    <string name="settings_grace">No pause right after</string>
+    <string name="settings_grace_desc">If you reopen the same app within 2 minutes of opening it through the pause, it opens directly.</string>
+    <string name="settings_section_data">Your data</string>
+    <string name="settings_data_promise">Everything stays on this phone. l\'entre-deux has no internet permission and no account.</string>
+    <string name="settings_section_about">About</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_source">Source code</string>
+    <string name="settings_source_desc">Free software under the GPL-3.0</string>
+    <string name="settings_typeface">Typeface</string>
+    <string name="settings_typeface_desc">Spectral by Production Type, SIL Open Font License</string>
     <string name="settings_wipe_data">Delete pause history</string>
     <string name="settings_wipe_data_desc">Permanently deletes your recorded pauses. Your chosen apps are kept.</string>
     <string name="settings_wipe_confirm_title">Delete pause history?</string>
