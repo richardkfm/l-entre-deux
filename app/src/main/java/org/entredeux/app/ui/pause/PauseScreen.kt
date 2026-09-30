@@ -39,6 +39,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -132,7 +133,10 @@ fun PauseScreen(
             .shuffled(Random(orderSeed.toLong()))
     }
 
-    var chosen by remember { mutableStateOf<PauseAction?>(null) }
+    // Saved as an index into the shuffled order, so a rotation during the
+    // acknowledgement still finishes the tap instead of dropping it.
+    var chosenIndex by rememberSaveable { mutableIntStateOf(-1) }
+    val chosen = actions.getOrNull(chosenIndex)
     val release by animateFloatAsState(
         targetValue = if (chosen != null) 1f else 0f,
         animationSpec = tween(
@@ -169,7 +173,7 @@ fun PauseScreen(
                 }
                 PauseAction.Leave -> viewModel.backOut()
             }
-            chosen = action
+            chosenIndex = actions.indexOf(action)
         }
     }
 

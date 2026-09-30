@@ -12,12 +12,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.entredeux.app.data.shortcuts.ShortcutRepository
@@ -40,6 +46,8 @@ private data class PauseRequest(
     val id: Long = SystemClock.elapsedRealtimeNanos(),
 )
 
+private data class Appearance(val look: Look, val tint: PauseTint?)
+
 // The pause lives in its own small activity, in its own task that never
 // shows in Recents. Pinned shortcuts open it directly, so the first frame
 // after tapping an icon is the pause itself, not the app's Home, and
@@ -47,52 +55,76 @@ private data class PauseRequest(
 class PauseActivity : ComponentActivity() {
 
     private var request by mutableStateOf<PauseRequest?>(null)
-    private var look by mutableStateOf(Look.PAPIER)
-    private var tint by mutableStateOf<PauseTint?>(null)
+    private var appearance by mutableStateOf<Appearance?>(null)
+    private var decision: Job? = null
 
     private val app get() = application as EntreDeuxApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val first = requestFrom(intent) ?: return finish()
+        // Recreated (rotation, a dark-mode switch, process death): the same
+        // pause with the same order and epigraph, and no second grace check.
+        val restored = savedInstanceState?.let(::restoreRequest)
+        val next = restored ?: requestFrom(intent) ?: return finish()
         setContent {
-            val current = request ?: return@setContent
-            EntreDeuxTheme(look = look, tint = tint) {
-                key(current.id) {
-                    val viewModel: PauseViewModel = viewModel(
-                        key = "${current.packageName}#${current.id}",
-                        factory = PauseViewModel.factory(
-                            app.installedAppsRepository,
-                            app.pauseEventRepository,
-                            app.appScope,
-                            current.packageName,
-                            current.demo,
-                        ),
-                    )
-                    PauseScreen(
-                        viewModel = viewModel,
-                        onProceed = { if (current.demo) close() else openTarget(current.packageName) },
-                        onBackOut = { close() },
-                    )
+            val current = appearance ?: return@setContent
+            EntreDeuxTheme(look = current.look, tint = current.tint) {
+                // The pause's own background goes down as soon as the look is
+                // known, before the grace check, so the screen settles on its
+                // final colour at once.
+                Box(
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.surface),
+                ) {
+                    val pause = request ?: return@Box
+                    key(pause.id) {
+                        val viewModel: PauseViewModel = viewModel(
+                            key = "${pause.packageName}#${pause.id}",
+                            factory = PauseViewModel.factory(
+                                app.installedAppsRepository,
+                                app.pauseEventRepository,
+                                app.appScope,
+                                pause.packageName,
+                                pause.demo,
+                            ),
+                        )
+                        PauseScreen(
+                            viewModel = viewModel,
+                            onProceed = { if (pause.demo) close() else openTarget(pause.packageName) },
+                            onBackOut = { close() },
+                        )
+                    }
                 }
             }
         }
-        decide(first)
+        decide(next, checkGrace = restored == null)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        requestFrom(intent)?.let { decide(it) }
+        requestFrom(intent)?.let { decide(it, checkGrace = true) }
     }
 
-    // Until this settles the window background (the same paper as the
-    // pause) is all that shows, so there is no flash of anything else.
-    private fun decide(next: PauseRequest) {
-        lifecycleScope.launch {
-            look = app.settingsRepository.look.first()
-            tint = if (look == Look.PAPIER && app.settingsRepository.tintByTime.first()) {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        request?.let {
+            outState.putString(STATE_PACKAGE, it.packageName)
+            outState.putBoolean(STATE_DEMO, it.demo)
+            outState.putLong(STATE_ID, it.id)
+        }
+    }
+
+    // A newer launch always wins: the previous decision is cancelled, so a
+    // slow check for an earlier app can't replace the pause just asked for.
+    private fun decide(next: PauseRequest, checkGrace: Boolean) {
+        decision?.cancel()
+        if (checkGrace) request = null
+        decision = lifecycleScope.launch {
+            val look = app.settingsRepository.look.first()
+            val tint = if (look == Look.PAPIER && app.settingsRepository.tintByTime.first()) {
                 pauseTintForHour(LocalTime.now().hour)
             } else {
                 null
@@ -109,7 +141,9 @@ class PauseActivity : ComponentActivity() {
             } else {
                 enableEdgeToEdge()
             }
-            val skip = !next.demo &&
+            appearance = Appearance(look, tint)
+            val skip = checkGrace &&
+                !next.demo &&
                 app.settingsRepository.graceWindow.first() &&
                 isWithinGraceWindow(app.pauseEventRepository.lastProceededAt(next.packageName), System.currentTimeMillis())
             if (skip) openTarget(next.packageName) else request = next
@@ -134,6 +168,11 @@ class PauseActivity : ComponentActivity() {
         }
     }
 
+    private fun restoreRequest(state: Bundle): PauseRequest? {
+        val pkg = state.getString(STATE_PACKAGE) ?: return null
+        return PauseRequest(pkg, state.getBoolean(STATE_DEMO), state.getLong(STATE_ID))
+    }
+
     private fun requestFrom(intent: Intent?): PauseRequest? {
         val pkg = intent?.getStringExtra(EXTRA_PACKAGE_NAME) ?: return null
         return PauseRequest(pkg, demo = intent.getBooleanExtra(EXTRA_DEMO, false))
@@ -141,6 +180,9 @@ class PauseActivity : ComponentActivity() {
 
     companion object {
         private const val EXTRA_DEMO = "org.entredeux.app.extra.DEMO"
+        private const val STATE_PACKAGE = "pause_package"
+        private const val STATE_DEMO = "pause_demo"
+        private const val STATE_ID = "pause_id"
 
         fun intent(context: Context, packageName: String, demo: Boolean = false): Intent =
             Intent(context, PauseActivity::class.java)

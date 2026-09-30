@@ -24,9 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.entredeux.app.R
-import org.entredeux.app.domain.model.Look
-import org.entredeux.app.ui.theme.LocalLook
-import org.entredeux.app.ui.theme.Spectral
 
 // One screen, set like a dictionary entry: the name, what it means here,
 // the promise, and a single way forward into choosing apps.
@@ -60,10 +57,9 @@ fun OnboardingScreen(
             Spacer(Modifier.height(4.dp))
             Text(
                 text = stringResource(R.string.onboarding_grammar),
-                style = type.titleMedium.copy(
-                    fontStyle = FontStyle.Italic,
-                    fontFamily = if (LocalLook.current == Look.PAPIER) Spectral else null,
-                ),
+                // System font on purpose: Spectral has no ɑ or ʁ, and a line
+                // mixing two typefaces looks broken.
+                style = type.titleMedium.copy(fontStyle = FontStyle.Italic),
                 color = colors.onSurfaceVariant,
             )
             Spacer(Modifier.height(16.dp))
