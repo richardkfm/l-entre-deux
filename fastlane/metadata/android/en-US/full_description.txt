@@ -8,15 +8,19 @@ intention. Then it gets out of the way. The user can always proceed.
 
 Features
 
-* Pick the apps that pull you in.
-* Tap one through l’entre-deux to see a short pause screen with a slow
-  breathing animation.
-* Choose an intention: a specific task, a brief check, or autopilot.
-  That is the only question — then you proceed.
-* Pin any app to your real home screen, so every tap on it routes
-  through the pause.
-* A private, on-device reflection screen shows your patterns. No
-  scores, no streaks, no comparisons.
+* Pick the apps that pull you in, and pin them to your real home
+  screen, so every tap on them routes through the pause.
+* The pause opens in its own quiet window with a slowly breathing field
+  of dots, a line from Montaigne, Simone Weil or Valéry, and one
+  question: One specific thing, A quick look, Out of habit, or Not now.
+  Naming it is what opens the app.
+* Reopen the same app within two minutes and it opens directly (you can
+  turn this off).
+* A private, on-device weekly carnet shows your patterns in plain
+  sentences and a dial of the day. No scores, no streaks, no
+  comparisons.
+* Two looks: Papier & encre (paper, ink and the Spectral serif, tinted
+  by the time of day) or Material (your wallpaper's colours).
 * French and English UI.
 
 Privacy and trust

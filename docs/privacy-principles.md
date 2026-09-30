@@ -98,6 +98,8 @@ reads the timestamp of the most recent `PROCEEDED` row for the app being
 opened, on the device, and skips the pause if it is less than two minutes
 old. Openings skipped this way are not logged. Settings themselves (look,
 this switch) live in a local DataStore file next to the app selection.
+The time-of-day tint (1.3.0) only reads the phone's clock when the pause
+opens; nothing about it is stored.
 
 ## 8. Honest disclosures
 

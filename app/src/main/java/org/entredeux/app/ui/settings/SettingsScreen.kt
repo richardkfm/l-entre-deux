@@ -122,6 +122,18 @@ fun SettingsScreen(
                 selected = uiState.look == Look.MATERIAL,
                 onSelect = { viewModel.setLook(Look.MATERIAL) },
             )
+            if (uiState.look == Look.PAPIER) {
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.settings_tint)) },
+                    supportingContent = { Text(stringResource(R.string.settings_tint_desc)) },
+                    trailingContent = { Switch(checked = uiState.tintByTime, onCheckedChange = null) },
+                    modifier = Modifier.toggleable(
+                        value = uiState.tintByTime,
+                        role = Role.Switch,
+                        onValueChange = viewModel::setTintByTime,
+                    ),
+                )
+            }
 
             HorizontalDivider()
             SectionHeader(stringResource(R.string.settings_section_pause))

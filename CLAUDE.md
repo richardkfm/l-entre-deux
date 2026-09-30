@@ -168,9 +168,8 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 1.2.0
-**Phase:** Phase 0–7 complete; Phase 8 (Papier & encre, 1.0.2 → 1.3.0) in
-progress. `1.0.0` release prepared for F-Droid; the only remaining step is
+**Version:** 1.3.0
+**Phase:** Phase 0–8 complete (Phase 8: Papier & encre, 1.0.2 → 1.3.0). `1.0.0` release prepared for F-Droid; the only remaining step is
 the external submission (tag `v1.0.0` + fdroiddata merge request).
 **Last updated:** 2026-09-30.
 
@@ -226,9 +225,16 @@ What exists:
   logged to Room. No time-limit question, no notifications.
 - Settings screen: choose apps, look, grace window, the privacy promise,
   delete pause history, version, source, typeface credit.
-- Reflection screen: per-app counts, intention mix, time-of-day
-  distribution, back-out count. All computed locally from Room. No
-  scores, no streaks. Empty state when no data.
+- Reflection screen, a weekly carnet: last 7 days or all time; a few plain
+  sentences (`describeReflection` names the busiest period or app only
+  when there is no tie), a 24-hour dial with one identical dot per pause,
+  then intentions, "Not now", apps and time of day as dot rows with the
+  number beside them. All computed locally from Room. No scores, no
+  streaks.
+- Papier pause tinted by local time in light mode (`pauseTintForHour`:
+  jour 6–17 h, heure bleue 18–21 h, nuit otherwise; `HeureBleueColors`),
+  with light system-bar icons on the dark tints. Settings switch, on by
+  default.
 - Bottom navigation bar: Apps / Reflection / Settings (outlined icons plus
   two local vector marks).
 - Accessibility pass: `heading()` semantics on titles, `Role.Button` on

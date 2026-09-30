@@ -93,7 +93,9 @@ Every screen should feel like the app is getting out of the user’s way.
 ## 8. Empty states, not anxious states
 
 - Empty reflection screen: "Nothing to look at yet." Not "Start your
-  journey!"
+  journey!" Reflection speaks in plain observations ("Most came in the
+  evening."), names something only when it is clear (a tie names
+  nothing), and draws every pause the same.
 - Zero selected apps: a one-line, factual hint of how to add one.
 - Errors: state what happened in plain words, offer one obvious next step.
 
@@ -112,6 +114,9 @@ Every screen should feel like the app is getting out of the user’s way.
   downloadable fonts (they depend on Play Services).
 - **Surfaces:** hairline outlines over filled slabs; at most one ink-filled
   element per screen.
+- **Paris by the hour:** in light mode the Papier pause tints itself by
+  local time: paper from 6 to 18 h, l'heure bleue until 22 h, candlelight
+  after. Dark mode is always night. A switch in Settings turns it off.
 - **Motion:** fades and gentle rises only. Screen changes 220 ms, pause
   acknowledgement 240 ms, breath 10 s.
 - **Haptics:** one tick, only when an intention is named.

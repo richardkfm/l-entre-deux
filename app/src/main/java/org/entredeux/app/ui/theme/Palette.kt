@@ -46,6 +46,39 @@ val PapierColors = lightColorScheme(
     surfaceContainerHighest = Color(0xFFE3DCD0),
 )
 
+// L'heure bleue: the pause between six and ten in the evening, when the
+// system is in light mode. Dusk blue with pale, cool dots.
+val HeureBleueColors = darkColorScheme(
+    primary = Color(0xFFCFDAF6),
+    onPrimary = Color(0xFF1E2740),
+    primaryContainer = Color(0xFF34405F),
+    onPrimaryContainer = Color(0xFFE3E9F9),
+    inversePrimary = Color(0xFF2B4C9B),
+    secondary = Color(0xFFC9B08E),
+    onSecondary = Color(0xFF2E2415),
+    secondaryContainer = Color(0xFF3A4260),
+    onSecondaryContainer = Color(0xFFE3E9F9),
+    background = Color(0xFF1E2740),
+    onBackground = Color(0xFFEEF0F6),
+    surface = Color(0xFF1E2740),
+    onSurface = Color(0xFFEEF0F6),
+    surfaceVariant = Color(0xFF2A3452),
+    onSurfaceVariant = Color(0xFFAEB7CC),
+    surfaceTint = Color(0xFFCFDAF6),
+    inverseSurface = Color(0xFFEEF0F6),
+    inverseOnSurface = Color(0xFF1E2740),
+    error = Color(0xFFE39A8A),
+    onError = Color(0xFF3D0F08),
+    outline = Color(0xFF6B7797),
+    outlineVariant = Color(0xFF34405F),
+    scrim = Color(0xFF000000),
+    surfaceContainerLowest = Color(0xFF171F34),
+    surfaceContainerLow = Color(0xFF1B2339),
+    surfaceContainer = Color(0xFF222B45),
+    surfaceContainerHigh = Color(0xFF29324D),
+    surfaceContainerHighest = Color(0xFF303A56),
+)
+
 val NuitColors = darkColorScheme(
     primary = Color(0xFFE8C68A),
     onPrimary = Color(0xFF2B200F),

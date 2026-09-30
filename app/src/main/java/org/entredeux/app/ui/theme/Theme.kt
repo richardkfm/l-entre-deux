@@ -13,6 +13,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import org.entredeux.app.domain.model.Look
+import org.entredeux.app.domain.model.PauseTint
 
 private val MaterialLight = lightColorScheme()
 private val MaterialDark = darkColorScheme()
@@ -20,14 +21,25 @@ private val MaterialDark = darkColorScheme()
 // Screens that draw differently per look (the pause) read this.
 val LocalLook = staticCompositionLocalOf { Look.PAPIER }
 
+// The evening and night tints are dark even when the system is light, so
+// the pause then needs light system-bar icons.
+fun isDarkPause(look: Look, systemDark: Boolean, tint: PauseTint?): Boolean =
+    systemDark || (look == Look.PAPIER && tint != null && tint != PauseTint.JOUR)
+
 @Composable
 fun EntreDeuxTheme(
     look: Look = Look.PAPIER,
     darkTheme: Boolean = isSystemInDarkTheme(),
+    // Only the pause passes a tint. In dark mode it is always night.
+    tint: PauseTint? = null,
     content: @Composable () -> Unit,
 ) {
     val colorScheme = when (look) {
-        Look.PAPIER -> if (darkTheme) NuitColors else PapierColors
+        Look.PAPIER -> when {
+            darkTheme || tint == PauseTint.NUIT -> NuitColors
+            tint == PauseTint.HEURE_BLEUE -> HeureBleueColors
+            else -> PapierColors
+        }
         Look.MATERIAL -> when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
                 val context = LocalContext.current

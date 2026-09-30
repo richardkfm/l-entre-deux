@@ -81,6 +81,18 @@ class GetReflectionStatsUseCaseTest {
         assertEquals(0, tod[TimeOfDay.NIGHT])
     }
 
+    @Test
+    fun hourly_counts_each_local_hour() {
+        val zone = ZoneId.systemDefault()
+        val nineAm = LocalDate.now().atTime(9, 30).atZone(zone).toInstant().toEpochMilli()
+        val elevenPm = LocalDate.now().atTime(23, 5).atZone(zone).toInstant().toEpochMilli()
+        val hourly = getReflectionStats(listOf(pause(ts = nineAm), pause(ts = nineAm), pause(ts = elevenPm)))!!.hourly
+        assertEquals(24, hourly.size)
+        assertEquals(2, hourly[9])
+        assertEquals(1, hourly[23])
+        assertEquals(3, hourly.sum())
+    }
+
     private fun pause(
         pkg: String = "com.example",
         outcome: PauseOutcome = PauseOutcome.PROCEEDED,

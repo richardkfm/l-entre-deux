@@ -15,6 +15,7 @@ import org.entredeux.app.domain.model.Look
 data class SettingsUiState(
     val look: Look = Look.PAPIER,
     val graceWindow: Boolean = true,
+    val tintByTime: Boolean = true,
 )
 
 class SettingsViewModel(
@@ -25,7 +26,8 @@ class SettingsViewModel(
     val uiState: StateFlow<SettingsUiState> = combine(
         settingsRepository.look,
         settingsRepository.graceWindow,
-    ) { look, grace -> SettingsUiState(look, grace) }
+        settingsRepository.tintByTime,
+    ) { look, grace, tint -> SettingsUiState(look, grace, tint) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SettingsUiState())
 
     fun setLook(look: Look) {
@@ -34,6 +36,10 @@ class SettingsViewModel(
 
     fun setGraceWindow(enabled: Boolean) {
         viewModelScope.launch { settingsRepository.setGraceWindow(enabled) }
+    }
+
+    fun setTintByTime(enabled: Boolean) {
+        viewModelScope.launch { settingsRepository.setTintByTime(enabled) }
     }
 
     fun wipeSessionLog() {

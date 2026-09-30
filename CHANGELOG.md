@@ -9,6 +9,31 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [1.3.0] — 2026-09-30
+
+Reflection becomes a carnet, and the pause keeps Paris hours. This
+completes Phase 8.
+
+### Added
+- **Paris by the hour.** In light mode the Papier pause tints itself by
+  local time: paper by day (6–18 h), *l'heure bleue* in the evening (until
+  22 h), candlelight at night. Dark mode is always night. On by default;
+  Settings → Look → "Tint the pause by time of day".
+- **Last 7 days / All time** on Reflection, starting with the last seven
+  days.
+- **A dial of the day** on Reflection: one dot per pause at its hour
+  around a 24-hour ring, all drawn the same.
+
+### Changed
+- **Reflection speaks in sentences** before the numbers: "14 pauses. Most
+  came in the evening. Instagram came up most often. “Not now”, 3 times."
+  An observation is only made when it is clear; a tie names nothing.
+- Counts are shown as rows of dots with the number beside them, in a
+  readable size (they were the smallest text on the screen), and
+  "Not now" sits with the intentions.
+- New store screenshots (pause by day and by night, the carnet) in English
+  and French, and store descriptions that match the app.
+
 ## [1.2.0] — 2026-09-30
 
 The first run becomes one path that ends with the app out of the way.

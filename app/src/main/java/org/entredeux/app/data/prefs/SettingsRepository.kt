@@ -17,6 +17,7 @@ class SettingsRepository(private val context: Context) {
 
     private val lookKey = stringPreferencesKey("look")
     private val graceWindowKey = booleanPreferencesKey("grace_window")
+    private val tintByTimeKey = booleanPreferencesKey("tint_by_time")
 
     val look: Flow<Look> = context.settingsStore.data
         .map { prefs -> Look.entries.firstOrNull { it.name == prefs[lookKey] } ?: Look.PAPIER }
@@ -24,11 +25,18 @@ class SettingsRepository(private val context: Context) {
     val graceWindow: Flow<Boolean> = context.settingsStore.data
         .map { it[graceWindowKey] ?: true }
 
+    val tintByTime: Flow<Boolean> = context.settingsStore.data
+        .map { it[tintByTimeKey] ?: true }
+
     suspend fun setLook(look: Look) {
         context.settingsStore.edit { it[lookKey] = look.name }
     }
 
     suspend fun setGraceWindow(enabled: Boolean) {
         context.settingsStore.edit { it[graceWindowKey] = enabled }
+    }
+
+    suspend fun setTintByTime(enabled: Boolean) {
+        context.settingsStore.edit { it[tintByTimeKey] = enabled }
     }
 }

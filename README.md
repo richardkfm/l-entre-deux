@@ -11,12 +11,13 @@ for your phone and actually using it. This app lives in that moment.
 Instead of blocking apps, it adds a short, respectful pause that asks you
 to name your intention. Then it gets out of the way.
 
-**Status:** v1.1.0 — Phases 0–7 complete; Phase 8 (*Papier & encre*) in
-progress. The pause now opens in its own window straight from a pinned
-icon, answers back when you choose, and has its own paper-and-ink look with
-the Spectral serif (the earlier Material look stays available in
-Settings). The `1.0.0` release is prepared; F-Droid submission is the only
-remaining item. See [`roadmap.md`](roadmap.md).
+**Status:** v1.3.0 — Phases 0–8 complete. Phase 8 (*Papier & encre*)
+gave the pause its own window, straight from a pinned icon, an
+acknowledgement when you choose, a paper-and-ink look with the Spectral
+serif tinted by the time of day (the earlier Material look stays available
+in Settings), a one-path first run, and a weekly reflection carnet. The
+`1.0.0` release is prepared; F-Droid submission is the only remaining
+item. See [`roadmap.md`](roadmap.md).
 
 **License:** [GPL-3.0](LICENSE). The bundled Spectral typeface is under the
 [SIL Open Font License 1.1](fonts/Spectral-OFL.txt).
@@ -45,7 +46,7 @@ remaining item. See [`roadmap.md`](roadmap.md).
 - Not a streak / badge / points wellness app.
 - Not commercial. No ads, no upsells, no accounts.
 
-  <img width="300" height="667" alt="grafik" src="https://github.com/user-attachments/assets/541f324c-da52-43eb-afe7-b78d1205d6cc" />
+  <img width="300" alt="The pause: an epigraph by Simone Weil, a field of dots, Instagram, and four answers" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1_pause.png" />
 
 
 ## How this differs from Google’s Pause Point

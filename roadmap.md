@@ -206,8 +206,11 @@ option in Settings.
 - [x] Choose apps with icons, chosen first, local category suggestions.
 
 ### 1.3.0 — carnet and the hours
-- [ ] Reflection as a weekly carnet: sentences, 24-hour dial, dot counts.
-- [ ] Pause tinted by time of day (jour, l'heure bleue, nuit).
+- [x] Reflection as a weekly carnet: sentences, 24-hour dial, dot counts,
+      last 7 days or all time.
+- [x] Pause tinted by time of day (jour, l'heure bleue, nuit), with a
+      switch in Settings.
+- [x] Store screenshots and descriptions show the new pause and carnet.
 
 ## Phase X — Optional advanced or sensitive capabilities
 **Default: not pursued. Every item here requires a public decision first.**
@@ -250,8 +253,9 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 8 in progress: `1.0.2` fixes, the `1.1.0` Papier & encre pause and
-the `1.2.0` first run shipped. Next: `1.3.0`, the carnet and the hours.
+Phase 8 complete: `1.0.2` fixes, the `1.1.0` Papier & encre pause, the
+`1.2.0` first run and the `1.3.0` carnet and hours. The only remaining item
+is the F-Droid submission.
 
 Earlier:
 

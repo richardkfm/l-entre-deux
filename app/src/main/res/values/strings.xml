@@ -69,7 +69,17 @@
     <!-- Reflection -->
     <string name="reflection_title">Reflection</string>
     <string name="reflection_empty">Nothing to look at yet.</string>
-    <string name="reflection_section_overview">Overview</string>
+    <string name="reflection_empty_period">Nothing in the last 7 days. The rest is under All time.</string>
+    <string name="reflection_period_week">Last 7 days</string>
+    <string name="reflection_period_all">All time</string>
+    <string name="reflection_since">Since %s</string>
+    <string name="reflection_sentence_period">Most came %s.</string>
+    <string name="reflection_when_morning">in the morning</string>
+    <string name="reflection_when_afternoon">in the afternoon</string>
+    <string name="reflection_when_evening">in the evening</string>
+    <string name="reflection_when_night">at night</string>
+    <string name="reflection_sentence_app">%s came up most often.</string>
+    <string name="reflection_dial_cd">Pauses by hour of the day</string>
     <string name="reflection_section_apps">By app</string>
     <string name="reflection_section_intentions">Intentions</string>
     <string name="reflection_section_time_of_day">Time of day</string>
@@ -87,6 +97,8 @@
     <string name="settings_look_papier_desc">Paper, ink and a serif. The default.</string>
     <string name="settings_look_material">Material</string>
     <string name="settings_look_material_desc">Your wallpaper\'s colours and the system font, as in earlier versions.</string>
+    <string name="settings_tint">Tint the pause by time of day</string>
+    <string name="settings_tint_desc">Paper by day, the blue hour in the evening, candlelight at night.</string>
     <string name="settings_section_pause">Pause</string>
     <string name="settings_grace">No pause right after</string>
     <string name="settings_grace_desc">If you reopen the same app within 2 minutes of opening it through the pause, it opens directly.</string>
@@ -116,12 +128,12 @@
     <string name="cd_back">Back</string>
 
     <!-- Plurals -->
-    <plurals name="reflection_total_pauses">
-        <item quantity="one">%d pause recorded</item>
-        <item quantity="other">%d pauses recorded</item>
+    <plurals name="reflection_sentence_total">
+        <item quantity="one">%d pause.</item>
+        <item quantity="other">%d pauses.</item>
     </plurals>
     <plurals name="reflection_backed_out">
-        <item quantity="one">“Not now”, once</item>
-        <item quantity="other">“Not now”, %d times</item>
+        <item quantity="one">“Not now”, once.</item>
+        <item quantity="other">“Not now”, %d times.</item>
     </plurals>
 </resources>

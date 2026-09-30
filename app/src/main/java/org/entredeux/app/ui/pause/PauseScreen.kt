@@ -69,6 +69,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.delay
+import org.entredeux.app.R
+import org.entredeux.app.domain.model.Intention
+import org.entredeux.app.domain.model.Look
+import org.entredeux.app.ui.theme.LocalLook
+import org.entredeux.app.ui.theme.Spectral
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.hypot
@@ -76,12 +82,6 @@ import kotlin.math.max
 import kotlin.math.sin
 import kotlin.math.sqrt
 import kotlin.random.Random
-import kotlinx.coroutines.delay
-import org.entredeux.app.R
-import org.entredeux.app.domain.model.Intention
-import org.entredeux.app.domain.model.Look
-import org.entredeux.app.ui.theme.LocalLook
-import org.entredeux.app.ui.theme.Spectral
 
 private data class IntentionOption(val intention: Intention, val labelRes: Int)
 

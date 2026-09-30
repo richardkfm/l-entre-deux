@@ -23,6 +23,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val app = application as EntreDeuxApplication
+        app.shortcutRepository.migratePinnedShortcuts()
         // A shortcut pinned before 1.1.0 lands here: hand it to the pause
         // and get out of the way, as if the shortcut had pointed there.
         if (savedInstanceState == null && forwardLegacyShortcut(intent)) {
@@ -30,8 +32,6 @@ class MainActivity : ComponentActivity() {
             return
         }
         enableEdgeToEdge()
-        val app = application as EntreDeuxApplication
-        app.shortcutRepository.migratePinnedShortcuts()
         setContent {
             val mainViewModel: MainViewModel = viewModel(
                 factory = MainViewModel.factory(app.appSelectionRepository, app.settingsRepository),

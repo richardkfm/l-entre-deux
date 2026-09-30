@@ -56,7 +56,17 @@
     <!-- Reflection -->
     <string name="reflection_title">Réflexion</string>
     <string name="reflection_empty">Rien à regarder pour le moment.</string>
-    <string name="reflection_section_overview">Aperçu</string>
+    <string name="reflection_empty_period">Rien ces 7 derniers jours. Le reste est sous Depuis le début.</string>
+    <string name="reflection_period_week">7 derniers jours</string>
+    <string name="reflection_period_all">Depuis le début</string>
+    <string name="reflection_since">Depuis le %s</string>
+    <string name="reflection_sentence_period">La plupart ont eu lieu %s.</string>
+    <string name="reflection_when_morning">le matin</string>
+    <string name="reflection_when_afternoon">l\'après-midi</string>
+    <string name="reflection_when_evening">le soir</string>
+    <string name="reflection_when_night">la nuit</string>
+    <string name="reflection_sentence_app">%s est revenue le plus souvent.</string>
+    <string name="reflection_dial_cd">Pauses selon l\'heure de la journée</string>
     <string name="reflection_section_apps">Par application</string>
     <string name="reflection_section_intentions">Intentions</string>
     <string name="reflection_section_time_of_day">Moment de la journée</string>
@@ -74,6 +84,8 @@
     <string name="settings_look_papier_desc">Du papier, de l\'encre et un caractère à empattements. Par défaut.</string>
     <string name="settings_look_material">Material</string>
     <string name="settings_look_material_desc">Les couleurs de votre fond d\'écran et la police du système, comme dans les versions précédentes.</string>
+    <string name="settings_tint">Teinter la pause selon l\'heure</string>
+    <string name="settings_tint_desc">Papier le jour, l\'heure bleue le soir, lumière de bougie la nuit.</string>
     <string name="settings_section_pause">Pause</string>
     <string name="settings_grace">Pas de pause juste après</string>
     <string name="settings_grace_desc">Si vous rouvrez la même application moins de 2 minutes après l\'avoir ouverte via la pause, elle s\'ouvre directement.</string>
@@ -103,12 +115,12 @@
     <string name="cd_back">Retour</string>
 
     <!-- Plurals -->
-    <plurals name="reflection_total_pauses">
-        <item quantity="one">%d pause enregistrée</item>
-        <item quantity="other">%d pauses enregistrées</item>
+    <plurals name="reflection_sentence_total">
+        <item quantity="one">%d pause.</item>
+        <item quantity="other">%d pauses.</item>
     </plurals>
     <plurals name="reflection_backed_out">
-        <item quantity="one">« Pas maintenant », %d fois</item>
-        <item quantity="other">« Pas maintenant », %d fois</item>
+        <item quantity="one">« Pas maintenant », %d fois.</item>
+        <item quantity="other">« Pas maintenant », %d fois.</item>
     </plurals>
 </resources>

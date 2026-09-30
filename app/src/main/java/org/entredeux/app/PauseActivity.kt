@@ -3,10 +3,13 @@ package org.entredeux.app
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
@@ -20,10 +23,14 @@ import kotlinx.coroutines.launch
 import org.entredeux.app.data.shortcuts.ShortcutRepository
 import org.entredeux.app.data.shortcuts.ShortcutRepository.Companion.EXTRA_PACKAGE_NAME
 import org.entredeux.app.domain.model.Look
+import org.entredeux.app.domain.model.PauseTint
 import org.entredeux.app.domain.usecase.isWithinGraceWindow
+import org.entredeux.app.domain.usecase.pauseTintForHour
 import org.entredeux.app.ui.pause.PauseScreen
 import org.entredeux.app.ui.pause.PauseViewModel
 import org.entredeux.app.ui.theme.EntreDeuxTheme
+import org.entredeux.app.ui.theme.isDarkPause
+import java.time.LocalTime
 
 private data class PauseRequest(
     val packageName: String,
@@ -41,6 +48,7 @@ class PauseActivity : ComponentActivity() {
 
     private var request by mutableStateOf<PauseRequest?>(null)
     private var look by mutableStateOf(Look.PAPIER)
+    private var tint by mutableStateOf<PauseTint?>(null)
 
     private val app get() = application as EntreDeuxApplication
 
@@ -50,7 +58,7 @@ class PauseActivity : ComponentActivity() {
         val first = requestFrom(intent) ?: return finish()
         setContent {
             val current = request ?: return@setContent
-            EntreDeuxTheme(look = look) {
+            EntreDeuxTheme(look = look, tint = tint) {
                 key(current.id) {
                     val viewModel: PauseViewModel = viewModel(
                         key = "${current.packageName}#${current.id}",
@@ -84,6 +92,23 @@ class PauseActivity : ComponentActivity() {
     private fun decide(next: PauseRequest) {
         lifecycleScope.launch {
             look = app.settingsRepository.look.first()
+            tint = if (look == Look.PAPIER && app.settingsRepository.tintByTime.first()) {
+                pauseTintForHour(LocalTime.now().hour)
+            } else {
+                null
+            }
+            val systemDark = resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+            if (isDarkPause(look, systemDark, tint)) {
+                // Light icons on the evening and night tints, even when the
+                // system itself is in light mode.
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
+                    navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
+                )
+            } else {
+                enableEdgeToEdge()
+            }
             val skip = !next.demo &&
                 app.settingsRepository.graceWindow.first() &&
                 isWithinGraceWindow(app.pauseEventRepository.lastProceededAt(next.packageName), System.currentTimeMillis())
