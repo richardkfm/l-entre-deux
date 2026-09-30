@@ -63,8 +63,10 @@ Every screen should feel like the app is getting out of the user’s way.
 
 ## 5. Minimum surface
 
-- Bottom nav with at most 3 destinations: **Home / Reflection / Settings**.
-- The launcher grid lives on Home.
+- Bottom nav with at most 3 destinations: **Apps / Reflection / Settings**.
+- The chosen apps live on Apps, with whether each is pinned. Once they are
+  pinned, the app should say plainly that it won't need to be opened day
+  to day.
 - Selection, onboarding, and pause are flows, not destinations.
 
 ## 6. Accessibility

@@ -2,33 +2,39 @@
 <resources>
     <string name="app_name">l\'entre-deux</string>
 
-    <!-- Onboarding -->
-    <string name="onboarding_skip">Skip</string>
-    <string name="onboarding_next">Next</string>
-    <string name="onboarding_get_started">Get started</string>
-    <string name="onboarding_page1_heading">A moment in between</string>
-    <string name="onboarding_page1_body">Between reaching for a chosen app and opening it, l\'entre-deux makes a little room — to notice what you actually came for. You pick the apps, and you can always go ahead.</string>
-    <string name="onboarding_page2_heading">Name your intention</string>
-    <string name="onboarding_page2_body">Before the app opens, you pick why you\'re opening it. No scores, no streaks, no lectures.</string>
-    <string name="onboarding_page3_heading">Your data stays here</string>
-    <string name="onboarding_page3_body">Everything is stored only on this device. No accounts, no sync, no analytics. You can delete it all from settings at any time.</string>
+    <!-- Onboarding: one screen, set like a dictionary entry. -->
+    <string name="onboarding_word" translatable="false">entre-deux</string>
+    <string name="onboarding_grammar" translatable="false">nom masculin · /ɑ̃.tʁə.dø/</string>
+    <string name="onboarding_definition_1">1. The space between two things.</string>
+    <string name="onboarding_definition_2">2. Here: the moment between reaching for an app and opening it.</string>
+    <string name="onboarding_promise">Choose the apps that pull you in. Each time you open one, you\'ll be asked one small question, and you can always go ahead. Everything stays on this phone.</string>
+    <string name="onboarding_cta">Choose my apps</string>
 
     <!-- Navigation -->
-    <string name="nav_home">Home</string>
+    <string name="nav_home">Apps</string>
     <string name="nav_reflection">Reflection</string>
     <string name="nav_settings">Settings</string>
 
     <!-- Home -->
-    <string name="home_add_apps">Add apps</string>
+    <string name="home_add_apps">Choose apps</string>
     <string name="home_empty_hint">No apps yet. Choose the ones you\'d like to open with a pause first.</string>
     <string name="home_empty_action">Choose apps</string>
     <string name="home_open_via_pause">Open %s through the pause</string>
+    <string name="apps_section_unpinned">Not pinned yet</string>
+    <string name="apps_section_pinned">On your home screen</string>
+    <string name="apps_pin">Pin</string>
+    <string name="apps_pinned">Pinned</string>
+    <string name="apps_footer">Pinned icons open through the pause. Move them to where the originals were. Day to day, you won\'t need to open this app.</string>
+    <string name="apps_try">Try the pause (nothing is saved)</string>
 
     <!-- App selection -->
     <string name="selection_title">Choose apps</string>
     <string name="selection_empty">No apps found.</string>
     <string name="selection_search_hint">Search</string>
     <string name="selection_done">Done</string>
+    <string name="selection_section_chosen">Chosen</string>
+    <string name="selection_section_often">Often chosen</string>
+    <string name="selection_section_all">All apps</string>
 
     <!-- Pause flow -->
     <string name="pause_heading">Before you open %s</string>
@@ -101,20 +107,10 @@
     <string name="settings_wipe_done">Pause history deleted.</string>
 
     <!-- Home screen shortcuts (Phase 6) -->
-    <string name="home_pin_shortcut">Add to home screen</string>
     <string name="home_pin_shortcut_cd">Pin %s to your home screen</string>
-    <string name="home_tile_options">Options for %s</string>
-    <string name="home_shortcut_success">Shortcut requested — check your home screen</string>
+    <string name="home_shortcut_success">%s is on your home screen</string>
     <string name="home_shortcut_unsupported">Your launcher doesn\'t support pinned shortcuts</string>
 
-    <!-- Guided start -->
-    <string name="coach_step">Step %1$d of %2$d</string>
-    <string name="coach_add_title">Add an app</string>
-    <string name="coach_add_body">Tap the + button to choose the apps that pull you in.</string>
-    <string name="coach_pin_title">Pin it to your home screen</string>
-    <string name="coach_pin_body">Tap the pin on an app. From then on, every tap on it begins with a calm pause — no need to open this app first.</string>
-    <string name="coach_skip">Skip</string>
-    <string name="coach_done">Got it</string>
 
     <!-- Content descriptions -->
     <string name="cd_back">Back</string>

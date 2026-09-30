@@ -1,19 +1,8 @@
 package org.entredeux.app.ui.home
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,18 +12,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -42,30 +32,34 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.entredeux.app.R
-import org.entredeux.app.domain.model.SelectedApp
+import org.entredeux.app.domain.model.Look
+import org.entredeux.app.ui.theme.LocalLook
+import org.entredeux.app.ui.theme.Spectral
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,229 +67,104 @@ fun HomeScreen(
     viewModel: HomeViewModel,
     onNavigateToSelection: () -> Unit,
     onNavigateToPause: (String) -> Unit,
+    onTryPause: (String) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
+    val look = LocalLook.current
 
-    val successMsg = stringResource(R.string.home_shortcut_success)
+    LifecycleResumeEffect(Unit) {
+        viewModel.refreshPinned()
+        onPauseOrDispose { }
+    }
+
     val unsupportedMsg = stringResource(R.string.home_shortcut_unsupported)
-    LaunchedEffect(uiState.shortcutResult) {
-        val result = uiState.shortcutResult ?: return@LaunchedEffect
+    val pinnedTemplate = stringResource(R.string.home_shortcut_success)
+    LaunchedEffect(uiState.message) {
+        val msg = uiState.message ?: return@LaunchedEffect
         snackbarHostState.showSnackbar(
-            when (result) {
-                ShortcutResult.SUCCESS -> successMsg
-                ShortcutResult.UNSUPPORTED -> unsupportedMsg
+            when (msg) {
+                is HomeMessage.Pinned -> pinnedTemplate.format(msg.label)
+                HomeMessage.Unsupported -> unsupportedMsg
             },
         )
-        viewModel.clearShortcutResult()
+        viewModel.clearMessage()
     }
 
-    Box(Modifier.fillMaxSize()) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text(stringResource(R.string.app_name)) },
-                    actions = {
-                        val addDesc = stringResource(R.string.home_add_apps)
-                        Box(contentAlignment = Alignment.Center) {
-                            if (uiState.coachStep == CoachStep.ADD_APP) {
-                                PulsingHalo(
-                                    color = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.matchParentSize(),
-                                )
-                            }
-                            IconButton(
-                                onClick = onNavigateToSelection,
-                                modifier = Modifier.semantics { contentDescription = addDesc },
-                            ) {
-                                Icon(Icons.Outlined.Add, contentDescription = null)
-                            }
-                        }
-                    },
-                )
-            },
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) { innerPadding ->
-            if (uiState.isLoading) {
-                Box(Modifier.fillMaxSize())
-            } else if (uiState.selectedApps.isEmpty()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
-                        .padding(32.dp),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
                     Text(
-                        text = stringResource(R.string.home_empty_hint),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        textAlign = TextAlign.Center,
+                        text = stringResource(R.string.app_name),
+                        style = if (look == Look.PAPIER) {
+                            MaterialTheme.typography.titleLarge.copy(fontStyle = FontStyle.Italic)
+                        } else {
+                            MaterialTheme.typography.titleLarge
+                        },
                     )
-                    Spacer(Modifier.height(16.dp))
-                    OutlinedButton(onClick = onNavigateToSelection) {
-                        Text(stringResource(R.string.home_empty_action))
+                },
+                actions = {
+                    IconButton(onClick = onNavigateToSelection) {
+                        Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.home_add_apps))
                     }
-                }
-            } else {
-                LazyVerticalGrid(
-                    columns = GridCells.Adaptive(minSize = 100.dp),
-                    contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding),
-                ) {
-                    itemsIndexed(
-                        uiState.selectedApps,
-                        key = { _, app -> app.packageName },
-                    ) { index, app ->
-                        AppTile(
-                            app = app,
-                            highlightPin = uiState.coachStep == CoachStep.PIN && index == 0,
-                            onClick = { onNavigateToPause(app.packageName) },
-                            onPinShortcut = { viewModel.requestPinShortcut(app) },
-                        )
-                    }
-                }
-            }
-        }
-
-        AnimatedVisibility(
-            visible = uiState.coachStep != CoachStep.NONE,
-            enter = fadeIn() + slideInVertically { it },
-            exit = fadeOut() + slideOutVertically { it },
-            modifier = Modifier.align(Alignment.BottomCenter),
-        ) {
-            CoachCard(step = uiState.coachStep, onDismiss = viewModel::dismissCoach)
-        }
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
-@Composable
-private fun AppTile(
-    app: SelectedApp,
-    highlightPin: Boolean,
-    onClick: () -> Unit,
-    onPinShortcut: () -> Unit,
-) {
-    var menuExpanded by remember { mutableStateOf(false) }
-    val openDesc = stringResource(R.string.home_open_via_pause, app.label)
-    val longPressLabel = stringResource(R.string.home_tile_options, app.label)
-    val pinDesc = stringResource(R.string.home_pin_shortcut_cd, app.label)
-
-    Box {
-        Surface(
-            shape = MaterialTheme.shapes.medium,
-            tonalElevation = 2.dp,
-            modifier = Modifier
-                .size(100.dp)
-                .semantics(mergeDescendants = true) { contentDescription = openDesc }
-                .combinedClickable(
-                    role = Role.Button,
-                    onClick = onClick,
-                    onLongClick = { menuExpanded = true },
-                    onLongClickLabel = longPressLabel,
-                ),
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(top = 40.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
-            ) {
-                Text(
-                    text = app.label,
-                    style = MaterialTheme.typography.labelMedium,
-                    textAlign = TextAlign.Center,
-                    maxLines = 2,
-                )
-            }
-        }
-        // The pin action is the app's killer feature, so it sits visibly on
-        // every tile rather than hiding behind the long-press menu (kept below
-        // as a secondary affordance). During the guided start it also pulses.
-        Box(modifier = Modifier.align(Alignment.TopEnd), contentAlignment = Alignment.Center) {
-            if (highlightPin) {
-                PulsingHalo(
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.matchParentSize(),
-                )
-            }
-            IconButton(
-                onClick = onPinShortcut,
-                modifier = Modifier.semantics { contentDescription = pinDesc },
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_pin),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(20.dp),
-                )
-            }
-        }
-        DropdownMenu(
-            expanded = menuExpanded,
-            onDismissRequest = { menuExpanded = false },
-        ) {
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.home_pin_shortcut)) },
-                onClick = {
-                    menuExpanded = false
-                    onPinShortcut()
                 },
             )
-        }
-    }
-}
-
-@Composable
-private fun CoachCard(step: CoachStep, onDismiss: () -> Unit) {
-    val stepNumber = if (step == CoachStep.ADD_APP) 1 else 2
-    val titleRes = if (step == CoachStep.ADD_APP) R.string.coach_add_title else R.string.coach_pin_title
-    val bodyRes = if (step == CoachStep.ADD_APP) R.string.coach_add_body else R.string.coach_pin_body
-
-    Surface(
-        shape = RoundedCornerShape(24.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        tonalElevation = 3.dp,
-        shadowElevation = 8.dp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-    ) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Text(
-                text = stringResource(R.string.coach_step, stepNumber, 2),
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.primary,
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { innerPadding ->
+        when {
+            uiState.isLoading -> Box(Modifier.fillMaxSize())
+            uiState.rows.isEmpty() -> EmptyApps(
+                onChoose = onNavigateToSelection,
+                modifier = Modifier.padding(innerPadding),
             )
-            Spacer(Modifier.height(6.dp))
-            Text(
-                text = stringResource(titleRes),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-            Spacer(Modifier.height(6.dp))
-            Text(
-                text = stringResource(bodyRes),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Spacer(Modifier.height(16.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
+            else -> LazyColumn(
+                contentPadding = PaddingValues(bottom = 24.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
             ) {
-                if (step == CoachStep.ADD_APP) {
-                    TextButton(onClick = onDismiss) {
-                        Text(stringResource(R.string.coach_skip))
+                if (uiState.unpinned.isNotEmpty()) {
+                    item(key = "unpinned_header") { SectionLabel(stringResource(R.string.apps_section_unpinned)) }
+                    items(uiState.unpinned, key = { "u_" + it.app.packageName }) { row ->
+                        val pinDesc = stringResource(R.string.home_pin_shortcut_cd, row.app.label)
+                        AppRowItem(row, look, onOpen = { onNavigateToPause(row.app.packageName) }) {
+                            FilledTonalButton(
+                                onClick = { viewModel.requestPinShortcut(row.app) },
+                                modifier = Modifier.semantics { contentDescription = pinDesc },
+                            ) {
+                                Text(stringResource(R.string.apps_pin))
+                            }
+                        }
                     }
-                } else {
-                    Button(onClick = onDismiss) {
-                        Text(stringResource(R.string.coach_done))
+                }
+                if (uiState.pinned.isNotEmpty()) {
+                    item(key = "pinned_header") { SectionLabel(stringResource(R.string.apps_section_pinned)) }
+                    items(uiState.pinned, key = { "p_" + it.app.packageName }) { row ->
+                        AppRowItem(row, look, onOpen = { onNavigateToPause(row.app.packageName) }) {
+                            PinnedMark()
+                        }
+                    }
+                }
+                item(key = "footer") {
+                    Column(Modifier.padding(horizontal = 16.dp, vertical = 20.dp)) {
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                        Spacer(Modifier.height(16.dp))
+                        Text(
+                            text = stringResource(R.string.apps_footer),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontStyle = if (look == Look.PAPIER) FontStyle.Italic else FontStyle.Normal,
+                            ),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        TextButton(
+                            onClick = { onTryPause(uiState.rows.first().app.packageName) },
+                            contentPadding = PaddingValues(horizontal = 0.dp, vertical = 8.dp),
+                        ) {
+                            Text(stringResource(R.string.apps_try))
+                        }
                     }
                 }
             }
@@ -303,27 +172,104 @@ private fun CoachCard(step: CoachStep, onDismiss: () -> Unit) {
     }
 }
 
-// A soft pinging halo placed behind the control the guide is pointing at.
 @Composable
-private fun PulsingHalo(color: Color, modifier: Modifier = Modifier) {
-    val transition = rememberInfiniteTransition(label = "halo")
-    val pulse by transition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1500, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Restart,
-        ),
-        label = "pulse",
-    )
-    Canvas(modifier) {
-        val maxR = size.minDimension / 2f
-        drawCircle(color = color.copy(alpha = 0.22f), radius = maxR * 0.92f, center = center)
-        drawCircle(
-            color = color.copy(alpha = (1f - pulse) * 0.5f),
-            radius = maxR * (0.85f + 0.85f * pulse),
-            center = center,
-            style = Stroke(width = 2.dp.toPx()),
+private fun AppRowItem(
+    row: AppRow,
+    look: Look,
+    onOpen: () -> Unit,
+    trailing: @Composable () -> Unit,
+) {
+    val openDesc = stringResource(R.string.home_open_via_pause, row.app.label)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 64.dp)
+            .clickable(role = Role.Button, onClickLabel = openDesc, onClick = onOpen)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+    ) {
+        AppIcon(row.icon)
+        Spacer(Modifier.width(16.dp))
+        Text(
+            text = row.app.label,
+            style = labelStyle(look),
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.weight(1f),
+        )
+        trailing()
+    }
+}
+
+@Composable
+private fun AppIcon(icon: ImageBitmap?) {
+    if (icon != null) {
+        Image(bitmap = icon, contentDescription = null, modifier = Modifier.size(40.dp))
+    } else {
+        Box(
+            Modifier
+                .size(40.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(MaterialTheme.colorScheme.surfaceVariant),
         )
     }
 }
+
+@Composable
+private fun PinnedMark() {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            Modifier
+                .size(6.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.primary),
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            text = stringResource(R.string.apps_pinned),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+@Composable
+private fun SectionLabel(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier
+            .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp)
+            .semantics { heading() },
+    )
+}
+
+@Composable
+private fun EmptyApps(onChoose: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(32.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = stringResource(R.string.home_empty_hint),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+        )
+        Spacer(Modifier.height(16.dp))
+        OutlinedButton(onClick = onChoose) {
+            Text(stringResource(R.string.home_empty_action))
+        }
+    }
+}
+
+@Composable
+private fun labelStyle(look: Look): TextStyle =
+    if (look == Look.PAPIER) {
+        MaterialTheme.typography.titleMedium.copy(fontFamily = Spectral, fontWeight = FontWeight.Normal, fontSize = 18.sp)
+    } else {
+        MaterialTheme.typography.bodyLarge
+    }

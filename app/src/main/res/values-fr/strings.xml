@@ -3,32 +3,36 @@
     <string name="app_name">l\'entre-deux</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_skip">Passer</string>
-    <string name="onboarding_next">Suivant</string>
-    <string name="onboarding_get_started">Commencer</string>
-    <string name="onboarding_page1_heading">Un moment entre les deux</string>
-    <string name="onboarding_page1_body">Entre le geste vers une application choisie et son ouverture, l\'entre-deux ménage un petit espace — pour remarquer ce que vous venez vraiment faire. Vous choisissez les applications, et vous pouvez toujours continuer.</string>
-    <string name="onboarding_page2_heading">Nommez votre intention</string>
-    <string name="onboarding_page2_body">Avant que l\'application s\'ouvre, vous indiquez pourquoi. Pas de score, pas de série, pas de sermon.</string>
-    <string name="onboarding_page3_heading">Vos données restent ici</string>
-    <string name="onboarding_page3_body">Tout est enregistré uniquement sur cet appareil. Pas de compte, pas de synchronisation, pas d\'analytique. Vous pouvez tout supprimer depuis les réglages à tout moment.</string>
+    <string name="onboarding_definition_1">1. L\'espace entre deux choses.</string>
+    <string name="onboarding_definition_2">2. Ici\u00A0: le moment entre le geste vers une application et son ouverture.</string>
+    <string name="onboarding_promise">Choisissez les applications qui vous happent. À chaque ouverture, une seule petite question, et vous pouvez toujours continuer. Tout reste sur ce téléphone.</string>
+    <string name="onboarding_cta">Choisir mes applications</string>
 
     <!-- Navigation -->
-    <string name="nav_home">Accueil</string>
+    <string name="nav_home">Applis</string>
     <string name="nav_reflection">Réflexion</string>
     <string name="nav_settings">Réglages</string>
 
     <!-- Home -->
-    <string name="home_add_apps">Ajouter des applications</string>
+    <string name="home_add_apps">Choisir des applications</string>
     <string name="home_empty_hint">Aucune application pour l\'instant. Choisissez celles à ouvrir après une pause.</string>
     <string name="home_empty_action">Choisir des applications</string>
     <string name="home_open_via_pause">Ouvrir %s via la pause</string>
+    <string name="apps_section_unpinned">Pas encore épinglées</string>
+    <string name="apps_section_pinned">Sur votre écran d\'accueil</string>
+    <string name="apps_pin">Épingler</string>
+    <string name="apps_pinned">Épinglée</string>
+    <string name="apps_footer">Les icônes épinglées s\'ouvrent via la pause. Placez-les là où se trouvaient les originales. Au quotidien, vous n\'aurez pas besoin d\'ouvrir cette application.</string>
+    <string name="apps_try">Essayer la pause (rien n\'est enregistré)</string>
 
     <!-- App selection -->
     <string name="selection_title">Choisir des applications</string>
     <string name="selection_empty">Aucune application trouvée.</string>
     <string name="selection_search_hint">Rechercher</string>
     <string name="selection_done">Terminé</string>
+    <string name="selection_section_chosen">Choisies</string>
+    <string name="selection_section_often">Souvent choisies</string>
+    <string name="selection_section_all">Toutes les applications</string>
 
     <!-- Pause flow -->
     <string name="pause_heading">Avant d\'ouvrir %s</string>
@@ -90,20 +94,10 @@
     <string name="settings_wipe_done">Historique des pauses effacé.</string>
 
     <!-- Home screen shortcuts (Phase 6) -->
-    <string name="home_pin_shortcut">Ajouter à l\'écran d\'accueil</string>
     <string name="home_pin_shortcut_cd">Épingler %s à votre écran d\'accueil</string>
-    <string name="home_tile_options">Options pour %s</string>
-    <string name="home_shortcut_success">Raccourci demandé — vérifiez votre écran d\'accueil</string>
+    <string name="home_shortcut_success">%s est sur votre écran d\'accueil</string>
     <string name="home_shortcut_unsupported">Votre lanceur ne prend pas en charge les raccourcis épinglés</string>
 
-    <!-- Guided start -->
-    <string name="coach_step">Étape %1$d sur %2$d</string>
-    <string name="coach_add_title">Ajoutez une application</string>
-    <string name="coach_add_body">Touchez le bouton + pour choisir les applications qui vous happent.</string>
-    <string name="coach_pin_title">Épinglez-la à votre écran d\'accueil</string>
-    <string name="coach_pin_body">Touchez l\'épingle sur une application. Ensuite, chaque appui sur celle-ci commence par une pause apaisante — sans passer par cette application.</string>
-    <string name="coach_skip">Passer</string>
-    <string name="coach_done">Compris</string>
 
     <!-- Content descriptions -->
     <string name="cd_back">Retour</string>

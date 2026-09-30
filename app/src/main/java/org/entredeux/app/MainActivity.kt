@@ -57,6 +57,7 @@ class MainActivity : ComponentActivity() {
                         shortcutRepository = app.shortcutRepository,
                         settingsRepository = app.settingsRepository,
                         onOpenPause = { pkg -> startActivity(PauseActivity.intent(this, pkg)) },
+                        onTryPause = { pkg -> startActivity(PauseActivity.intent(this, pkg, demo = true)) },
                         modifier = Modifier.fillMaxSize(),
                     )
                 } else {

@@ -15,21 +15,18 @@ import org.entredeux.app.R
 
 class ShortcutRepository(private val context: Context) {
 
-    fun isSupported(): Boolean =
-        context.getSystemService(ShortcutManager::class.java)
-            ?.isRequestPinShortcutSupported == true
-
     fun requestPinShortcut(packageName: String, label: String): Boolean {
         val sm = context.getSystemService(ShortcutManager::class.java) ?: return false
         if (!sm.isRequestPinShortcutSupported) return false
 
         val shortcutIntent = PauseActivity.intent(context, packageName)
 
-        val icon = try {
-            shortcutIcon(context.packageManager.getApplicationIcon(packageName))
+        val appIcon: Drawable? = try {
+            context.packageManager.getApplicationIcon(packageName)
         } catch (_: PackageManager.NameNotFoundException) {
-            Icon.createWithResource(context, R.mipmap.ic_launcher)
+            null
         }
+        val icon = appIcon?.let(::shortcutIcon) ?: Icon.createWithResource(context, R.mipmap.ic_launcher)
 
         val info = ShortcutInfo.Builder(context, ID_PREFIX + packageName)
             .setShortLabel(label)
@@ -40,6 +37,16 @@ class ShortcutRepository(private val context: Context) {
 
         sm.requestPinShortcut(info, null)
         return true
+    }
+
+    // Which of our shortcuts the launcher currently shows. Read on resume, so
+    // the Apps list reflects what's really on the home screen.
+    fun pinnedPackages(): Set<String> {
+        val sm = context.getSystemService(ShortcutManager::class.java) ?: return emptySet()
+        return sm.pinnedShortcuts
+            .filter { it.isEnabled && it.id.startsWith(ID_PREFIX) }
+            .map { it.id.removePrefix(ID_PREFIX) }
+            .toSet()
     }
 
     // Shortcuts pinned before 1.1.0 open MainActivity, which then had to

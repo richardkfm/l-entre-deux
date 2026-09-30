@@ -1,13 +1,18 @@
 package org.entredeux.app.ui.selection
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
@@ -24,11 +29,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.entredeux.app.R
@@ -95,7 +107,13 @@ fun AppSelectionScreen(
                 )
             }
 
-            if (uiState.apps.isEmpty()) {
+            val searching = uiState.query.isNotBlank()
+            val nothing = if (searching) {
+                uiState.results.isEmpty()
+            } else {
+                uiState.chosen.isEmpty() && uiState.often.isEmpty() && uiState.others.isEmpty()
+            }
+            if (nothing) {
                 item {
                     Box(
                         modifier = Modifier
@@ -109,32 +127,72 @@ fun AppSelectionScreen(
                         )
                     }
                 }
+            } else if (searching) {
+                appRows("results", uiState.results, viewModel)
             } else {
-                items(uiState.apps, key = { it.app.packageName }) { selectable ->
-                    AppRow(
-                        selectable = selectable,
-                        onToggle = { viewModel.onToggle(selectable.app.packageName) },
-                    )
-                }
+                appSection("chosen", R.string.selection_section_chosen, uiState.chosen, viewModel)
+                appSection("often", R.string.selection_section_often, uiState.often, viewModel)
+                appSection("others", R.string.selection_section_all, uiState.others, viewModel)
             }
         }
     }
 }
 
+private fun LazyListScope.appSection(
+    key: String,
+    titleRes: Int,
+    rows: List<SelectableApp>,
+    viewModel: AppSelectionViewModel,
+) {
+    if (rows.isEmpty()) return
+    item(key = "header_$key") {
+        Text(
+            text = stringResource(titleRes),
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp)
+                .semantics { heading() },
+        )
+    }
+    appRows(key, rows, viewModel)
+}
+
+private fun LazyListScope.appRows(key: String, rows: List<SelectableApp>, viewModel: AppSelectionViewModel) {
+    items(rows, key = { "${key}_${it.app.packageName}" }) { selectable ->
+        AppRow(
+            selectable = selectable,
+            loadIcon = viewModel::icon,
+            onToggle = { viewModel.onToggle(selectable.app.packageName) },
+        )
+    }
+}
+
 @Composable
-private fun AppRow(selectable: SelectableApp, onToggle: () -> Unit) {
+private fun AppRow(
+    selectable: SelectableApp,
+    loadIcon: suspend (String) -> ImageBitmap?,
+    onToggle: () -> Unit,
+) {
+    val pkg = selectable.app.packageName
+    var icon by remember(pkg) { mutableStateOf<ImageBitmap?>(null) }
+    LaunchedEffect(pkg) { icon = loadIcon(pkg) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 48.dp)
+            .heightIn(min = 56.dp)
             .toggleable(
                 value = selectable.isSelected,
                 role = Role.Checkbox,
                 onValueChange = { onToggle() },
             )
-            .padding(horizontal = 16.dp, vertical = 4.dp),
+            .padding(horizontal = 16.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        Box(Modifier.size(36.dp)) {
+            icon?.let { Image(bitmap = it, contentDescription = null, modifier = Modifier.size(36.dp)) }
+        }
+        Spacer(Modifier.width(16.dp))
         Text(
             text = selectable.app.label,
             style = MaterialTheme.typography.bodyLarge,

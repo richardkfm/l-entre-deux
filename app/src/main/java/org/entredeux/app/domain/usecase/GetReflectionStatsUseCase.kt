@@ -1,5 +1,8 @@
 package org.entredeux.app.domain.usecase
 
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import org.entredeux.app.domain.model.AppPauseCount
 import org.entredeux.app.domain.model.Intention
 import org.entredeux.app.domain.model.IntentionCount
@@ -8,9 +11,6 @@ import org.entredeux.app.domain.model.PauseOutcome
 import org.entredeux.app.domain.model.ReflectionStats
 import org.entredeux.app.domain.model.TimeOfDay
 import org.entredeux.app.domain.model.TimeOfDayCount
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZonedDateTime
 
 fun getReflectionStats(events: List<PauseEvent>): ReflectionStats? {
     if (events.isEmpty()) return null

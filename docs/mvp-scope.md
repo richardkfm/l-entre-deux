@@ -53,7 +53,9 @@ local reflection.**
 
 ### 6. Onboarding (Phase 2 / 4)
 - 2–4 short screens explaining what the app does, what it does not do,
-  and what permissions it asks for.
+  and what permissions it asks for. (Since 1.2.0: one screen, a
+  definition of the name plus the promise, that leads straight into
+  choosing apps. The app asks for no permissions.)
 - A clear statement that data never leaves the device.
 
 ### 7. Settings (Phase 2 onward)

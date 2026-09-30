@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -55,6 +54,7 @@ fun AppNavHost(
     shortcutRepository: ShortcutRepository,
     settingsRepository: SettingsRepository,
     onOpenPause: (String) -> Unit,
+    onTryPause: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -67,7 +67,7 @@ fun AppNavHost(
             if (currentRoute in topLevelRoutes) {
                 NavigationBar {
                     NavigationBarItem(
-                        icon = { Icon(Icons.Outlined.Home, contentDescription = null) },
+                        icon = { Icon(painterResource(R.drawable.ic_nav_apps), contentDescription = null) },
                         label = { Text(stringResource(R.string.nav_home)) },
                         selected = currentRoute == "home",
                         onClick = {
@@ -125,10 +125,13 @@ fun AppNavHost(
                 )
                 OnboardingScreen(
                     viewModel = vm,
+                    // Straight on into choosing apps; Done there lands on the
+                    // Apps list, where pinning is the one thing left to do.
                     onDone = {
                         navController.navigate("home") {
                             popUpTo("onboarding") { inclusive = true }
                         }
+                        navController.navigate("selection")
                     },
                 )
             }
@@ -145,6 +148,7 @@ fun AppNavHost(
                     viewModel = vm,
                     onNavigateToSelection = { navController.navigate("selection") },
                     onNavigateToPause = onOpenPause,
+                    onTryPause = onTryPause,
                 )
             }
 

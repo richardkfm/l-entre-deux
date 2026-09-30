@@ -2,7 +2,6 @@ package org.entredeux.app.ui.pause
 
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -39,9 +38,7 @@ class PauseViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val label = installedAppsRepository.getAppLabel(packageName)
-            val icon = installedAppsRepository.getAppIcon(packageName)
-                ?.toBitmap(ICON_PX, ICON_PX)
-                ?.asImageBitmap()
+            val icon = installedAppsRepository.getAppIcon(packageName)?.asImageBitmap()
             _uiState.update { it.copy(appLabel = label ?: packageName, appIcon = icon) }
         }
     }
@@ -66,8 +63,6 @@ class PauseViewModel(
     }
 
     companion object {
-        private const val ICON_PX = 128
-
         // A back-out has no "why I'm opening it" intention. We store an empty
         // key (rather than changing the schema): the reflection intention-mix
         // matches on stable keys, so empty simply isn't counted there, while

@@ -17,16 +17,12 @@ class AppSelectionRepository(private val context: Context) {
 
     private val selectedPackagesKey = stringSetPreferencesKey("selected_packages")
     private val onboardingDoneKey = booleanPreferencesKey("onboarding_done")
-    private val homeCoachDoneKey = booleanPreferencesKey("home_coach_done")
 
     val selectedPackageNames: Flow<Set<String>> = context.dataStore.data
         .map { it[selectedPackagesKey] ?: emptySet() }
 
     val onboardingCompleted: Flow<Boolean> = context.dataStore.data
         .map { it[onboardingDoneKey] ?: false }
-
-    val homeCoachCompleted: Flow<Boolean> = context.dataStore.data
-        .map { it[homeCoachDoneKey] ?: false }
 
     // Read and write inside one edit so quick successive taps can't
     // overwrite each other with a stale copy of the selection.
@@ -38,9 +34,5 @@ class AppSelectionRepository(private val context: Context) {
 
     suspend fun setOnboardingCompleted() {
         context.dataStore.edit { it[onboardingDoneKey] = true }
-    }
-
-    suspend fun setHomeCoachCompleted() {
-        context.dataStore.edit { it[homeCoachDoneKey] = true }
     }
 }

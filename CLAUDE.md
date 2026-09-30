@@ -168,7 +168,7 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 1.1.0
+**Version:** 1.2.0
 **Phase:** Phase 0–7 complete; Phase 8 (Papier & encre, 1.0.2 → 1.3.0) in
 progress. `1.0.0` release prepared for F-Droid; the only remaining step is
 the external submission (tag `v1.0.0` + fdroiddata merge request).
@@ -179,17 +179,19 @@ What exists:
 - README, CLAUDE.md, roadmap, CHANGELOG.
 - Single-module Android app (`app/`) with Compose, Material 3, Navigation
   Compose, DataStore Preferences, Room.
-- Onboarding (3 screens, shown once).
-- App selection screen: lists installed launchable apps, persists
-  selection via DataStore as toggled; a "Done" action in the top bar
-  carries the user forward (Back also works) — top, not bottom, so the
-  open keyboard never covers it while searching. The list pads itself
-  above the keyboard (`imePadding`).
-- Home screen: grid of selected apps; tapping opens the pause flow. A
-  one-time guided coach (`CoachStep`) walks new users through ① adding an
-  app and ② pinning it to the home screen, with a pulsing highlight on the
-  relevant control and a dismissible bottom card. Tracked by the
-  `home_coach_done` preference.
+- Onboarding: one screen set like a dictionary entry ("entre-deux, nom
+  masculin"), the promise, and "Choose my apps", which leads straight into
+  selection; Done there lands on Apps.
+- App selection: installed launchable apps with icons, grouped (chosen at
+  open, "often chosen" from the app's declared category — social, video,
+  news, games — then all apps; flat when searching). Toggles persist
+  atomically. "Done" sits in the top bar so the keyboard never covers it.
+- Apps screen (route `home`, labelled Apps): the chosen apps with real
+  icons, "Not pinned yet" (each with a Pin button) above "On your home
+  screen". Pin state is read from `ShortcutManager` on every resume, and a
+  snackbar confirms once the launcher has really added the icon. A footer
+  says pinned icons are all you need day to day, with "Try the pause", a
+  rehearsal that is never logged (`PauseActivity` demo mode).
 - Two looks (Settings → Look): **Papier & encre** (default; paper-and-ink
   palettes `PapierColors` / `NuitColors`, Spectral serif via `res/font/`)
   and **Material** (the 1.0.x look: dynamic colour, system font, grey
@@ -227,7 +229,8 @@ What exists:
 - Reflection screen: per-app counts, intention mix, time-of-day
   distribution, back-out count. All computed locally from Room. No
   scores, no streaks. Empty state when no data.
-- Bottom navigation bar: Home / Reflection / Settings.
+- Bottom navigation bar: Apps / Reflection / Settings (outlined icons plus
+  two local vector marks).
 - Accessibility pass: `heading()` semantics on titles, `Role.Button` on
   clickable list rows, full-row `toggleable` on the app-selection list,
   48dp minimum touch targets, proper content descriptions on icon-only

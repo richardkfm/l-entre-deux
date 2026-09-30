@@ -9,6 +9,40 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [1.2.0] — 2026-09-30
+
+The first run becomes one path that ends with the app out of the way.
+
+### Added
+- **"Try the pause"** on the Apps screen: a rehearsal of the real pause
+  that is never logged and opens nothing.
+- **Real pin state.** The Apps screen asks the launcher which icons are
+  actually pinned, every time it comes back into view, and confirms with
+  "Instagram is on your home screen" once the launcher has really added
+  it (instead of "Shortcut requested" before you had even answered).
+- **Suggestions when choosing apps.** Apps that declare themselves social,
+  video, news or games are grouped as "Often chosen", read from the app's
+  own metadata on the phone. Only a suggestion.
+
+### Changed
+- **Onboarding is one screen**, set like a dictionary entry: *entre-deux,
+  nom masculin*, what it means here, the promise that everything stays on
+  the phone, and "Choose my apps", which goes straight into choosing.
+  "Done" there lands on the Apps screen.
+- **Home is now "Apps"**: a list with each app's real icon, "Not pinned
+  yet" first (each with a Pin button) above "On your home screen", and a
+  footer saying that, once pinned, you won't need to open l'entre-deux day
+  to day.
+- **Choosing apps** shows icons, keeps the apps you had already chosen at
+  the top, and no longer moves a row out from under your finger when you
+  tick it.
+- The guided coach cards and the long-press menu on tiles are gone; the
+  list itself shows what is left to do.
+
+### Removed
+- The three onboarding slides, the coach (`home_coach_done` is no longer
+  read) and the pin drawable they used.
+
 ## [1.1.0] — 2026-09-30
 
 Papier & encre: the pause gets its own window, its own voice, and answers

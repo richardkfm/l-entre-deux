@@ -198,9 +198,12 @@ option in Settings.
 - [x] Settings says the privacy promise, version, source and typeface.
 
 ### 1.2.0 — first run as one path
-- [ ] Definition screen → choose apps → pin → try the pause.
-- [ ] Home becomes Apps: real icons and real pin state.
-- [ ] Choose apps with icons, chosen first, local category suggestions.
+- [x] Definition screen → choose apps → pin → try the pause (a rehearsal
+      that is never logged). Replaces the three slides and the coach.
+- [x] Home becomes Apps: real icons and real pin state (read from the
+      launcher on resume), "Not pinned yet" first, and a confirmation once
+      the launcher has actually added the icon.
+- [x] Choose apps with icons, chosen first, local category suggestions.
 
 ### 1.3.0 — carnet and the hours
 - [ ] Reflection as a weekly carnet: sentences, 24-hour dial, dot counts.
@@ -247,8 +250,8 @@ permissions docs, and a corresponding F-Droid Anti-Feature declaration.
 
 ## Current status
 
-Phase 8 in progress: `1.0.2` fixes and the `1.1.0` Papier & encre pause
-shipped. Next: `1.2.0`, the first run as one path.
+Phase 8 in progress: `1.0.2` fixes, the `1.1.0` Papier & encre pause and
+the `1.2.0` first run shipped. Next: `1.3.0`, the carnet and the hours.
 
 Earlier:
 
