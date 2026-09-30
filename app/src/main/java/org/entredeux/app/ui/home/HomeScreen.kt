@@ -30,7 +30,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -38,6 +38,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -107,7 +108,7 @@ fun HomeScreen(
                                 onClick = onNavigateToSelection,
                                 modifier = Modifier.semantics { contentDescription = addDesc },
                             ) {
-                                Icon(Icons.Filled.Add, contentDescription = null)
+                                Icon(Icons.Outlined.Add, contentDescription = null)
                             }
                         }
                     },
@@ -115,13 +116,16 @@ fun HomeScreen(
             },
             snackbarHost = { SnackbarHost(snackbarHostState) },
         ) { innerPadding ->
-            if (uiState.selectedApps.isEmpty()) {
-                Box(
+            if (uiState.isLoading) {
+                Box(Modifier.fillMaxSize())
+            } else if (uiState.selectedApps.isEmpty()) {
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding)
                         .padding(32.dp),
-                    contentAlignment = Alignment.Center,
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text(
                         text = stringResource(R.string.home_empty_hint),
@@ -129,6 +133,10 @@ fun HomeScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
                     )
+                    Spacer(Modifier.height(16.dp))
+                    OutlinedButton(onClick = onNavigateToSelection) {
+                        Text(stringResource(R.string.home_empty_action))
+                    }
                 }
             } else {
                 LazyVerticalGrid(

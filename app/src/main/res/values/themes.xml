@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Compose drives the visual theme; this style only sets the
-         platform window/status-bar behavior to follow the system. -->
-    <style name="Theme.EntreDeux" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Compose drives the visual theme; this style only sets the platform
+         window so the first frame (and the Android 12+ splash) already has
+         the right background. values-night/ carries the dark twin, without
+         which dark-mode users saw a light window before Compose drew. -->
+    <style name="Theme.EntreDeux" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
 </resources>

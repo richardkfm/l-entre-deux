@@ -31,8 +31,8 @@ remaining item. `1.0.1` is a design-polish pass on top. See
 1. You pick the apps that pull you in.
 2. When you go to open one of them through l’entre-deux, you see a short
    pause screen.
-3. You tap an intention: *I need this for one specific task* / *I am
-   checking something briefly* / *I opened this automatically.*
+3. You tap an intention: *One specific thing* / *A quick look* /
+   *Out of habit* — or *Not now*.
 4. You proceed.
 5. Later, a private, on-device reflection screen shows your patterns. No
    scores, no streaks.
@@ -60,9 +60,8 @@ dashboards, app timers that grey an app out, scheduled focus modes. They
 answer the question *how long*.
 
 l’entre-deux asks a different question: *why*. The pause has one job — to
-let you **name your intention** before you go in (*I need this for one
-specific task* / *I am checking something briefly* / *I opened this
-automatically*). We never show a time-spent score, never lock you out, and
+let you **name your intention** before you go in (*One specific thing* /
+*A quick look* / *Out of habit*). We never show a time-spent score, never lock you out, and
 never measure you against a goal, a streak, or anyone else.
 
 That single shift — from *how long* to *why* — is the whole product.

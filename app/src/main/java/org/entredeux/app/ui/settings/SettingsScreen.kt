@@ -11,10 +11,13 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,7 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.unit.dp
 import org.entredeux.app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +34,15 @@ fun SettingsScreen(
     onNavigateToSelection: () -> Unit,
 ) {
     var showWipeConfirm by remember { mutableStateOf(false) }
-    var wipeSnackMessage by remember { mutableStateOf<String?>(null) }
+    var wiped by remember { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val wipedMessage = stringResource(R.string.settings_wipe_done)
+    LaunchedEffect(wiped) {
+        if (wiped) {
+            snackbarHostState.showSnackbar(wipedMessage)
+            wiped = false
+        }
+    }
 
     if (showWipeConfirm) {
         AlertDialog(
@@ -43,7 +53,7 @@ fun SettingsScreen(
                 TextButton(onClick = {
                     viewModel.wipeSessionLog()
                     showWipeConfirm = false
-                    wipeSnackMessage = "done"
+                    wiped = true
                 }) {
                     Text(
                         stringResource(R.string.settings_wipe_confirm_yes),
@@ -63,6 +73,7 @@ fun SettingsScreen(
         topBar = {
             TopAppBar(title = { Text(stringResource(R.string.settings_title)) })
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -94,14 +105,6 @@ fun SettingsScreen(
                     .fillMaxWidth()
                     .clickable(role = Role.Button) { showWipeConfirm = true },
             )
-
-            if (wipeSnackMessage != null) {
-                Text(
-                    text = stringResource(R.string.settings_wipe_done),
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                )
-            }
         }
     }
 }

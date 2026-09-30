@@ -72,7 +72,7 @@ the user check it by:
 
 ## 7. User-controlled data lifecycle
 
-- "Wipe session log" in Settings, with a confirmation dialog, deletes
+- "Delete pause history" in Settings, with a confirmation dialog, deletes
   all `PauseEvent` rows permanently. App selection is kept.
 - Uninstalling the app removes all data. There is no off-device residue
   because there is no off-device storage.

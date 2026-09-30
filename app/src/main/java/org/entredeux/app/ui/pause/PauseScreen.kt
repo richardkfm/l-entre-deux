@@ -11,13 +11,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -94,49 +98,59 @@ fun PauseScreen(
     )
 
     Scaffold { innerPadding ->
-        // No scrolling — the breathing aura takes whatever vertical space is
-        // left after the fixed elements, so the whole screen always fits in
-        // one view on any device without ever clipping a button.
-        Column(
+        // The breathing aura takes whatever vertical space is left after the
+        // fixed elements, so the screen fits one view on any normal device.
+        // The column is still scrollable with a minimum height of the
+        // viewport: under infinite height a weighted child only gets the
+        // leftover of that minimum, so at very large font sizes the aura
+        // shrinks to nothing and the answers scroll instead of being clipped.
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxSize()
                 .background(backdrop)
-                .padding(innerPadding)
-                .padding(horizontal = 24.dp, vertical = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(innerPadding),
         ) {
-            Spacer(Modifier.height(8.dp))
-            PhraseLine(phrase)
-            Spacer(Modifier.height(28.dp))
-            BreathingAura(
-                Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-            )
-            PauseHeader(uiState.appLabel)
-            Spacer(Modifier.height(20.dp))
-
             Column(
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+                    .heightIn(min = maxHeight)
+                    .padding(horizontal = 24.dp, vertical = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                actions.forEach { action ->
-                    when (action) {
-                        is PauseAction.Choose -> PauseButton(
-                            title = stringResource(action.option.labelRes),
-                            onClick = {
-                                viewModel.proceed(action.option.intention)
-                                onProceed()
-                            },
-                        )
+                Spacer(Modifier.height(8.dp))
+                PhraseLine(phrase)
+                Spacer(Modifier.height(28.dp))
+                BreathingAura(
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                )
+                PauseHeader(uiState.appLabel)
+                Spacer(Modifier.height(20.dp))
 
-                        PauseAction.Leave -> PauseButton(
-                            title = stringResource(R.string.pause_back_out),
-                            onClick = {
-                                viewModel.backOut()
-                                onBackOut()
-                            },
-                        )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    actions.forEach { action ->
+                        when (action) {
+                            is PauseAction.Choose -> PauseButton(
+                                title = stringResource(action.option.labelRes),
+                                onClick = {
+                                    viewModel.proceed(action.option.intention)
+                                    onProceed()
+                                },
+                            )
+
+                            PauseAction.Leave -> PauseButton(
+                                title = stringResource(R.string.pause_back_out),
+                                onClick = {
+                                    viewModel.backOut()
+                                    onBackOut()
+                                },
+                            )
+                        }
                     }
                 }
             }
@@ -184,16 +198,16 @@ private fun PauseButton(title: String, onClick: () -> Unit) {
         shape = RoundedCornerShape(28.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp)
+            .heightIn(min = 56.dp)
             .clickable(role = Role.Button, onClick = onClick),
     ) {
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.heightIn(min = 56.dp)) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             )
         }
     }
@@ -296,6 +310,8 @@ private fun BreathingAura(modifier: Modifier = Modifier) {
 
     Box(contentAlignment = Alignment.Center, modifier = modifier) {
         Canvas(Modifier.fillMaxSize()) {
+            // Below this the field is a speck, not an aura; draw nothing.
+            if (size.minDimension < 72.dp.toPx()) return@Canvas
             val maxR = size.minDimension / 2f
             val field = maxR * 0.9f
             val spinAngle = spin * twoPi

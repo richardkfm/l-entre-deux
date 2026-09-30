@@ -20,25 +20,23 @@
 
     <!-- Home -->
     <string name="home_add_apps">Ajouter des applications</string>
-    <string name="home_empty_hint">Touchez « Ajouter des applications » pour choisir quelles applications ouvrir via la pause.</string>
+    <string name="home_empty_hint">Aucune application pour l\'instant. Choisissez celles à ouvrir après une pause.</string>
+    <string name="home_empty_action">Choisir des applications</string>
     <string name="home_open_via_pause">Ouvrir %s via la pause</string>
-    <string name="home_settings">Réglages</string>
 
     <!-- App selection -->
     <string name="selection_title">Choisir des applications</string>
-    <string name="selection_back">Retour</string>
     <string name="selection_empty">Aucune application trouvée.</string>
     <string name="selection_search_hint">Rechercher</string>
     <string name="selection_done">Terminé</string>
 
     <!-- Pause flow -->
     <string name="pause_heading">Avant d\'ouvrir %s</string>
-    <string name="pause_intention_label">Pourquoi ouvrez-vous cette application ?</string>
-    <string name="pause_intention_specific_task">Pour une tâche précise</string>
-    <string name="pause_intention_brief_check">Juste une vérification rapide</string>
-    <string name="pause_intention_autopilot">Ouverte automatiquement</string>
-    <string name="pause_back_out">Laisser pour l\'instant</string>
-    <string name="pause_app_not_found">Application introuvable.</string>
+    <string name="pause_intention_label">Qu\'est-ce qui vous amène ?</string>
+    <string name="pause_intention_specific_task">Une chose précise</string>
+    <string name="pause_intention_brief_check">Un coup d\'œil</string>
+    <string name="pause_intention_autopilot">Par habitude</string>
+    <string name="pause_back_out">Pas maintenant</string>
     <!-- Une courte phrase de réflexion affichée au hasard à chaque pause.
          À garder calme et sans jugement — ni urgence, ni rareté, ni culpabilité. -->
     <string-array name="pause_phrases">
@@ -65,13 +63,13 @@
     <!-- Settings -->
     <string name="settings_title">Réglages</string>
     <string name="settings_manage_apps">Gérer les applications</string>
-    <string name="settings_wipe_data">Effacer le journal des sessions</string>
-    <string name="settings_wipe_data_desc">Supprime définitivement vos pauses enregistrées. Votre sélection d\'applications est conservée.</string>
-    <string name="settings_wipe_confirm_title">Effacer le journal des sessions ?</string>
+    <string name="settings_wipe_data">Effacer l\'historique des pauses</string>
+    <string name="settings_wipe_data_desc">Supprime définitivement vos pauses enregistrées. Vos applications choisies sont conservées.</string>
+    <string name="settings_wipe_confirm_title">Effacer l\'historique des pauses ?</string>
     <string name="settings_wipe_confirm_body">Cette action supprime définitivement toutes les pauses enregistrées sur cet appareil. Elle est irréversible.</string>
     <string name="settings_wipe_confirm_yes">Supprimer</string>
     <string name="settings_wipe_confirm_no">Annuler</string>
-    <string name="settings_wipe_done">Journal des sessions effacé.</string>
+    <string name="settings_wipe_done">Historique des pauses effacé.</string>
 
     <!-- Home screen shortcuts (Phase 6) -->
     <string name="home_pin_shortcut">Ajouter à l\'écran d\'accueil</string>
@@ -90,11 +88,7 @@
     <string name="coach_done">Compris</string>
 
     <!-- Content descriptions -->
-    <string name="cd_settings">Réglages</string>
     <string name="cd_back">Retour</string>
-    <string name="cd_app_icon">Icône %s</string>
-    <string name="cd_selected">Sélectionné</string>
-    <string name="cd_onboarding_progress">Page %1$d sur %2$d</string>
 
     <!-- Plurals -->
     <plurals name="reflection_total_pauses">
@@ -102,7 +96,7 @@
         <item quantity="other">%d pauses enregistrées</item>
     </plurals>
     <plurals name="reflection_backed_out">
-        <item quantity="one">Vous avez fait demi-tour %d fois</item>
-        <item quantity="other">Vous avez fait demi-tour %d fois</item>
+        <item quantity="one">« Pas maintenant », %d fois</item>
+        <item quantity="other">« Pas maintenant », %d fois</item>
     </plurals>
 </resources>

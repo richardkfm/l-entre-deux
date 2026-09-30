@@ -167,11 +167,11 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 1.0.1
-**Phase:** Phase 0–7 complete. `1.0.0` release prepared for F-Droid; the
-only remaining step is the external submission (tag `v1.0.0` + fdroiddata
-merge request). `1.0.1` is design polish on top.
-**Last updated:** 2026-07-04.
+**Version:** 1.0.2
+**Phase:** Phase 0–7 complete; Phase 8 (Papier & encre, 1.0.2 → 1.3.0) in
+progress. `1.0.0` release prepared for F-Droid; the only remaining step is
+the external submission (tag `v1.0.0` + fdroiddata merge request).
+**Last updated:** 2026-09-30.
 
 What exists:
 - Full documentation set in `docs/`.
@@ -189,8 +189,9 @@ What exists:
   app and ② pinning it to the home screen, with a pulsing highlight on the
   relevant control and a dismissible bottom card. Tracked by the
   `home_coach_done` preference.
-- Pause flow: one calm single-view screen (never scrolls — the aura flexes
-  to fill the space left by the fixed elements, so everything always fits) —
+- Pause flow: one calm single-view screen (the aura flexes to fill the
+  space left by the fixed elements; only at very large text sizes does the
+  aura step aside and the column scroll, so nothing is ever clipped) —
   a randomly chosen reflective line (`pause_phrases`), a breathing aura of
   ~84 dots in a phyllotaxis spread that together form a slowly rotating whole
   (global spin softened by per-dot sway, per-dot epicycles, a skewed breath
@@ -199,7 +200,7 @@ What exists:
   of the whole field around its anchor, all on whole-number cycles so the
   loop is seamless), the heading, and the four action buttons.
   The buttons are four identical single-line pills — the three intentions
-  plus the "Leave it for now" get-out button, styled the same so the only
+  plus the "Not now" get-out button, styled the same so the only
   way to tell them apart is to read them — shuffled into a random order each
   pause to resist autopilot (every option stays clearly labelled, so it's
   not a dark pattern). Tapping an intention is the act of proceeding: it logs the
@@ -207,7 +208,7 @@ What exists:
   button). Leaving sends the app to the background (`moveTaskToBack`) so the
   user returns to their launcher. Every pause (proceeded or backed out) is
   logged to Room. No time-limit question, no notifications.
-- Settings screen: manage apps, wipe session log.
+- Settings screen: manage apps, delete pause history.
 - Reflection screen: per-app counts, intention mix, time-of-day
   distribution, back-out count. All computed locally from Room. No
   scores, no streaks. Empty state when no data.

@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.entredeux.app.domain.usecase.toggleAppSelection
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "app_selection")
 
@@ -27,8 +28,12 @@ class AppSelectionRepository(private val context: Context) {
     val homeCoachCompleted: Flow<Boolean> = context.dataStore.data
         .map { it[homeCoachDoneKey] ?: false }
 
-    suspend fun setSelectedPackages(packages: Set<String>) {
-        context.dataStore.edit { it[selectedPackagesKey] = packages }
+    // Read and write inside one edit so quick successive taps can't
+    // overwrite each other with a stale copy of the selection.
+    suspend fun toggle(packageName: String) {
+        context.dataStore.edit {
+            it[selectedPackagesKey] = toggleAppSelection(it[selectedPackagesKey] ?: emptySet(), packageName)
+        }
     }
 
     suspend fun setOnboardingCompleted() {

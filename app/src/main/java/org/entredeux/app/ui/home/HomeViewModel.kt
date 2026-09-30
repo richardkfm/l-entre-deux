@@ -24,6 +24,9 @@ enum class ShortcutResult { SUCCESS, UNSUPPORTED }
 enum class CoachStep { NONE, ADD_APP, PIN }
 
 data class HomeUiState(
+    // True until the saved selection has been read, so Home never flashes
+    // its empty state at people who already chose apps.
+    val isLoading: Boolean = true,
     val selectedApps: List<SelectedApp> = emptyList(),
     val shortcutResult: ShortcutResult? = null,
     val coachStep: CoachStep = CoachStep.NONE,
@@ -47,7 +50,7 @@ class HomeViewModel(
             apps.isEmpty() -> CoachStep.ADD_APP
             else -> CoachStep.PIN
         }
-        HomeUiState(selectedApps = apps, shortcutResult = result, coachStep = step)
+        HomeUiState(isLoading = false, selectedApps = apps, shortcutResult = result, coachStep = step)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
 
     private suspend fun resolveLabels(packageNames: Set<String>): List<SelectedApp> =

@@ -3,11 +3,14 @@ package org.entredeux.app.ui
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -18,6 +21,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -53,6 +57,10 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
 
 private val topLevelRoutes = setOf("home", "reflection", "settings")
 
+// Navigation Compose defaults to a 700 ms crossfade, long enough to see two
+// screens stacked on top of each other. A short fade keeps moves calm.
+private const val NAV_FADE_MS = 220
+
 @Composable
 fun AppNavHost(
     startDestination: String,
@@ -83,7 +91,7 @@ fun AppNavHost(
             if (currentRoute in topLevelRoutes) {
                 NavigationBar {
                     NavigationBarItem(
-                        icon = { Icon(Icons.Filled.Home, contentDescription = null) },
+                        icon = { Icon(Icons.Outlined.Home, contentDescription = null) },
                         label = { Text(stringResource(R.string.nav_home)) },
                         selected = currentRoute == "home",
                         onClick = {
@@ -95,7 +103,7 @@ fun AppNavHost(
                         },
                     )
                     NavigationBarItem(
-                        icon = { Icon(Icons.Filled.Info, contentDescription = null) },
+                        icon = { Icon(painterResource(R.drawable.ic_nav_reflection), contentDescription = null) },
                         label = { Text(stringResource(R.string.nav_reflection)) },
                         selected = currentRoute == "reflection",
                         onClick = {
@@ -107,7 +115,7 @@ fun AppNavHost(
                         },
                     )
                     NavigationBarItem(
-                        icon = { Icon(Icons.Filled.Settings, contentDescription = null) },
+                        icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
                         label = { Text(stringResource(R.string.nav_settings)) },
                         selected = currentRoute == "settings",
                         onClick = {
@@ -125,7 +133,15 @@ fun AppNavHost(
         NavHost(
             navController = navController,
             startDestination = startDestination,
-            modifier = Modifier.padding(innerPadding),
+            // Consuming the insets stops each screen's own Scaffold from
+            // padding for the status bar a second time (edge-to-edge).
+            modifier = Modifier
+                .padding(innerPadding)
+                .consumeWindowInsets(innerPadding),
+            enterTransition = { fadeIn(tween(NAV_FADE_MS)) },
+            exitTransition = { fadeOut(tween(NAV_FADE_MS)) },
+            popEnterTransition = { fadeIn(tween(NAV_FADE_MS)) },
+            popExitTransition = { fadeOut(tween(NAV_FADE_MS)) },
         ) {
             composable("onboarding") {
                 val vm: OnboardingViewModel = viewModel(

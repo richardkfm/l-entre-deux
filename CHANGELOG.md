@@ -9,6 +9,50 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [1.0.2] — 2026-09-30
+
+Fixes from a full UX review of 1.0.1.
+
+### Fixed
+- **Pause at very large text sizes.** At 200 % text on a small phone three
+  of the four answers were cut off mid-line and the aura shrank to a speck.
+  Answers now grow to fit their text, the aura steps aside when there is no
+  room for it, and the screen scrolls only as a last resort.
+- **Light flash in dark mode.** The platform window theme had no night
+  variant, so dark-mode users saw a light window (and, on Android 12+, a
+  light splash) before the app drew.
+- **Double status-bar gap** with edge-to-edge (Android 15+): the insets are
+  now consumed once by the navigation host.
+- **Home flashed its empty state** ("Tap Add apps…") for a moment on every
+  cold start, including when opening a pinned icon, before the saved apps
+  loaded. Home now waits for them.
+- **Fast taps on "Choose apps" could drop a choice**, because each toggle
+  read the selection and wrote it back in two steps. The toggle now happens
+  inside a single DataStore edit.
+- **Pinned shortcuts looked like copies.** They were built from a flat
+  bitmap, which launchers shrink onto a plate. They now use an adaptive
+  bitmap from the app icon's layers, so the launcher masks them like the
+  original.
+- The empty-Home hint referred to an "Add apps" label that didn't exist
+  (and Android stripped its quotation marks). It now says "No apps yet"
+  and has a real "Choose apps" button.
+- The "Session log cleared" line in Settings stayed on screen; it's now a
+  snackbar.
+
+### Changed
+- **Shorter answers on the pause**: One specific thing · A quick look ·
+  Out of habit · Not now (French: Une chose précise · Un coup d'œil · Par
+  habitude · Pas maintenant). They are shuffled, so all four are read every
+  time; this halves the reading. The question is now "What brings you
+  here?". Stored intention keys are unchanged, so history carries over.
+- Moving between screens fades in 220 ms instead of Navigation Compose's
+  700 ms default.
+- Outlined navigation icons, and a small dial-of-dots icon for Reflection
+  instead of the generic "info" symbol.
+- "Wipe session log" is now "Delete pause history"; Reflection says
+  "“Not now”, 3 times" instead of "You backed out 3 times".
+- Removed unused strings.
+
 ## [1.0.1] — 2026-07-04
 
 Design polish: a more organic pause animation, and a "Done" button that

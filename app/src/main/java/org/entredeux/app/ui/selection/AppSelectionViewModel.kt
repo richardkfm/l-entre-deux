@@ -7,14 +7,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.entredeux.app.data.apps.InstalledAppsRepository
 import org.entredeux.app.data.prefs.AppSelectionRepository
 import org.entredeux.app.domain.model.SelectedApp
-import org.entredeux.app.domain.usecase.toggleAppSelection
 
 data class SelectableApp(val app: SelectedApp, val isSelected: Boolean)
 
@@ -67,12 +65,7 @@ class AppSelectionViewModel(
     }
 
     fun onToggle(packageName: String) {
-        viewModelScope.launch {
-            val currentSet = appSelectionRepository.selectedPackageNames.first()
-            appSelectionRepository.setSelectedPackages(
-                toggleAppSelection(currentSet, packageName),
-            )
-        }
+        viewModelScope.launch { appSelectionRepository.toggle(packageName) }
     }
 
     companion object {
