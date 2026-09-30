@@ -34,6 +34,20 @@ completes Phase 8.
 - New store screenshots (pause by day and by night, the carnet) in English
   and French, and store descriptions that match the app.
 
+### Fixed
+- The pause keeps its answer order, its epigraph and a just-tapped answer
+  through rotation, a dark-mode switch or the process being recreated.
+  Before, each of these reshuffled the screen mid-decision, and a tap
+  during the acknowledgement could be logged without opening the app.
+- A newer shortcut tap always wins: a slower check still running for an
+  earlier app can no longer replace the pause you just asked for.
+- The pause paints its own background (paper, blue hour or night) as soon
+  as the look is known, before the grace check, instead of showing light
+  paper until everything has loaded. The system splash on Android 12+ is
+  still light in light mode.
+- The pronunciation on the onboarding screen uses one typeface; Spectral
+  has no ɑ or ʁ, so mixing fonts looked broken.
+
 ## [1.2.0] — 2026-09-30
 
 The first run becomes one path that ends with the app out of the way.
