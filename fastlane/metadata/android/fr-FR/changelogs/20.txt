@@ -1,0 +1,3 @@
+Les APK publiés sur GitHub sont désormais des versions de production signées.
+
+Chaque version publiée sur GitHub est désormais signée avec la même clé : les mises à jour s'installent par-dessus la précédente et conservent votre historique de pauses. Si vous avez une version GitHub 1.3.0 ou antérieure, désinstallez-la une fois d'abord.

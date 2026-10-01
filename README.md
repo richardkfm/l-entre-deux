@@ -107,6 +107,7 @@ docs/
   architecture.md                — single-module Android architecture
   permissions-and-risks.md       — evaluation of detection/interception options
   privacy-principles.md          — hard commitments
+  releasing.md                   — signing key and GitHub releases
   ui-principles.md               — calm-by-default design rules
 app/                             — Android app module (Phase 1+)
 gradle/                          — Gradle wrapper and version catalog
@@ -124,6 +125,18 @@ includes a release APK you can sideload directly onto your device.
 2. On your Android device, enable **Install unknown apps** for your file
    manager or browser (Settings → Apps → Special app access).
 3. Open the APK file on your device and tap **Install**.
+
+Every release from 1.3.1 on is signed with the same key, so a new version
+installs over the previous one and keeps your pause history. Releases up
+to 1.3.0 were debug builds signed with throwaway keys: uninstall such a
+version once before installing 1.3.1 or later.
+
+> **Advanced Protection.** If your device has **Advanced Protection** turned
+> on (Android 16 and later), Android blocks every APK from outside a
+> pre-installed store, with no "install anyway" option. No app can work
+> around this. To install, turn it off under Settings → Security & privacy
+> → Advanced Protection, install the APK, then turn it back on. The app
+> keeps working; each update needs the same steps.
 
 > **Note:** The production release will also be distributed via **F-Droid**
 > once submission is complete, with automatic updates and no sideloading needed.

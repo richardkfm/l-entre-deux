@@ -23,3 +23,7 @@ captures/
 .DS_Store
 Thumbs.db
 .kotlin/
+
+# Signing keys
+*.jks
+*.keystore

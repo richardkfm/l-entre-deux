@@ -9,6 +9,24 @@ project-specific rules described in [`CLAUDE.md`](CLAUDE.md).
 
 Nothing yet.
 
+## [1.3.1] — 2026-10-01
+
+GitHub releases become proper release builds that update in place.
+
+### Changed
+- **Signed release APKs on GitHub.** Releases used to be debug builds,
+  each signed with a fresh throwaway key, so no version could be
+  installed over the one before. From 1.3.1 every GitHub release is a
+  minified, non-debuggable release build signed with one stable key, and
+  the release notes give the certificate's SHA-256 fingerprint. Coming
+  from 1.3.0 or earlier, uninstall once first. F-Droid and local builds
+  are unaffected (unsigned unless the key is supplied).
+  See [`docs/releasing.md`](docs/releasing.md).
+
+### Added
+- Install notes for **Advanced Protection** (Android 16 and later), which
+  blocks sideloaded APKs outright: turn it off, install, turn it back on.
+
 ## [1.3.0] — 2026-09-30
 
 Reflection becomes a carnet, and the pause keeps Paris hours. This
