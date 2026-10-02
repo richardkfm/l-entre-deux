@@ -108,6 +108,7 @@ docs/
   architecture.md
   permissions-and-risks.md
   privacy-principles.md
+  releasing.md             signing key + GitHub releases
   ui-principles.md
 app/                       single Android module (Phase 1+)
 gradle/                    wrapper + libs.versions.toml
@@ -168,10 +169,10 @@ Requirements: JDK 17+, Android SDK platform 35.
 
 ## Current status
 
-**Version:** 1.3.0
+**Version:** 1.3.1
 **Phase:** Phase 0–8 complete (Phase 8: Papier & encre, 1.0.2 → 1.3.0). `1.0.0` release prepared for F-Droid; the only remaining step is
 the external submission (tag `v1.0.0` + fdroiddata merge request).
-**Last updated:** 2026-09-30.
+**Last updated:** 2026-10-01.
 
 What exists:
 - Full documentation set in `docs/`.
@@ -264,6 +265,10 @@ What exists:
 - Unit tests for use cases; instrumented tests for Room DAO and pause flow UI.
 - Gradle version catalog (`gradle/libs.versions.toml`).
 - GitHub Actions workflow running lint + test + assembleDebug.
+- Tag-triggered release workflow: a release APK signed with one stable
+  key from repository secrets (`ENTREDEUX_*` env vars feed the Gradle
+  signing config; without them `assembleRelease` stays unsigned, as
+  F-Droid expects). See [`docs/releasing.md`](docs/releasing.md).
 - F-Droid release assets for `1.0.0`: a phone screenshot under
   `fastlane/metadata/android/{en-US,fr-FR}/images/phoneScreenshots/` and
   a build recipe at `metadata/org.entredeux.app.yml` ready to drop into a

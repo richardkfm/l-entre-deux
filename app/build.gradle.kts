@@ -13,8 +13,8 @@ android {
         applicationId = "org.entredeux.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 19
-        versionName = "1.3.0"
+        versionCode = 20
+        versionName = "1.3.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -23,8 +23,25 @@ android {
         resourceConfigurations += listOf("en", "fr")
     }
 
+    signingConfigs {
+        // GitHub release APKs are signed with one stable key, passed in by
+        // the release workflow, so each version installs over the last.
+        // F-Droid and local builds set none of this and get an unsigned
+        // release APK; F-Droid signs with its own key.
+        val keystore = System.getenv("ENTREDEUX_KEYSTORE")
+        if (keystore != null) {
+            create("release") {
+                storeFile = file(keystore)
+                storePassword = System.getenv("ENTREDEUX_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("ENTREDEUX_KEY_ALIAS")
+                keyPassword = System.getenv("ENTREDEUX_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(

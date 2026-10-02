@@ -33,16 +33,43 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build debug APK
-        run: ./gradlew assembleDebug --stacktrace
+      - name: Decode signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+        run: |
+          # Without the key the release would fall back to an unsigned or
+          # throwaway-signed APK that cannot update an existing install.
+          if [ -z "${KEYSTORE_BASE64}" ]; then
+            echo "::error::RELEASE_KEYSTORE_BASE64 is not set. See docs/releasing.md."
+            exit 1
+          fi
+          echo "${KEYSTORE_BASE64}" | base64 --decode > "${RUNNER_TEMP}/release.jks"
+          echo "ENTREDEUX_KEYSTORE=${RUNNER_TEMP}/release.jks" >> "${GITHUB_ENV}"
+
+      - name: Build signed release APK
+        env:
+          ENTREDEUX_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          ENTREDEUX_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          ENTREDEUX_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+        run: ./gradlew assembleRelease --stacktrace
 
       - name: Upload APK to GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ENTREDEUX_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          ENTREDEUX_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          APK="l-entre-deux-${VERSION}-debug.apk"
-          mv app/build/outputs/apk/debug/app-debug.apk "${APK}"
+          APK="l-entre-deux-${VERSION}.apk"
+          # Gradle names the output app-release-unsigned.apk when no key was
+          # applied, so this move also fails the job on an unsigned build.
+          mv app/build/outputs/apk/release/app-release.apk "${APK}"
+
+          FINGERPRINT="$(keytool -list -v \
+            -keystore "${ENTREDEUX_KEYSTORE}" \
+            -storepass "${ENTREDEUX_KEYSTORE_PASSWORD}" \
+            -alias "${ENTREDEUX_KEY_ALIAS}" \
+            | sed -n 's/^[[:space:]]*SHA256: //p')"
 
           # Remove any stale release for this tag so we always start clean.
           gh release delete "${GITHUB_REF_NAME}" --yes 2>/dev/null || true
@@ -52,14 +79,25 @@ jobs:
             --draft \
             --notes "## Install
 
-          Download the APK below and sideload it on your device.
+          Download \`${APK}\` below and sideload it on your device.
 
-          **This is a debug build** signed with the standard Android debug key.
-          It is suitable for testing. The production release will be distributed
-          via F-Droid once submitted.
-
-          ### Sideloading steps
-          1. Download \`${APK}\`.
-          2. On your Android device, enable **Install unknown apps** for your
+          1. On your Android device, enable **Install unknown apps** for your
              file manager or browser (Settings → Apps → Special app access).
-          3. Open the APK file on your device and tap **Install**."
+          2. Open the APK file on your device and tap **Install**.
+
+          Every release on this page is signed with the same key, so a new
+          version installs over the previous one and keeps your pause
+          history. Signing certificate SHA-256:
+          \`${FINGERPRINT}\`
+
+          ### Advanced Protection blocks the install
+          With **Advanced Protection** on (Android 16 and later), Android
+          refuses any APK from outside a pre-installed store and offers no
+          way around it. Turn it off under Settings → Security & privacy →
+          Advanced Protection, install, then turn it back on. The app keeps
+          working; each update needs the same steps.
+
+          ### Coming from an earlier build
+          Releases up to 1.3.0 were debug builds, each signed with a
+          different throwaway key. Uninstall that version once before
+          installing this one (your pause history is removed with it)."

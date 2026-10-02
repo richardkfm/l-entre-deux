@@ -1,0 +1,3 @@
+APKs on GitHub are now signed release builds.
+
+Every GitHub release is signed with the same key from now on, so updates install over the previous version and keep your pause history. Coming from a GitHub build of 1.3.0 or earlier, uninstall it once first.
